@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>com.dalthow</groupId>
+   <artifactId>etaron</artifactId>
+   <version>0.2.0.0</version>
+   <name>Etaron</name>
+   <description>A two dimensional competitive platform game.</description>
+  
+   <properties>
+      <lwjgl.version>2.8.2</lwjgl.version>
+   </properties>
+   
+   <organization>
+	  <name>Dalthow Game Studios</name>
+      <url>http://www.dalthow.com</url>
+   </organization>
+
+   <dependencies>
+      <dependency>
+         <groupId>org.lwjgl.lwjgl</groupId>
+         <artifactId>lwjgl</artifactId>
+         <version>${lwjgl.version}</version>
+      </dependency>
+      <dependency>
+         <groupId>org.slick2d</groupId>
+         <artifactId>slick2d-core</artifactId>
+         <version>1.0.1</version>
+      </dependency>
+   </dependencies>
+</project>
