@@ -14,7 +14,9 @@ import org.newdawn.slick.opengl.ImageIOImageData;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.ResourceLoader;
 
-import com.dalthow.etaron.handler.States;
+import com.dalthow.etaron.framework.States;
+import com.dalthow.etaron.handler.ResourceHandler;
+import com.dalthow.etaron.states.Menu;
 import com.dalthow.etaron.states.Splash;
 
 /**
@@ -32,6 +34,8 @@ public class Run extends StateBasedGame
 	
 	private static int width = 960, height = 720;
 	private static boolean fullscreen = false;
+	
+	public static ResourceHandler resourceHandler;
 	
 	
 	// Constructor that creates the game container.
@@ -51,6 +55,8 @@ public class Run extends StateBasedGame
 			height = gameContainer.getScreenHeight();
 		}
 		
+		resourceHandler = new ResourceHandler();
+				
 		gameContainer.setDisplayMode(width, height, fullscreen);
 		gameContainer.setTargetFrameRate(60);
 		gameContainer.setAlwaysRender(true);
@@ -144,7 +150,7 @@ public class Run extends StateBasedGame
 		
 		try 
 		{
-			new Run("Etaron"); // TODO Create some configuration file, so we can put the version number and resolution in there.
+			new Run("Etaron");
 		} 
 		
 		catch(SlickException error) 
@@ -160,7 +166,7 @@ public class Run extends StateBasedGame
 	public void initStatesList(GameContainer gameContainer) throws SlickException 
 	{
 		addState(new Splash());
-//		addState(menu);
+		addState(new Menu());
 //		addState(game);
 //		addState(editor);
 		

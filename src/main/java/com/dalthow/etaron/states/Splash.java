@@ -1,5 +1,7 @@
 package com.dalthow.etaron.states;
 
+import java.io.IOException;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -10,7 +12,10 @@ import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.ResourceLoader;
 
-import com.dalthow.etaron.handler.States;
+import com.dalthow.etaron.Run;
+import com.dalthow.etaron.framework.States;
+import com.dalthow.etaron.handler.ResourceHandler;
+import com.dalthow.etaron.media.ImageResource;
 
 /**
  * Etaron
@@ -26,6 +31,7 @@ public class Splash implements GameState
 	// Declaration of the logo image.
 	
 	private Image logo;
+	
 	
 	
 	// Default implementation for mouse.
@@ -85,7 +91,17 @@ public class Splash implements GameState
 	
 	public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException 
 	{
-		logo = new Image(ResourceLoader.getResourceAsStream("assets/images/logo.png"), "Logo", false);
+		try 
+		{
+			// Loading images.
+			
+			logo = Run.resourceHandler.get(ImageResource.LOGO);
+		} 
+		
+		catch(IOException error) 
+		{
+			error.printStackTrace();
+		}
 	}
 	
 	
@@ -101,7 +117,7 @@ public class Splash implements GameState
 
 	public void leave(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException 
 	{
-		
+		Run.resourceHandler.loadSounds();
 	}
 
 	
@@ -119,6 +135,6 @@ public class Splash implements GameState
 
 	public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int delta) throws SlickException 
 	{
-		
+		stateBasedGame.enterState(States.MENU_STATE.getId());
 	}
 }
