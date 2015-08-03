@@ -34,6 +34,8 @@
          <plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
+               <finalName>etaron</finalName>
+               
                <archive>
 						<manifest>
 							<mainClass>com.dalthow.etaron.Run</mainClass>
