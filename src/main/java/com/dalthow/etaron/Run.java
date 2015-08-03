@@ -1,6 +1,7 @@
 package com.dalthow.etaron;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
 
 import javax.imageio.ImageIO;
@@ -61,6 +62,22 @@ public class Run extends StateBasedGame
 
 	public static void main(String args[])
 	{
+		System.setProperty("java.library.path", "natives/");
+		 
+		try 
+		{
+			Field fieldSysPath = ClassLoader.class.getDeclaredField("sys_paths");
+
+			fieldSysPath.setAccessible(true);
+			fieldSysPath.set(null, null);
+		}
+		
+		catch(IllegalArgumentException | IllegalAccessException | SecurityException | NoSuchFieldException error) 
+		{
+			error.printStackTrace();
+		}
+		
+		
 		// Fixing input plugin for every windows version above 7.
 		
 		if(System.getProperty("os.name", "").trim().startsWith("Windows") && Float.parseFloat(System.getProperty("os.name", "").trim().substring(8)) > 7)
