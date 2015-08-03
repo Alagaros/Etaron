@@ -1,152 +1,124 @@
 package com.dalthow.etaron.states;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.ResourceLoader;
 
-public class Splash implements GameState {
+import com.dalthow.etaron.handler.States;
 
-	public void mouseClicked(int arg0, int arg1, int arg2, int arg3) {
-		// TODO Auto-generated method stub
-		
-	}
+/**
+ * Etaron
+ *
+ *
+ * @author Dalthow Game Studios 
+ * @class Splash.java
+ *
+ **/
 
-	public void mouseDragged(int arg0, int arg1, int arg2, int arg3) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void mouseMoved(int arg0, int arg1, int arg2, int arg3) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void mousePressed(int arg0, int arg1, int arg2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void mouseReleased(int arg0, int arg1, int arg2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void mouseWheelMoved(int arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void inputEnded() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void inputStarted() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public boolean isAcceptingInput() {
-		// TODO Auto-generated method stub
+public class Splash implements GameState 
+{
+	// Declaration of the logo image.
+	
+	private Image logo;
+	
+	
+	// Default implementation for mouse.
+	
+	public void mouseClicked(int par1, int par2, int par3, int par4){}
+	public void mouseDragged(int par1, int par2, int par3, int par4){}
+	public void mouseMoved(int par1, int par2, int par3, int par4){}
+	public void mousePressed(int par1, int par2, int par3){}
+	public void mouseReleased(int par1, int par2, int par3){}
+	public void mouseWheelMoved(int par1){}
+	
+	
+	// Default implementation for general input.
+	
+	public void inputEnded(){}
+	public void inputStarted(){}
+	public void setInput(Input par1){}
+	
+	
+	// Determines whether user input is allowed or not.
+	
+	public boolean isAcceptingInput() 
+	{
 		return false;
 	}
+	
+	
+	// Default implementation for controllers.
+	
+	public void controllerButtonPressed(int par1, int par2){}
+	public void controllerButtonReleased(int par1, int par2){}
+	public void controllerDownPressed(int par1){}
+	public void controllerDownReleased(int par1){}
+	public void controllerLeftPressed(int par1){}
+	public void controllerLeftReleased(int par1){}
+	public void controllerRightPressed(int par1){}
+	public void controllerRightReleased(int par1){}
+	public void controllerUpPressed(int par1){}
+	public void controllerUpReleased(int par1){}
+	
+	
+	// Default implementation for keyboards.
+	
+	public void keyPressed(int par1, char par2){}
+	public void keyReleased(int par1, char par2){}
+	
 
-	public void setInput(Input arg0) {
-		// TODO Auto-generated method stub
+	// Lets the state know which Id it has.
+
+	public int getID() 
+	{
+		return States.SPLASH_STATE.getId();
+	}
+
+	
+	// Gets called when the state is created.
+	
+	public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException 
+	{
+		logo = new Image(ResourceLoader.getResourceAsStream("assets/images/logo.png"), "Logo", false);
+	}
+	
+	
+	// Gets called when the player enters this state.
+
+	public void enter(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException 
+	{
+		
+	}
+	
+	
+	// Gets called when the player leaves this state.
+
+	public void leave(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException 
+	{
 		
 	}
 
-	public void keyPressed(int arg0, char arg1) {
-		// TODO Auto-generated method stub
+	
+	// Gets called every frame.
+
+	public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException 
+	{
+		graphics.setColor(new Color(255, 255, 255));
+		graphics.fillRect(0, 0, gameContainer.getWidth(), gameContainer.getHeight());
+		graphics.drawImage(logo, (gameContainer.getWidth() / 2) - (logo.getWidth() / 2), (gameContainer.getHeight() / 2) - (logo.getHeight() / 2));
+	}
+	
+	
+	// Gets called every frame.
+
+	public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int delta) throws SlickException 
+	{
 		
 	}
-
-	public void keyReleased(int arg0, char arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void controllerButtonPressed(int arg0, int arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void controllerButtonReleased(int arg0, int arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void controllerDownPressed(int arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void controllerDownReleased(int arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void controllerLeftPressed(int arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void controllerLeftReleased(int arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void controllerRightPressed(int arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void controllerRightReleased(int arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void controllerUpPressed(int arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void controllerUpReleased(int arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void enter(GameContainer arg0, StateBasedGame arg1) throws SlickException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public int getID() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void leave(GameContainer arg0, StateBasedGame arg1) throws SlickException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2) throws SlickException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

@@ -1,17 +1,17 @@
+package com.dalthow.etaron.handler;
+
 /**
  * Etaron
  *
  * 
- * @Author Dalthow Game Studios 
- * @Class States.java
+ * @author Dalthow Game Studios 
+ * @class States.java
  * 
  **/
 
-package com.dalthow.etaron.handler;
-
 public enum States
 {
-	// A list of all the states available in the game
+	// A list of all the states available in the game.
 	
 	SPLASH_STATE(0),
 	MENU_STATE(1),
@@ -19,12 +19,12 @@ public enum States
 	EDITOR_STATE(3);
 
 	
-	// Declaration
+	// Declaration of the state id.
 	
 	private int id;
 
 	
-	// Constructor
+	// Constructor that sets the declared variables.
 	
 	States(int id)
 	{
@@ -32,7 +32,7 @@ public enum States
 	}
 
 	
-	// Getter
+	// Getter.
 	
 	public int getId()
 	{
@@ -40,7 +40,7 @@ public enum States
 	}
 
 	
-	// Setter
+	// Setter.
 	
 	private void setId(int id)
 	{

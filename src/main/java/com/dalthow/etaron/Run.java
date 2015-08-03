@@ -1,33 +1,36 @@
+package com.dalthow.etaron;
+
+import java.io.IOException;
+import java.nio.ByteBuffer;
+
+import javax.imageio.ImageIO;
+
+import org.lwjgl.opengl.Display;
+import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.opengl.ImageIOImageData;
+import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.ResourceLoader;
+
+import com.dalthow.etaron.handler.States;
+import com.dalthow.etaron.states.Splash;
+
 /**
  * Etaron
  *
  *
- * @Author Dalthow Game Studios 
- * @Class Run.java
+ * @author Dalthow Game Studios 
+ * @class Run.java
  *
  **/
 
-package com.dalthow.etaron;
-
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.StateBasedGame;
-
-import com.dalthow.etaron.handler.States;
-import com.dalthow.etaron.states.Editor;
-import com.dalthow.etaron.states.Game;
-import com.dalthow.etaron.states.Menu;
-import com.dalthow.etaron.states.Splash;
-
 public class Run extends StateBasedGame
-{
-	// Declaring game states.
+{	
+	// Declaration of resolution.
 	
-	private Splash splash;
-	private Menu menu;
-	private Game game;
-	private Editor editor;
+	private static int width = 960, height = 720;
+	private static boolean fullscreen = false;
 	
 	
 	// Constructor that creates the game container.
@@ -36,26 +39,91 @@ public class Run extends StateBasedGame
 	{
 		super(name);
 		
-		AppGameContainer container = new AppGameContainer(this);
-
-		container.setDisplayMode(960, 720, false);
-		container.setTargetFrameRate(60);
-		container.setAlwaysRender(true);
-		container.setShowFPS(false);
-		container.setUpdateOnlyWhenVisible(true);
-		container.setVerbose(false);
-		container.start();
+		AppGameContainer gameContainer = new AppGameContainer(this);
+		
+		
+		// If full-screen is enabled, then reset the width and height so it fits the screen.
+		
+		if(fullscreen)
+		{
+			width = gameContainer.getScreenWidth();
+			height = gameContainer.getScreenHeight();
+		}
+		
+		gameContainer.setDisplayMode(width, height, fullscreen);
+		gameContainer.setTargetFrameRate(60);
+		gameContainer.setAlwaysRender(true);
+		gameContainer.setShowFPS(false);
+		gameContainer.setUpdateOnlyWhenVisible(true);
+		gameContainer.setVerbose(false);
+		gameContainer.start();
 	}
 
 	public static void main(String args[])
 	{
-		// Fixing input plugin for every windows version above 7
+		// Fixing input plugin for every windows version above 7.
 		
 		if(System.getProperty("os.name", "").trim().startsWith("Windows") && Float.parseFloat(System.getProperty("os.name", "").trim().substring(8)) > 7)
 		{
 			System.setProperty("jinput.useDefaultPlugin", "false");
 			System.setProperty("net.java.games.input.plugins", "net.java.games.input.DirectAndRawInputEnvironmentPlugin");
 		}
+		
+		
+		// Setting the program icon.
+		
+		try
+		{
+			Display.setIcon(new ByteBuffer[]
+			{ 
+				new ImageIOImageData().imageToByteBuffer(ImageIO.read(ResourceLoader.getResourceAsStream("assets/images/icon-16.png")), false, false, null), 
+				new ImageIOImageData().imageToByteBuffer(ImageIO.read(ResourceLoader.getResourceAsStream("assets/images/icon-32.png")), false, false, null) 
+			});
+		}
+		
+		catch(IOException error)
+		{
+			error.printStackTrace();
+		}
+		
+		
+		// Checking if any arguments are provided.
+		
+		if(args != null)
+		{
+			// Checking for them individually so the order doesn't matter.
+			
+			for(int i = 0; i < args.length; i++)
+			{
+				// In case not the parameters are invalid, the program still continues on its default values.
+				
+				try
+				{
+					if(args[i].startsWith("-width="))
+					{
+						width = Integer.parseInt(args[i].substring("-width=".length()));
+					}
+
+					else if(args[i].startsWith("-height="))
+					{
+						height = Integer.parseInt(args[i].substring("-heigth=".length()));
+					}
+					
+					else if(args[i].startsWith("-fullscreen="))
+					{
+						fullscreen = Boolean.parseBoolean(args[i].substring("-fullscreen=".length()));
+					}
+				}
+				
+				catch(Exception error)
+				{
+					error.printStackTrace();
+				}
+			}
+		}
+		
+		
+		// Starting the game.
 		
 		try 
 		{
@@ -74,7 +142,7 @@ public class Run extends StateBasedGame
 	@Override
 	public void initStatesList(GameContainer gameContainer) throws SlickException 
 	{
-		addState(splash);
+		addState(new Splash());
 //		addState(menu);
 //		addState(game);
 //		addState(editor);
