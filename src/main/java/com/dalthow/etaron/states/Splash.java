@@ -1,21 +1,27 @@
 package com.dalthow.etaron.states;
 
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.io.IOException;
+import java.io.InputStream;
 
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.ResourceLoader;
 
 import com.dalthow.etaron.Run;
 import com.dalthow.etaron.framework.States;
-import com.dalthow.etaron.handler.ResourceHandler;
 import com.dalthow.etaron.media.ImageResource;
+import com.dalthow.etaron.utils.DrawUtils;
 
 /**
  * Etaron
@@ -96,7 +102,7 @@ public class Splash implements GameState
 			// Loading images.
 			
 			logo = Run.resourceHandler.get(ImageResource.LOGO);
-		} 
+		}
 		
 		catch(IOException error) 
 		{
@@ -125,9 +131,8 @@ public class Splash implements GameState
 
 	public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException 
 	{
-		graphics.setColor(new Color(255, 255, 255));
-		graphics.fillRect(0, 0, gameContainer.getWidth(), gameContainer.getHeight());
-		graphics.drawImage(logo, (gameContainer.getWidth() / 2) - (logo.getWidth() / 2), (gameContainer.getHeight() / 2) - (logo.getHeight() / 2));
+		DrawUtils.drawBackground(graphics, gameContainer, new Color(255, 255, 255));
+		DrawUtils.drawImageAtCenter(graphics, gameContainer, logo, true, true);
 	}
 	
 	

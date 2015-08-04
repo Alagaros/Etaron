@@ -13,7 +13,8 @@ public enum ImageResource
 {
 	// A list of all the textures available in the game that aren't levels.
 
-	LOGO("assets/images/logo.png");
+	LOGO("assets/images/logo.png"),
+	HEADER("assets/images/header.png");
 	
 	
 	// Declaration of the path.
@@ -41,7 +42,7 @@ public enum ImageResource
 	
 	public static enum Levels
 	{
-		LEVEL_TUTORIAL("assets/levelss/easy/tutorial.png", 1), 
+		LEVEL_TUTORIAL("assets/levels/easy/tutorial.png", 1), 
 		LEVEL_THE_CLIMB("assets/levels/easy/the climb.png", 2), 
 		LEVEL_CAVEMAN("assets/levels/easy/caveman.png", 3), 
 		LEVEL_THE_FALL("assets/levels/easy/the fall.png", 4), 

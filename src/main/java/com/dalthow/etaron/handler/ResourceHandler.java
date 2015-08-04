@@ -32,8 +32,11 @@ public class ResourceHandler
 	public Map<MusicResource, Music> musics = new HashMap<>(MusicResource.values().length);
 	
 	
-	// Loads all declared sounds.
-	
+	/**
+     * loadSounds Loads all declared sounds.
+     *
+     * @return {void}
+     */
 	public void loadSounds() throws SlickException
 	{
 		for(SoundResource sound : SoundResource.values())
@@ -43,8 +46,11 @@ public class ResourceHandler
 	}
 	
 	
-	// Loads all declared levels.
-	
+	/**
+     * loadLevels Loads all declared levels.
+     *
+     * @return {void}
+     */
 	public void loadLevels() throws SlickException
 	{
 		for(ImageResource.Levels image : ImageResource.Levels.values())
@@ -57,16 +63,22 @@ public class ResourceHandler
 	}
 	
 	
-	// Gets an image.
-	
+	/**
+     * get Gets an image.
+     *
+     * @return {void}
+     */
 	public Image get(ImageResource image) throws SlickException, IOException
 	{
 		return new Image(ResourceLoader.getResourceAsStream(image.getPath()), image.name(), false);
 	}
 
 	
-	// Gets an music file.
-	
+	/**
+     * get Gets an music file.
+     *
+     * @return {void}
+     */
 	@Deprecated
 	public Music get(MusicResource music) throws SlickException
 	{
@@ -74,8 +86,11 @@ public class ResourceHandler
 	}
 
 	
-	// Gets a sounds file.
-	
+	/**
+     * get Gets a sounds file.
+     *
+     * @return {void}
+     */
 	@Deprecated
 	public Sound get(SoundResource sound) throws SlickException
 	{

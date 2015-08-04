@@ -56,7 +56,7 @@ public class Run extends StateBasedGame
 		}
 		
 		resourceHandler = new ResourceHandler();
-				
+		
 		gameContainer.setDisplayMode(width, height, fullscreen);
 		gameContainer.setTargetFrameRate(60);
 		gameContainer.setAlwaysRender(true);
@@ -65,7 +65,10 @@ public class Run extends StateBasedGame
 		gameContainer.setVerbose(false);
 		gameContainer.start();
 	}
-
+	
+	
+	// First method to get called.
+	
 	public static void main(String args[])
 	{
 		System.setProperty("java.library.path", "natives/");
