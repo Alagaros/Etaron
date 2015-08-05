@@ -39,7 +39,6 @@ public class Splash implements GameState
 	private Image logo;
 	
 	
-	
 	// Default implementation for mouse.
 	
 	public void mouseClicked(int par1, int par2, int par3, int par4){}
@@ -101,7 +100,7 @@ public class Splash implements GameState
 		{
 			// Loading images.
 			
-			logo = Run.resourceHandler.get(ImageResource.LOGO);
+			logo = Run.resourceHandler.get(ImageResource.LOGO, false);
 		}
 		
 		catch(IOException error) 

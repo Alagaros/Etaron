@@ -36,7 +36,12 @@ public class Menu implements GameState
 {
 	// Declaration of the images used in this state.
 	
-	private Image header;
+	private Image header, arrowLeft, arrowRight;
+	
+	
+	// Declaration of the rectangles used for click detection.
+	
+	private Rectangle pageBack, pageNext;
 	
 	
 	// Declaration of all the levels.
@@ -45,6 +50,8 @@ public class Menu implements GameState
 	public static List<Image> mediumLevelPage = new ArrayList<Image>();
 	public static List<Image> hardLevelPage = new ArrayList<Image>();
 	public static List<Image> customLevelPage = new ArrayList<Image>();
+	
+	public static List[] allPages = {easyLevelPage, mediumLevelPage, hardLevelPage, customLevelPage};
 	
 	
 	// Declaration of the fonts used in this state.
@@ -56,6 +63,7 @@ public class Menu implements GameState
 	
 	private int xMouse, yMouse;
 	private Rectangle mousePixel;
+	private boolean mouseDown;
 	
 	
 	// Declaring some other variables.
@@ -68,7 +76,14 @@ public class Menu implements GameState
 	// Default implementation for mouse.
 	
 	public void mouseClicked(int par1, int par2, int par3, int par4){}
-	public void mouseDragged(int par1, int par2, int par3, int par4){}
+	
+	public void mouseDragged(int par1, int par2, int par3, int par4)
+	{
+		// Setting the mouse position equal to the declared class variables.
+		
+		xMouse = par3;
+		yMouse = par4;
+	}
 	
 	public void mouseMoved(int par1, int par2, int par3, int par4)
 	{
@@ -78,8 +93,16 @@ public class Menu implements GameState
 		yMouse = par4;
 	}
 	
-	public void mousePressed(int par1, int par2, int par3){}
-	public void mouseReleased(int par1, int par2, int par3){}
+	public void mousePressed(int par1, int par2, int par3)
+	{
+		mouseDown = true;
+	}
+	
+	public void mouseReleased(int par1, int par2, int par3)
+	{
+		mouseDown = false;
+	}
+	
 	public void mouseWheelMoved(int par1){}
 	
 	
@@ -134,7 +157,9 @@ public class Menu implements GameState
 		{
 			// Loading images.
 			
-			header = Run.resourceHandler.get(ImageResource.HEADER);
+			header = Run.resourceHandler.get(ImageResource.HEADER, false);
+			arrowLeft = Run.resourceHandler.get(ImageResource.ARROW, false);
+			arrowRight = Run.resourceHandler.get(ImageResource.ARROW, false);
 			
 			
 			// Loading fonts.
@@ -148,8 +173,29 @@ public class Menu implements GameState
 			error.printStackTrace();
 		}
 		
+		
+		// Adding filters to the images.
+		
+		arrowRight.setFilter(Image.FILTER_NEAREST);
+		arrowLeft.setFilter(Image.FILTER_NEAREST);
+		
+		
+		// Rotating the images.
+		
+		arrowRight.rotate(180);
+		
+		
+		// Loading the levels.
+
 		loadLevelImages();
+		
+		
+		// Filling in some variables.
+		
 		page = 0;
+		
+		pageBack = new Rectangle(75, gameContainer.getHeight() / 2 - 40, 40, 80);
+		pageNext = new Rectangle(gameContainer.getWidth() - 115, gameContainer.getHeight() / 2 - 40, 40, 80);
 	}
 	
 	
@@ -173,9 +219,10 @@ public class Menu implements GameState
 
 	public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException 
 	{
+		// General layout.
+		
 		DrawUtils.drawBackground(graphics, gameContainer, new Color(20, 20, 20));
 		DrawUtils.drawImageAtCenter(graphics, gameContainer, header, true, 50);
-		DrawUtils.drawAdvancedString(graphics, gameContainer, difficulties[page], bitbold, difficultyColors[page], 32F, true, 140);
 		
 		graphics.setColor(new Color(255, 128, 0));
 		graphics.fillRect(-300, 0, 325, gameContainer.getHeight());
@@ -183,7 +230,34 @@ public class Menu implements GameState
 		graphics.setColor(new Color(185, 0, 255));
 		graphics.fillRect(25, 0, 10, gameContainer.getHeight());
 		
-		drawLevels(easyLevelPage, graphics, gameContainer);
+//		TODO: Figure out why this causes fps drop...
+//		// Information.
+//		
+//		DrawUtils.drawAdvancedString(graphics, gameContainer, "Version:" + " " + Run.version, bitbold, new Color(255, 255, 255), 14F, 39, gameContainer.getHeight() - 15);
+//		DrawUtils.drawAdvancedString(graphics, gameContainer, difficulties[page], bitbold, difficultyColors[page], 32F, true, 140);
+//		
+		
+		// Page navigation.
+
+		graphics.setColor(new Color(255, 255, 255));
+		
+		arrowLeft.draw(75, gameContainer.getHeight() / 2 - 40, 5);
+		arrowRight.draw(gameContainer.getWidth() - 83, gameContainer.getHeight() / 2 + 24, 5);
+		
+		if(mousePixel.intersects(pageBack))
+		{
+			graphics.fillRect(75, gameContainer.getHeight() / 2 + 45, 40, 5);
+		}
+
+		if(mousePixel.intersects(pageNext))
+		{
+			graphics.fillRect(gameContainer.getWidth() - 115, gameContainer.getHeight() / 2 + 45, 40, 5);
+		}
+		
+		
+		// The levels.
+		
+		drawLevels(allPages[page], graphics, gameContainer);
 	}
 	
 	
@@ -192,6 +266,21 @@ public class Menu implements GameState
 	public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int delta) throws SlickException 
 	{
 		mousePixel = new Rectangle(xMouse, yMouse, 1, 1);
+		
+		if(mouseDown)
+		{
+			if(mousePixel.intersects(pageBack) && page > 0)
+			{
+				page--;
+			}
+			
+			else if(mousePixel.intersects(pageNext) && page < allPages.length - 1)
+			{
+				page++;
+			}
+				
+			mouseDown = false;
+		}
 	}
 	
 	

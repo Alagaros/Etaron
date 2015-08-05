@@ -14,7 +14,8 @@ public enum ImageResource
 	// A list of all the textures available in the game that aren't levels.
 
 	LOGO("assets/images/logo.png"),
-	HEADER("assets/images/header.png");
+	HEADER("assets/images/header.png"),
+	ARROW("assets/images/arrow.png");
 	
 	
 	// Declaration of the path.

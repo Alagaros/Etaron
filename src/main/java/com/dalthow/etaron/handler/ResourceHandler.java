@@ -65,17 +65,22 @@ public class ResourceHandler
 	
 	/**
      * get Gets an image.
+     * 
+     * @param  {ImageResource} image The ImageResource media object that should be obtained.
+     * @param  {boolean} flipped	 If the image should be flipped or not.
      *
      * @return {void}
      */
-	public Image get(ImageResource image) throws SlickException, IOException
+	public Image get(ImageResource image, boolean flipped) throws SlickException, IOException
 	{
-		return new Image(ResourceLoader.getResourceAsStream(image.getPath()), image.name(), false);
+		return new Image(ResourceLoader.getResourceAsStream(image.getPath()), image.name(), flipped);
 	}
 
 	
 	/**
      * get Gets an music file.
+     *
+     * @param  {MusicResource} music The MusicResource media object that should be obtained.
      *
      * @return {void}
      */
@@ -88,6 +93,8 @@ public class ResourceHandler
 	
 	/**
      * get Gets a sounds file.
+     *
+     * @param  {SoundResource} sound The SoundResource media object that should be obtained.
      *
      * @return {void}
      */
