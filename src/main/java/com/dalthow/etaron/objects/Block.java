@@ -30,12 +30,17 @@ public class Block extends WorldObject
 	@Override
 	public void render(Graphics graphics) 
 	{
+		// Switching the block color based on its type.
+		
 		Color blockColor = new Color(255, 255, 255);
 		
 		if(id == Identifier.LAVA)
 		{
 			blockColor = new Color(255, 0, 0);
 		}
+		
+		
+		// Drawing the block.
 		
 		graphics.setColor(blockColor);		
 		graphics.fillRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
