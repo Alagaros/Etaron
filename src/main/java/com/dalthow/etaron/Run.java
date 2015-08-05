@@ -90,7 +90,7 @@ public class Run extends StateBasedGame
 		}
 		
 		
-		// Fixing input plugin for every windows version above 7.
+		// Fixing input plug-in for every windows version above 7.
 		
 		if(System.getProperty("os.name", "").trim().startsWith("Windows") && Float.parseFloat(System.getProperty("os.name", "").trim().substring(8)) > 7)
 		{

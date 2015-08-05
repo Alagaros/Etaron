@@ -30,12 +30,12 @@ public class Game implements GameState
 	// Declaration of the WorldObject's.
 	
 	public static ObjectHandler objectHandler;
-	public static WorldObject cameraFocus;
 
 	
 	// Declaration of the Camera.
 	
 	public static Camera cameraObject;
+	public static WorldObject cameraFocus;
 
 	
 	// Declaring some other variables.
@@ -44,6 +44,8 @@ public class Game implements GameState
 	public static final float gravity = 0.5F;
 	
 	private boolean displayInfo;
+	
+	private StateBasedGame stateBasedGame;
 	
 	
 	// Default implementation for mouse.
@@ -89,6 +91,14 @@ public class Game implements GameState
 	
 	public void keyPressed(int par1, char par2)
 	{
+		// Back to the main menu.
+		
+		if(par1 == Keyboard.KEY_ESCAPE)
+		{
+			stateBasedGame.enterState(States.MENU_STATE.getId());
+		}
+		
+		
 		// Debug toggle.
 		
 		if(par1 == Keyboard.KEY_F3)
@@ -113,6 +123,22 @@ public class Game implements GameState
 		{
 			cameraFocus.setVelY(-Player.jumpHeight);
 			cameraFocus.setJumping(true);
+		}
+		
+		
+		// Resetting the level.
+		
+		if(par1 == Keyboard.KEY_R)
+		{
+			try 
+			{
+				objectHandler.reloadLevel();
+			} 
+			
+			catch(SlickException error) 
+			{
+				error.printStackTrace();
+			}
 		}
 	}
 	
@@ -148,6 +174,11 @@ public class Game implements GameState
 		
 		objectHandler = new ObjectHandler();
 		cameraObject = new Camera(0, 0, gameContainer);
+		
+		
+		// Setting the global StateBasedGame to the local one so we can use it in other methods.
+		
+		this.stateBasedGame = stateBasedGame;
 	}
 	
 	

@@ -16,5 +16,6 @@ public enum Identifier
 	PLAYER(),
 	BLOCK(),
 	ELEVATOR(),
+	COIN(),
 	LAVA();
 }

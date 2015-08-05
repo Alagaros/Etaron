@@ -9,6 +9,15 @@ import org.newdawn.slick.Graphics;
 import com.dalthow.etaron.framework.Identifier;
 import com.dalthow.etaron.framework.WorldObject;
 
+/**
+ * Etaron
+ *
+ *
+ * @author Dalthow Game Studios 
+ * @class Block.java
+ *
+ **/
+
 public class Block extends WorldObject
 {
 	// Constructor that sets the variables for the WorldObject.

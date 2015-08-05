@@ -10,6 +10,7 @@ import org.newdawn.slick.SlickException;
 import com.dalthow.etaron.framework.Identifier;
 import com.dalthow.etaron.framework.WorldObject;
 import com.dalthow.etaron.objects.Block;
+import com.dalthow.etaron.objects.Coin;
 import com.dalthow.etaron.objects.Player;
 import com.dalthow.etaron.states.Game;
 
@@ -99,6 +100,11 @@ public class ObjectHandler
 				else if(red == 255 && green == 0 && blue == 0)
 				{
 					addObject(new Block((i * 32), (j * 32), Identifier.LAVA, false));
+				}
+				
+				else if(red == 255 && green == 255 && blue == 0)
+				{
+					addObject(new Coin((i * 32), (j * 32), Identifier.COIN, false));
 				}
 				
 				else if(red == 0 && green == 0 && blue == 255)
