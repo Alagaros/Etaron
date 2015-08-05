@@ -1,15 +1,20 @@
 package com.dalthow.etaron.objects;
 
 import java.awt.Rectangle;
+import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import com.dalthow.etaron.Run;
 import com.dalthow.etaron.framework.Identifier;
 import com.dalthow.etaron.framework.WorldObject;
+import com.dalthow.etaron.framework.player.Item;
+import com.dalthow.etaron.media.ImageResource;
 import com.dalthow.etaron.states.Game;
 
 /**
@@ -34,7 +39,10 @@ public class Player extends WorldObject
 	public static final float jumpHeight = 15.75F;
 	public static final float walkSpeed = 5F;
 
-	public boolean hasKey;
+	
+	// Declaration of the Player's inventory.
+	
+	public LinkedList<Item> inventory = new LinkedList<Item>();
 
 	
 	// Constructor that sets the variables for the WorldObject.
@@ -45,8 +53,6 @@ public class Player extends WorldObject
 
 		playerWidth = 32F;
 		playerHeight = 64F;
-
-		hasKey = false;
 	}
 
 	
@@ -98,16 +104,14 @@ public class Player extends WorldObject
 		graphics.fillRect(getBounds().x, getBounds().y, (int) playerWidth, (int) playerHeight);
 
 		
-		// Drawing the key if the player has one.
+		// Drawing the items the player has.
 		
-		if(hasKey)
+		for(int i = 0; i < inventory.size(); i++) 
 		{
-			graphics.setColor(new Color(192, 192, 192));
-			graphics.fillRect(getBounds().x - 7, getBounds().y + 24 + 1, 12, 12);
-			graphics.fillRect(getBounds().x - 2, getBounds().y + 24 + 12, 4, 19);
-			graphics.fillRect(getBounds().x - 7, getBounds().y + 24 + 16, 7, 3);
-			graphics.fillRect(getBounds().x - 9, getBounds().y + 24 + 21, 7, 3);
-			graphics.fillRect(getBounds().x - 6, getBounds().y + 24 + 26, 4, 3);
+			Image icon = inventory.get(i).getIcon();
+			
+			icon.setFilter(Image.FILTER_NEAREST);
+			icon.draw(inventory.get(i).getRenderX() + getPosX(), inventory.get(i).getRenderY() + getPosY(), 2);
 		}
 	}
 	
