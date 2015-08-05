@@ -43,6 +43,7 @@ public class Menu implements GameState
 	// Declaration of the rectangles used for click detection.
 	
 	private Rectangle pageBack, pageNext;
+	private Rectangle levels[];
 	
 	
 	// Declaration of all the levels.
@@ -72,7 +73,7 @@ public class Menu implements GameState
 	private String[] difficulties = {"Easy", "Medium", "Hard", "Custom"};
 	private Color[] difficultyColors = {new Color(0, 255, 0), new Color(255, 255, 0), new Color(255, 0, 0), new Color(0, 255, 255)};
 	private int page;
-	
+
 	
 	// Default implementation for mouse.
 	
@@ -197,7 +198,7 @@ public class Menu implements GameState
 		// Filling in some variables.
 		
 		page = 0;
-		
+
 		pageBack = new Rectangle(75, gameContainer.getHeight() / 2 - 40, 40, 80);
 		pageNext = new Rectangle(gameContainer.getWidth() - 115, gameContainer.getHeight() / 2 - 40, 40, 80);
 	}
@@ -283,9 +284,15 @@ public class Menu implements GameState
 				page++;
 			}
 			
-			Game.objectHandler.loadLevel(this.easyLevelPage.get(1));
-			stateBasedGame.enterState(States.GAME_STATE.getId());
-				
+			for (int i = 0; i < levels.length; i++) 
+			{
+				if(mousePixel.intersects(levels[i]))
+				{
+					Game.objectHandler.loadLevel((Image) allPages[page].get(i));
+					stateBasedGame.enterState(States.GAME_STATE.getId());
+				}
+			}
+			
 			mouseDown = false;
 		}
 	}
@@ -336,6 +343,8 @@ public class Menu implements GameState
      */
 	private void drawLevels(List<Image> list, Graphics graphics, GameContainer gameContainer)
 	{
+		levels = new Rectangle[list.size()];
+		
 		int col = 0;
 		int row = 0;
 
@@ -343,7 +352,8 @@ public class Menu implements GameState
 		{
 			list.get(i).setFilter(Image.FILTER_NEAREST);
 			list.get(i).draw((gameContainer.getWidth() - 578) / 2 + (col * 150), 200 + (row * 150), 2);
-
+			levels[i] = new Rectangle((gameContainer.getWidth() - 578) / 2 + (col * 150), 200 + (row * 150), 128, 128);
+			
 			col++;
 			
 		
