@@ -16,6 +16,7 @@ import org.newdawn.slick.util.ResourceLoader;
 
 import com.dalthow.etaron.framework.States;
 import com.dalthow.etaron.handler.ResourceHandler;
+import com.dalthow.etaron.states.Game;
 import com.dalthow.etaron.states.Menu;
 import com.dalthow.etaron.states.Splash;
 
@@ -32,10 +33,11 @@ public class Run extends StateBasedGame
 {	
 	// Declaration of resolution.
 	
-	private static int width = 960, height = 720;
-	private static boolean fullscreen = false;
+	public static int width = 960, height = 720;
+	private static boolean fullScreen = false, vSync = false;
 	
 	public static ResourceHandler resourceHandler;
+	public static String version = "0.2.0.0";
 	
 	
 	// Constructor that creates the game container.
@@ -49,7 +51,7 @@ public class Run extends StateBasedGame
 		
 		// If full-screen is enabled, then reset the width and height so it fits the screen.
 		
-		if(fullscreen)
+		if(fullScreen)
 		{
 			width = gameContainer.getScreenWidth();
 			height = gameContainer.getScreenHeight();
@@ -57,12 +59,13 @@ public class Run extends StateBasedGame
 		
 		resourceHandler = new ResourceHandler();
 		
-		gameContainer.setDisplayMode(width, height, fullscreen);
+		gameContainer.setDisplayMode(width, height, fullScreen);
 		gameContainer.setTargetFrameRate(60);
 		gameContainer.setAlwaysRender(true);
 		gameContainer.setShowFPS(false);
 		gameContainer.setUpdateOnlyWhenVisible(true);
 		gameContainer.setVerbose(false);
+		gameContainer.setVSync(vSync);
 		gameContainer.start();
 	}
 	
@@ -137,7 +140,12 @@ public class Run extends StateBasedGame
 					
 					else if(args[i].startsWith("-fullscreen="))
 					{
-						fullscreen = Boolean.parseBoolean(args[i].substring("-fullscreen=".length()));
+						fullScreen = Boolean.parseBoolean(args[i].substring("-fullscreen=".length()));
+					}
+					
+					else if(args[i].startsWith("-vsync="))
+					{
+						vSync = Boolean.parseBoolean(args[i].substring("-vsync=".length()));
 					}
 				}
 				
@@ -170,8 +178,7 @@ public class Run extends StateBasedGame
 	{
 		addState(new Splash());
 		addState(new Menu());
-//		addState(game);
-//		addState(editor);
+		addState(new Game());
 		
 		enterState(States.SPLASH_STATE.getId());
 	}

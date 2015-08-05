@@ -4,6 +4,9 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.Thread.State;
+
+import javax.swing.undo.StateEdit;
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
@@ -84,7 +87,7 @@ public class Splash implements GameState
 	public void keyReleased(int par1, char par2){}
 	
 
-	// Lets the state know which Id it has.
+	// Lets the state know which id it has.
 
 	public int getID() 
 	{

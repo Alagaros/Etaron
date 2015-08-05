@@ -15,7 +15,8 @@ public enum ImageResource
 
 	LOGO("assets/images/logo.png"),
 	HEADER("assets/images/header.png"),
-	ARROW("assets/images/arrow.png");
+	ARROW("assets/images/arrow.png"),
+	LEVEL_TUTORIAL("assets/levels/easy/tutorial.png");
 	
 	
 	// Declaration of the path.

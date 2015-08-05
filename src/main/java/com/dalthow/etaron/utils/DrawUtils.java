@@ -91,7 +91,7 @@ public class DrawUtils
      * @param  {Graphics} graphics           The Graphics object for the screen.
      * @param  {GameContainer} gameContainer The GameContainer for this game.
      * @param  {String} text                 The text that should be drawn.
-     * @param  {Font} font                   The font that should be used.
+     * @param  {TrueTypeFont} font           The font that should be used.
      * @param  {Color} color				 The color the text should have.
      * @param  {float} size					 The size of the text.
      * @param  {Object} xAxis 				 Can be either a boolean or an integer, if the boolean is true it will center it on the horizontal axis. If its a integer it will be drawn at that position.
@@ -99,13 +99,8 @@ public class DrawUtils
      *
      * @return {void}
      */
-	public static void drawAdvancedString(Graphics graphics, GameContainer gameContainer, String text, Font font, Color color, float size, Object xAxis, Object yAxis)
+	public static void drawAdvancedString(Graphics graphics, GameContainer gameContainer, String text, TrueTypeFont font, Color color, float size, Object xAxis, Object yAxis)
 	{
-		// Converting the font.
-		
-		TrueTypeFont slickFont = new TrueTypeFont(font.deriveFont(size), false);
-		
-		
 		// Declaring the position variables.
 		
 		int xPos = 0, yPos = 0;
@@ -115,7 +110,7 @@ public class DrawUtils
 		
 		if(xAxis instanceof Boolean && (boolean)xAxis == true)
 		{
-			xPos = (gameContainer.getWidth() / 2) - (slickFont.getWidth(text) / 2);
+			xPos = (gameContainer.getWidth() / 2) - (font.getWidth(text) / 2);
 		}
 		
 		else if(xAxis instanceof Integer)
@@ -128,7 +123,7 @@ public class DrawUtils
 		
 		if(yAxis instanceof Boolean && (boolean)yAxis == true)
 		{
-			yPos = (gameContainer.getHeight() / 2) - (slickFont.getHeight(text) / 2);
+			yPos = (gameContainer.getHeight() / 2) - (font.getHeight(text) / 2);
 		}
 		
 		else if(yAxis instanceof Integer)
@@ -140,7 +135,7 @@ public class DrawUtils
 		// Drawing the text.
 		
 		graphics.setColor(color);
-		graphics.setFont(slickFont);
+		graphics.setFont(font);
 		graphics.drawString(text, xPos, yPos);
 	}
 }

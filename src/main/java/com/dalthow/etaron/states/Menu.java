@@ -13,6 +13,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -56,7 +57,7 @@ public class Menu implements GameState
 	
 	// Declaration of the fonts used in this state.
 	
-	private Font bitbold;
+	private TrueTypeFont difficultyFont, infoFont;
 	
 	
 	// Declaration of the mouse position.
@@ -141,7 +142,7 @@ public class Menu implements GameState
 	public void keyReleased(int par1, char par2){}
 	
 
-	// Lets the state know which Id it has.
+	// Lets the state know which id it has.
 
 	public int getID() 
 	{
@@ -165,7 +166,10 @@ public class Menu implements GameState
 			// Loading fonts.
 			
 			InputStream inputStream = ResourceLoader.getResourceAsStream("assets/fonts/bit-bold.ttf");
-			bitbold = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+			Font bitBold = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+			
+			difficultyFont = new TrueTypeFont(bitBold.deriveFont(32F), false);
+			infoFont = new TrueTypeFont(bitBold.deriveFont(10F), false);
 		}
 		
 		catch(IOException | FontFormatException error) 
@@ -229,13 +233,13 @@ public class Menu implements GameState
 
 		graphics.setColor(new Color(185, 0, 255));
 		graphics.fillRect(25, 0, 10, gameContainer.getHeight());
+
+
+		// Information.
 		
-//		TODO: Figure out why this causes fps drop...
-//		// Information.
-//		
-//		DrawUtils.drawAdvancedString(graphics, gameContainer, "Version:" + " " + Run.version, bitbold, new Color(255, 255, 255), 14F, 39, gameContainer.getHeight() - 15);
-//		DrawUtils.drawAdvancedString(graphics, gameContainer, difficulties[page], bitbold, difficultyColors[page], 32F, true, 140);
-//		
+		DrawUtils.drawAdvancedString(graphics, gameContainer, "Version:" + " " + Run.version, infoFont, new Color(255, 255, 255), 14F, 39, gameContainer.getHeight() - infoFont.getHeight() - 1);
+		DrawUtils.drawAdvancedString(graphics, gameContainer, difficulties[page], difficultyFont, difficultyColors[page], 32F, true, 140);
+		
 		
 		// Page navigation.
 
@@ -266,7 +270,7 @@ public class Menu implements GameState
 	public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int delta) throws SlickException 
 	{
 		mousePixel = new Rectangle(xMouse, yMouse, 1, 1);
-		
+
 		if(mouseDown)
 		{
 			if(mousePixel.intersects(pageBack) && page > 0)
@@ -278,6 +282,9 @@ public class Menu implements GameState
 			{
 				page++;
 			}
+			
+			Game.objectHandler.loadLevel(this.easyLevelPage.get(1));
+			stateBasedGame.enterState(States.GAME_STATE.getId());
 				
 			mouseDown = false;
 		}
