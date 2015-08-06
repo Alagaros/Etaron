@@ -65,16 +65,14 @@ public class Block extends WorldObject
 			Rectangle touchBounds = getBounds();
 			touchBounds.grow(0, 1);
 			
-			Random rand = new Random();
-			
 			if(temporaryPlayer.getBoundsTop().intersects(touchBounds))
 			{
-				temporaryPlayer.setVelY((float) (Player.jumpHeight * 1.75));
+				temporaryPlayer.setVelY((float)(Player.jumpHeight * 1.75));
 			}
 			
 			else if(temporaryPlayer.getBoundsBottom().intersects(touchBounds))
 			{
-				temporaryPlayer.setVelY((float) (-Player.jumpHeight * 1.75));
+				temporaryPlayer.setVelY((float)(-Player.jumpHeight * 1.75));
 			}
 		}
 	}
