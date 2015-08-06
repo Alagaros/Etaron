@@ -1,25 +1,15 @@
 package com.dalthow.etaron.states;
 
-import java.awt.Font;
-import java.awt.FontFormatException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.lang.Thread.State;
 
-import javax.swing.undo.StateEdit;
-
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.util.ResourceLoader;
 
 import com.dalthow.etaron.Run;
 import com.dalthow.etaron.framework.States;

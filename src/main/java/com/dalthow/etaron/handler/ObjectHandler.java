@@ -1,5 +1,6 @@
 package com.dalthow.etaron.handler;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,10 +8,12 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import com.dalthow.etaron.Run;
 import com.dalthow.etaron.framework.Identifier;
 import com.dalthow.etaron.framework.WorldObject;
+import com.dalthow.etaron.framework.player.Item;
+import com.dalthow.etaron.media.ImageResource;
 import com.dalthow.etaron.objects.Block;
-import com.dalthow.etaron.objects.Coin;
 import com.dalthow.etaron.objects.Player;
 import com.dalthow.etaron.objects.Turret;
 import com.dalthow.etaron.states.Game;
@@ -44,7 +47,7 @@ public class ObjectHandler
 	
 	
 	/**
-     * addObject Adds a WorldObject to the objects List.
+     * addObject Adds a WorldObjects to the objects List.
      *
      * @param  {WorldObject} object The WorldObject that should be added to the objects List.
      * 
@@ -101,8 +104,10 @@ public class ObjectHandler
      * @param  {Image} image The Image that contains all the level data.
      * 
      * @return {void}
+     * 
+	 * @throws {SlickException, IOException} 
      */
-	public void loadLevel(Image image) throws SlickException
+	public void loadLevel(Image image) throws SlickException, IOException
 	{
 		clearLevel();
 
@@ -131,7 +136,7 @@ public class ObjectHandler
 				
 				else if(red == 255 && green == 255 && blue == 0)
 				{
-					addObject(new Coin((i * 32), (j * 32), Identifier.COIN, false));
+					addObject(new Item((i * 32), (j * 32), Identifier.COIN, false, Run.resourceHandler.get(ImageResource.COIN, false), 0, 0, true));
 				}
 				
 				else if(red == 255 && green == 128 && blue == 0)
@@ -146,7 +151,7 @@ public class ObjectHandler
 				
 				else if(red == 0 && green == 0 && blue == 255)
 				{
-					players.add(new Player((i * 32), (j * 32), Identifier.PLAYER, true));
+					addPlayer(new Player((i * 32), (j * 32), Identifier.PLAYER, true));
 				}
 			}
 		}
@@ -167,10 +172,20 @@ public class ObjectHandler
      * reloadLevel Reloads the current level.
      *
      * @return {void}
+     * 
+     * @throws {SlickException}
      */
 	public void reloadLevel() throws SlickException
 	{
-		loadLevel(currentLevel);
+		try 
+		{
+			loadLevel(currentLevel);
+		} 
+		
+		catch(IOException error) 
+		{
+			error.printStackTrace();
+		}
 	}
 
 	

@@ -16,7 +16,8 @@ public enum ImageResource
 	LOGO("assets/images/logo.png"),
 	HEADER("assets/images/header.png"),
 	ARROW("assets/images/arrow.png"),
-	KEY("assets/images/items/key.png");
+	KEY("assets/images/items/key.png"),
+	COIN("assets/images/items/coin.png");
 	
 	
 	// Declaration of the path.

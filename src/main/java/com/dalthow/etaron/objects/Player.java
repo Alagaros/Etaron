@@ -185,15 +185,6 @@ public class Player extends WorldObject
 				{
 					Game.objectHandler.reloadLevel();
 				}
-				
-				
-				// Picking up a Coin.
-				
-				else if(temporaryObject.getId() == Identifier.COIN)
-				{
-					inventory.add(new Item(null, "Coin", 0, 0));
-					Game.objectHandler.objects.remove(temporaryObject);
-				}
 			}
 		}
 	}

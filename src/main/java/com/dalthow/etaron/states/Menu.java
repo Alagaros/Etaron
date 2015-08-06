@@ -288,7 +288,16 @@ public class Menu implements GameState
 			{
 				if(mousePixel.intersects(levels[i]))
 				{
-					Game.objectHandler.loadLevel((Image) allPages[page].get(i));
+					try 
+					{
+						Game.objectHandler.loadLevel((Image) allPages[page].get(i));
+					} 
+					
+					catch(IOException error)
+					{
+						error.printStackTrace();
+					}
+					
 					stateBasedGame.enterState(States.GAME_STATE.getId());
 				}
 			}

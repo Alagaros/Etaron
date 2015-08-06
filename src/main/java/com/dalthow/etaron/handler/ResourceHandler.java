@@ -36,6 +36,8 @@ public class ResourceHandler
      * loadSounds Loads all declared sounds.
      *
      * @return {void}
+     * 
+     * @throws {SlickException}
      */
 	public void loadSounds() throws SlickException
 	{
@@ -50,6 +52,8 @@ public class ResourceHandler
      * loadLevels Loads all declared levels.
      *
      * @return {void}
+     * 
+     * @throws {SlickException}
      */
 	public void loadLevels() throws SlickException
 	{
@@ -70,6 +74,8 @@ public class ResourceHandler
      * @param  {boolean} flipped	 If the image should be flipped or not.
      *
      * @return {void}
+     * 
+     * @throws {SlickException, IOException}
      */
 	public Image get(ImageResource image, boolean flipped) throws SlickException, IOException
 	{
@@ -83,6 +89,8 @@ public class ResourceHandler
      * @param  {MusicResource} music The MusicResource media object that should be obtained.
      *
      * @return {void}
+     * 
+     * @throws {SlickException}
      */
 	@Deprecated
 	public Music get(MusicResource music) throws SlickException
@@ -97,6 +105,8 @@ public class ResourceHandler
      * @param  {SoundResource} sound The SoundResource media object that should be obtained.
      *
      * @return {void}
+     * 
+     * @throws {SlickException}
      */
 	@Deprecated
 	public Sound get(SoundResource sound) throws SlickException
