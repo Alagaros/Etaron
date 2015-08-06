@@ -13,6 +13,7 @@ import com.dalthow.etaron.Run;
 import com.dalthow.etaron.framework.Identifier;
 import com.dalthow.etaron.framework.WorldObject;
 import com.dalthow.etaron.framework.player.Item;
+import com.dalthow.etaron.media.SoundResource;
 import com.dalthow.etaron.states.Game;
 
 /**
@@ -184,6 +185,7 @@ public class Player extends WorldObject
 				if(temporaryObject.getId() == Identifier.LAVA || temporaryObject.getId() == Identifier.BULLET)
 				{
 					Game.objectHandler.reloadLevel();
+					Run.resourceHandler.sounds.get(SoundResource.FAILURE).play();
 				}
 			}
 		}

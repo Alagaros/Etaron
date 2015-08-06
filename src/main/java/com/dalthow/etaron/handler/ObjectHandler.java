@@ -139,6 +139,11 @@ public class ObjectHandler
 					addObject(new Item((i * 32), (j * 32), Identifier.COIN, false, Run.resourceHandler.get(ImageResource.COIN, false), 0, 0, true));
 				}
 				
+				else if(red == 192 && green == 192 && blue == 192)
+				{
+					addObject(new Item((i * 32), (j * 32), Identifier.KEY, false, Run.resourceHandler.get(ImageResource.KEY, false), 0, 0, false));
+				}
+				
 				else if(red == 255 && green == 128 && blue == 0)
 				{
 					addObject(new Turret((i * 32), (j * 32 - 8), Identifier.TURRET, true));

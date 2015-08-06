@@ -17,6 +17,7 @@ public enum Identifier
 	BLOCK(),
 	ELEVATOR(),
 	COIN(),
+	KEY(),
 	BULLET(),
 	LAVA(),
 	TURRET(),
