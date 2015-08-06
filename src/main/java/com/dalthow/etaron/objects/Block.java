@@ -61,7 +61,7 @@ public class Block extends WorldObject
 	@Override
 	public void render(Graphics graphics) 
 	{
-		// Switching the block color based on the Identifier.
+		// Switching the Block's color based on the Identifier.
 		
 		Color blockColor = new Color(255, 255, 255);
 		

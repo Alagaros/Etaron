@@ -8,6 +8,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 
 import com.dalthow.etaron.Run;
 import com.dalthow.etaron.framework.Identifier;
@@ -184,13 +185,19 @@ public class Player extends WorldObject
 				{
 					Game.objectHandler.reloadLevel();
 					Run.resourceHandler.sounds.get(SoundResource.FAILURE).play();
+					
+					break;
 				}
 				
 				
 				else if(temporaryObject.getId() == Identifier.COIN || temporaryObject.getId() == Identifier.KEY)
 				{
 					Game.objectHandler.objects.remove(temporaryObject);
-					inventory.add((Item)temporaryObject);
+					
+					Item item = (Item)temporaryObject;
+					item.getPickupSound().play();
+					
+					inventory.add(item);
 				}
 			}
 		}

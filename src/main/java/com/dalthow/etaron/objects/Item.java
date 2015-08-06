@@ -6,6 +6,7 @@ import java.util.List;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
 
 import com.dalthow.etaron.framework.Identifier;
@@ -25,6 +26,7 @@ public class Item extends WorldObject
 	// Declaration of the icon or animation.
 	
 	private Image icon;
+	private Sound pickupSound;
 	private Animation animation;
 	private int offsetX, offsetY;
 	private boolean drawOnPlayer;
@@ -32,7 +34,7 @@ public class Item extends WorldObject
 	
 	// Constructor that sets the variables for the WorldObject as well as the declared variables.
 	
-	public Item(float xPos, float yPos, Identifier id, boolean isSolid, Image icon, int offsetX, int offsetY, boolean hasAnimation, boolean drawOnPlayer) 
+	public Item(float xPos, float yPos, Identifier id, boolean isSolid, Image icon, Sound pickupSound, int offsetX, int offsetY, boolean hasAnimation, boolean drawOnPlayer) 
 	{
 		super(xPos, yPos, id, isSolid);
 
@@ -46,6 +48,7 @@ public class Item extends WorldObject
 		}
 		
 		this.icon = icon;
+		this.pickupSound = pickupSound;
 		this.offsetX = offsetX;
 		this.offsetY = offsetY;
 		this.drawOnPlayer = drawOnPlayer;
@@ -84,12 +87,17 @@ public class Item extends WorldObject
 
 	
 	// Getters.
-	
+
 	public Image getIcon() 
 	{
 		return icon;
 	}
 
+	public Sound getPickupSound()
+	{
+		return pickupSound;
+	}
+	
 	public int getRenderX() 
 	{
 		return offsetX;

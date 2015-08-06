@@ -12,6 +12,7 @@ import com.dalthow.etaron.Run;
 import com.dalthow.etaron.framework.Identifier;
 import com.dalthow.etaron.framework.WorldObject;
 import com.dalthow.etaron.media.ImageResource;
+import com.dalthow.etaron.media.SoundResource;
 import com.dalthow.etaron.objects.Block;
 import com.dalthow.etaron.objects.Item;
 import com.dalthow.etaron.objects.Player;
@@ -141,12 +142,12 @@ public class ObjectHandler
 				
 				else if(red == 255 && green == 255 && blue == 0)
 				{
-					addObject(new Item((i * 32), (j * 32), Identifier.COIN, false, Run.resourceHandler.get(ImageResource.COIN, false), 0, 0, true, false));
+					addObject(new Item((i * 32), (j * 32), Identifier.COIN, false, Run.resourceHandler.get(ImageResource.COIN, false), Run.resourceHandler.get(SoundResource.COIN), 0, 0, true, false));
 				}
 				
 				else if(red == 192 && green == 192 && blue == 192)
 				{
-					addObject(new Item((i * 32), (j * 32), Identifier.KEY, false, Run.resourceHandler.get(ImageResource.KEY, false), -17, 16, false, true));
+					addObject(new Item((i * 32), (j * 32), Identifier.KEY, false, Run.resourceHandler.get(ImageResource.KEY, false), Run.resourceHandler.get(SoundResource.CHAIN), -17, 16, false, true));
 				}
 				
 				else if(red == 255 && green == 128 && blue == 0)
