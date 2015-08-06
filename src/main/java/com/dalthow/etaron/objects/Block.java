@@ -53,6 +53,11 @@ public class Block extends WorldObject
 			blockColor = new Color(0, 255, 0);
 		}
 		
+		else if(id == Identifier.DECOR)
+		{
+			blockColor = new Color(128, 128, 128);
+		}
+		
 		
 		// Drawing the block.
 		

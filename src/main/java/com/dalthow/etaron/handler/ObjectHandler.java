@@ -128,6 +128,11 @@ public class ObjectHandler
 				{
 					addObject(new Block((i * 32), (j * 32), Identifier.BLOCK, true));
 				}
+				
+				if(red == 128 && green == 128 && blue == 128)
+				{
+					addObject(new Block((i * 32), (j * 32), Identifier.DECOR, false));
+				}
 
 				else if(red == 255 && green == 0 && blue == 0)
 				{

@@ -21,5 +21,6 @@ public enum Identifier
 	BULLET(),
 	LAVA(),
 	TURRET(),
+	DECOR(),
 	FLAG();
 }
