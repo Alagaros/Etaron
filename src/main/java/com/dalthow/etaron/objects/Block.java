@@ -8,6 +8,7 @@ import org.newdawn.slick.Graphics;
 
 import com.dalthow.etaron.framework.Identifier;
 import com.dalthow.etaron.framework.WorldObject;
+import com.dalthow.etaron.states.Game;
 
 /**
  * Etaron
@@ -33,7 +34,28 @@ public class Block extends WorldObject
 	@Override
 	public void tick(List<WorldObject> objectList) 
 	{
-		
+		if(id == Identifier.DOOR)
+		{
+			// Making sure the user can touch the block.
+			
+			Rectangle touchBounds = getBounds();
+			touchBounds.grow(1, 1);
+			
+			
+			// Creating a temporary player from the camera focus.
+			
+			Player temporaryPlayer = (Player)Game.cameraFocus;
+			
+			if(temporaryPlayer.getBounds().intersects(touchBounds))
+			{
+				// Checking if the player has a key, if so delete it and open the door.
+				
+				if(temporaryPlayer.hasItem(Identifier.KEY, true))
+				{
+					Game.objectHandler.objects.remove(this);
+				}
+			}
+		}
 	}
 
 	@Override
@@ -51,6 +73,11 @@ public class Block extends WorldObject
 		else if(id == Identifier.FLAG)
 		{
 			blockColor = new Color(0, 255, 0);
+		}
+		
+		else if(id == Identifier.DOOR)
+		{
+			blockColor = new Color(139, 69, 19);
 		}
 		
 		else if(id == Identifier.DECOR)

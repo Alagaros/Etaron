@@ -22,5 +22,6 @@ public enum Identifier
 	LAVA(),
 	TURRET(),
 	DECOR(),
-	FLAG();
+	FLAG(),
+	DOOR();
 }

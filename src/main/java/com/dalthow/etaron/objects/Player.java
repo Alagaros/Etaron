@@ -250,4 +250,31 @@ public class Player extends WorldObject
 	{
 		return new Rectangle((int)xPos - (Run.width / 2), (int)yPos - (Run.height / 2), (int)playerWidth + Run.width, (int)playerHeight + Run.height);
 	}
+
+	
+	/**
+     * hasItem Used to figure out if the user has a specific item, if thats true there is also an option to remove the item.
+     * 
+     * @param  {Identifier} id       The id the Item should have.
+     * @param  {boolean} consumeItem Whether the Item should be removed if the user has it.
+     * 
+     * @return {boolean}
+     */
+	public boolean hasItem(Identifier id, boolean consumeItem) 
+	{
+		for(int i = 0; i < inventory.size(); i++) 
+		{
+			if(inventory.get(i).getId() == id)
+			{
+				if(consumeItem)
+				{
+					inventory.remove(i);
+				}
+				
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }
