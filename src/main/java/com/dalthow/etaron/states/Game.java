@@ -228,5 +228,6 @@ public class Game implements GameState
 	{
 		objectHandler.tick();
 		cameraObject.tick(cameraFocus);
+		System.out.println("Game: " + Game.objectHandler.players.size());
 	}
 }

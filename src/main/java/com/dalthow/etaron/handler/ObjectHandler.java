@@ -12,6 +12,7 @@ import com.dalthow.etaron.framework.WorldObject;
 import com.dalthow.etaron.objects.Block;
 import com.dalthow.etaron.objects.Coin;
 import com.dalthow.etaron.objects.Player;
+import com.dalthow.etaron.objects.Turret;
 import com.dalthow.etaron.states.Game;
 
 /**
@@ -107,21 +108,25 @@ public class ObjectHandler
 					addObject(new Coin((i * 32), (j * 32), Identifier.COIN, false));
 				}
 				
+				else if(red == 255 && green == 128 && blue == 0)
+				{
+					addObject(new Turret((i * 32), (j * 32), Identifier.TURRET, true));
+				}
+				
 				else if(red == 0 && green == 0 && blue == 255)
 				{
-					addObject(new Player((i * 32), (j * 32), Identifier.PLAYER, true));
+					players.add(new Player((i * 32), (j * 32), Identifier.PLAYER, true));
 				}
 			}
 		}
 		
-		for(int i = 0; i < objects.size(); i++)
+		for(int i = 0; i < players.size(); i++)
 		{
-			WorldObject temporaryObject = objects.get(i);
+			WorldObject temporaryPlayer = players.get(i);
 
-			if(temporaryObject.getId() == Identifier.PLAYER)
+			if(temporaryPlayer.getId() == Identifier.PLAYER)
 			{
-				Game.cameraFocus = objects.get(i);
-				Game.cameraObject.tick(Game.cameraFocus);
+				Game.cameraFocus = players.get(i);
 			}
 		}
 	}
@@ -157,36 +162,16 @@ public class ObjectHandler
      */
 	public void tick()
 	{
-		players.clear();
-
 		for(int i = 0; i < objects.size(); i++)
 		{
-			// TODO: Look at this logic, it looks wanky.
-			
 			temporaryObject = objects.get(i);
-
-			if(temporaryObject.getId() == Identifier.PLAYER)
-			{
-				players.add((Player) temporaryObject);
-			}
-
-			if(temporaryObject.getId() != Identifier.PLAYER)
-			{
-				temporaryObject.tick(objects);
-			}
-
-			else
-			{
-				for(int j = 0; j < players.size(); j++)
-				{
-					temporaryPlayer = players.get(j);
-
-					if(temporaryPlayer != null && temporaryPlayer.getUpdateBounds().intersects(temporaryObject.getBounds()))
-					{
-						temporaryObject.tick(objects);
-					}
-				}
-			}
+			temporaryObject.tick(objects);
+		}
+		
+		for(int i = 0; i < players.size(); i++) 
+		{
+			temporaryPlayer = players.get(i);
+			temporaryPlayer.tick(objects);
 		}
 	}
 
@@ -201,16 +186,20 @@ public class ObjectHandler
 		for(int i = 0; i < objects.size(); i++)
 		{
 			temporaryObject = objects.get(i);
-
-			for(int j = 0; j < players.size(); j++)
-			{
-				temporaryPlayer = players.get(j);
-
-				if(temporaryPlayer != null && temporaryPlayer.getRenderBounds().intersects(temporaryObject.getBounds()))
-				{	
-					temporaryObject.render(graphics);
-				}
+			
+			
+			// Checking if this object is on the screen, if not don't draw it.
+			
+			if(temporaryPlayer != null && temporaryPlayer.getRenderBounds().intersects(temporaryObject.getBounds()))
+			{	
+				temporaryObject.render(graphics);
 			}
+		}
+		
+		for(int i = 0; i < players.size(); i++) 
+		{
+			temporaryPlayer = players.get(i);
+			temporaryPlayer.render(graphics);
 		}
 	}
 }

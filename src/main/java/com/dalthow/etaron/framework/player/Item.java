@@ -4,9 +4,6 @@ import java.util.concurrent.Callable;
 
 import org.newdawn.slick.Image;
 
-import com.dalthow.etaron.Run;
-import com.dalthow.etaron.media.ImageResource;
-
 /**
  * Etaron
  *
@@ -33,6 +30,7 @@ public class Item
 		this.renderX = renderX;
 		this.renderY = renderY;
 	}
+	
 	public void itemAction(Callable<Integer> function)
 	{
 		try 

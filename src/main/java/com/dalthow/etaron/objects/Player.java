@@ -1,7 +1,6 @@
 package com.dalthow.etaron.objects;
 
 import java.awt.Rectangle;
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,7 +13,6 @@ import com.dalthow.etaron.Run;
 import com.dalthow.etaron.framework.Identifier;
 import com.dalthow.etaron.framework.WorldObject;
 import com.dalthow.etaron.framework.player.Item;
-import com.dalthow.etaron.media.ImageResource;
 import com.dalthow.etaron.states.Game;
 
 /**
@@ -61,13 +59,14 @@ public class Player extends WorldObject
 	@Override
 	public void tick(List<WorldObject> objectList)
 	{
-		// Applying forces to the player's position.
+		System.out.println("i get ticked!");
+		// Applying forces to the Player's position.
 		
 		xPos += xVel;
 		yPos += yVel;
 
 		
-		// Applying gravity to the players position.
+		// Applying gravity to the Player's position.
 		
 		if(yVel <= 0)
 		{
@@ -104,14 +103,20 @@ public class Player extends WorldObject
 		graphics.fillRect(getBounds().x, getBounds().y, (int) playerWidth, (int) playerHeight);
 
 		
-		// Drawing the items the player has.
+		// Drawing the items the Player has.
 		
 		for(int i = 0; i < inventory.size(); i++) 
 		{
 			Image icon = inventory.get(i).getIcon();
 			
-			icon.setFilter(Image.FILTER_NEAREST);
-			icon.draw(inventory.get(i).getRenderX() + getPosX(), inventory.get(i).getRenderY() + getPosY(), 2);
+			
+			// Checking if an icon is set, if not go to the next entry.
+			
+			if(icon != null)
+			{
+				icon.setFilter(Image.FILTER_NEAREST);
+				icon.draw(inventory.get(i).getRenderX() + getPosX(), inventory.get(i).getRenderY() + getPosY(), 2);
+			}
 		}
 	}
 	
@@ -172,6 +177,25 @@ public class Player extends WorldObject
 					xPos = temporaryObject.getPosX() + playerWidth;
 				}
 			}
+			
+			else if(getBounds().intersects(temporaryObject.getBounds()))
+			{
+				// Resetting the level because the player failed.
+				
+				if(temporaryObject.getId() == Identifier.LAVA || temporaryObject.getId() == Identifier.BULLET)
+				{
+					Game.objectHandler.reloadLevel();
+				}
+				
+				
+				// Picking up a Coin.
+				
+				else if(temporaryObject.getId() == Identifier.COIN)
+				{
+					inventory.add(new Item(null, "Coin", 0, 0));
+					Game.objectHandler.objects.remove(temporaryObject);
+				}
+			}
 		}
 	}
 	
@@ -218,18 +242,7 @@ public class Player extends WorldObject
 	{
 		return new Rectangle((int)xPos + ((int)playerWidth - 5), (int)yPos + 3, 5, (int)playerHeight - 6);
 	}
-
-	
-	/**
-     * getUpdateBounds Used to figure out what part of the level to tick.
-     * 
-     * @return {Rectangle}
-     */
-	public Rectangle getUpdateBounds()
-	{
-		return new Rectangle((int)xPos - 48, (int)yPos - 48, (int)playerWidth + 96, (int)playerHeight + 96);
-	}
-	
+		
 	
 	/**
      * getRenderBounds Used to figure out what part of the level to render.
