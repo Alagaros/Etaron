@@ -190,6 +190,8 @@ public class Player extends WorldObject
 				}
 				
 				
+				// Adding items to the inventory when picked up.
+				
 				else if(temporaryObject.getId() == Identifier.COIN || temporaryObject.getId() == Identifier.KEY)
 				{
 					Game.objectHandler.objects.remove(temporaryObject);

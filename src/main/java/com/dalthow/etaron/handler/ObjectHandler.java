@@ -252,11 +252,14 @@ public class ObjectHandler
 			
 			// Checking if this object is on the screen, if not don't draw it.
 			
-			if(temporaryPlayer != null && temporaryPlayer.getRenderBounds().intersects(temporaryObject.getBounds()))
+			if(temporaryPlayer != null && ((Player)Game.cameraFocus).getRenderBounds().intersects(temporaryObject.getBounds()))
 			{	
 				temporaryObject.render(graphics);
 			}
 		}
+		
+		
+		// Rendering the players above all objects.
 		
 		for(int i = 0; i < players.size(); i++) 
 		{

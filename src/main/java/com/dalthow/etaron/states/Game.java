@@ -139,6 +139,30 @@ public class Game implements GameState
 		}
 		
 		
+		// Switching Player.
+		
+		if(par1 == Keyboard.KEY_Q)
+		{
+			int currentPlayer = objectHandler.players.indexOf(cameraFocus);
+			
+			if(objectHandler.players.size() > 1)
+			{
+				if(currentPlayer < objectHandler.players.size() - 1)
+				{
+					currentPlayer++;
+				}
+
+				else
+				{
+					currentPlayer = 0;
+				}
+
+				cameraFocus.setVelX(0);
+				cameraFocus = objectHandler.players.get(currentPlayer);
+			}
+		}
+		
+		
 		// Resetting the level.
 		
 		if(par1 == Keyboard.KEY_R)
