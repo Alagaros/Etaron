@@ -1,4 +1,4 @@
-package com.dalthow.etaron.framework.player;
+package com.dalthow.etaron.objects;
 
 import java.awt.Rectangle;
 import java.util.List;
@@ -20,20 +20,25 @@ import com.dalthow.etaron.framework.WorldObject;
  *
  **/
 
-// TODO: Document this properly.
-
 public class Item extends WorldObject
 {
-	//inventory.add(new Item(Run.resourceHandler.get(ImageResource.KEY, false), "Key", -8, 16));
-
+	// Declaration of the icon or animation.
+	
 	private Image icon;
 	private Animation animation;
 	private int offsetX, offsetY;
+	private boolean drawOnPlayer;
 	
-	public Item(float xPos, float yPos, Identifier id, boolean isSolid, Image icon, int offsetX, int offsetY, boolean hasAnimation) 
+	
+	// Constructor that sets the variables for the WorldObject as well as the declared variables.
+	
+	public Item(float xPos, float yPos, Identifier id, boolean isSolid, Image icon, int offsetX, int offsetY, boolean hasAnimation, boolean drawOnPlayer) 
 	{
 		super(xPos, yPos, id, isSolid);
 
+		
+		// Creating the animation if there is one.
+		
 		if(hasAnimation)
 		{
 			SpriteSheet temporarySpriteSheet = new SpriteSheet(icon, 32, 32);
@@ -43,43 +48,23 @@ public class Item extends WorldObject
 		this.icon = icon;
 		this.offsetX = offsetX;
 		this.offsetY = offsetY;
+		this.drawOnPlayer = drawOnPlayer;
 	}
-
-//	public void itemAction(Callable<Integer> function)
-//	{
-//		try 
-//		{
-//			function.call();
-//		} 
-//		
-//		catch(Exception error) 
-//		{
-//			error.printStackTrace();
-//		}
-//	}
-
-	public Image getIcon() {
-		return icon;
-	}
-
-
-	public int getRenderX() {
-		return offsetX;
-	}
-
-	public int getRenderY() {
-		return offsetY;
-	}
-
+	
+	
+	// Default WorldObject methods.
+	
 	@Override
-	public void tick(List<WorldObject> objectList) {
-		// TODO Auto-generated method stub
+	public void tick(List<WorldObject> objectList) 
+	{
 		
 	}
 
 	@Override
 	public void render(Graphics graphics) 
 	{
+		// Checking if there is an animation, if not draw the static icon.
+		
 		if(animation != null)
 		{
 			animation.draw(xPos, yPos);
@@ -92,8 +77,31 @@ public class Item extends WorldObject
 	}
 
 	@Override
-	public Rectangle getBounds() {
-		// TODO Auto-generated method stub
+	public Rectangle getBounds() 
+	{
 		return new Rectangle((int)xPos, (int)yPos, 32, 32);
+	}
+
+	
+	// Getters.
+	
+	public Image getIcon() 
+	{
+		return icon;
+	}
+
+	public int getRenderX() 
+	{
+		return offsetX;
+	}
+
+	public int getRenderY() 
+	{
+		return offsetY;
+	}
+
+	public boolean drawOnPlayer() 
+	{
+		return drawOnPlayer;
 	}
 }

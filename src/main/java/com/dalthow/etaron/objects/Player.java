@@ -12,7 +12,6 @@ import org.newdawn.slick.SlickException;
 import com.dalthow.etaron.Run;
 import com.dalthow.etaron.framework.Identifier;
 import com.dalthow.etaron.framework.WorldObject;
-import com.dalthow.etaron.framework.player.Item;
 import com.dalthow.etaron.media.SoundResource;
 import com.dalthow.etaron.states.Game;
 
@@ -112,10 +111,9 @@ public class Player extends WorldObject
 			
 			// Checking if an icon is set, if not go to the next entry.
 			
-			if(icon != null)
+			if(inventory.get(i).drawOnPlayer())
 			{
-				icon.setFilter(Image.FILTER_NEAREST);
-				icon.draw(inventory.get(i).getRenderX() + getPosX(), inventory.get(i).getRenderY() + getPosY(), 2);
+				icon.draw(inventory.get(i).getRenderX() + getPosX(), inventory.get(i).getRenderY() + getPosY());
 			}
 		}
 	}
@@ -186,6 +184,13 @@ public class Player extends WorldObject
 				{
 					Game.objectHandler.reloadLevel();
 					Run.resourceHandler.sounds.get(SoundResource.FAILURE).play();
+				}
+				
+				
+				else if(temporaryObject.getId() == Identifier.COIN || temporaryObject.getId() == Identifier.KEY)
+				{
+					Game.objectHandler.objects.remove(temporaryObject);
+					inventory.add((Item)temporaryObject);
 				}
 			}
 		}
