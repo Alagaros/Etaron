@@ -165,6 +165,11 @@ public class ObjectHandler
 					addObject(new Block((i * 32), (j * 32), Identifier.DOOR, true));
 				}
 				
+				else if(red == 255 && green == 175 && blue == 175)
+				{
+					addObject(new Block((i * 32), (j * 32), Identifier.JELLY, true));
+				}
+				
 				else if(red == 0 && green == 0 && blue == 255)
 				{
 					addPlayer(new Player((i * 32), (j * 32), Identifier.PLAYER, true));

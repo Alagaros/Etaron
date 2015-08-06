@@ -2,6 +2,7 @@ package com.dalthow.etaron.objects;
 
 import java.awt.Rectangle;
 import java.util.List;
+import java.util.Random;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -21,6 +22,11 @@ import com.dalthow.etaron.states.Game;
 
 public class Block extends WorldObject
 {
+	// Declaring a temporary player.
+	
+	private Player temporaryPlayer;
+	
+	
 	// Constructor that sets the variables for the WorldObject.
 	
 	public Block(float xPos, float yPos, Identifier id, boolean isSolid) 
@@ -34,17 +40,14 @@ public class Block extends WorldObject
 	@Override
 	public void tick(List<WorldObject> objectList) 
 	{
+		temporaryPlayer = (Player)Game.cameraFocus;
+		
 		if(id == Identifier.DOOR)
 		{
 			// Making sure the user can touch the block.
 			
 			Rectangle touchBounds = getBounds();
 			touchBounds.grow(1, 1);
-			
-			
-			// Creating a temporary player from the camera focus.
-			
-			Player temporaryPlayer = (Player)Game.cameraFocus;
 			
 			if(temporaryPlayer.getBounds().intersects(touchBounds))
 			{
@@ -54,6 +57,24 @@ public class Block extends WorldObject
 				{
 					Game.objectHandler.objects.remove(this);
 				}
+			}
+		}
+		
+		else if(id == Identifier.JELLY)
+		{
+			Rectangle touchBounds = getBounds();
+			touchBounds.grow(0, 1);
+			
+			Random rand = new Random();
+			
+			if(temporaryPlayer.getBoundsTop().intersects(touchBounds))
+			{
+				temporaryPlayer.setVelY((float) (Player.jumpHeight * 1.75));
+			}
+			
+			else if(temporaryPlayer.getBoundsBottom().intersects(touchBounds))
+			{
+				temporaryPlayer.setVelY((float) (-Player.jumpHeight * 1.75));
 			}
 		}
 	}
@@ -78,6 +99,11 @@ public class Block extends WorldObject
 		else if(id == Identifier.DOOR)
 		{
 			blockColor = new Color(139, 69, 19);
+		}
+		
+		else if(id == Identifier.JELLY)
+		{
+			blockColor = new Color(255, 175, 175);
 		}
 		
 		else if(id == Identifier.DECOR)

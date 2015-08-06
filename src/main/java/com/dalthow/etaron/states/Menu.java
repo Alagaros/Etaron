@@ -238,9 +238,9 @@ public class Menu implements GameState
 
 		// Information.
 		
-		DrawUtils.drawAdvancedString(graphics, gameContainer, "VERSION:" + " " + Run.version, infoFont, new Color(255, 255, 255), 14F, 39, gameContainer.getHeight() - infoFont.getHeight() - 1);
-		DrawUtils.drawAdvancedString(graphics, gameContainer, difficulties[page], difficultyFont, difficultyColors[page], 32F, true, 140);
-		
+		DrawUtils.drawAdvancedString(graphics, gameContainer, "VERSION:" + " " + Run.version, infoFont, new Color(255, 255, 255), 39, gameContainer.getHeight() - infoFont.getHeight() - 1);
+		DrawUtils.drawAdvancedString(graphics, gameContainer, difficulties[page], difficultyFont, difficultyColors[page], true, 140);
+				
 		
 		// Page navigation.
 

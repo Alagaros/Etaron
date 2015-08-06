@@ -16,6 +16,7 @@ public enum Identifier
 	PLAYER(),
 	BLOCK(),
 	ELEVATOR(),
+	JELLY(),
 	COIN(),
 	KEY(),
 	BULLET(),

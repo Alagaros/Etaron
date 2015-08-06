@@ -77,7 +77,7 @@ public class Player extends WorldObject
 		{
 			yVel += Game.gravity;
 			
-			if(yVel >= Game.maximumVelocity)
+			if(yVel >= Game.maximumVelocity && isFalling)
 			{
 				yVel = Game.maximumVelocity;
 			}

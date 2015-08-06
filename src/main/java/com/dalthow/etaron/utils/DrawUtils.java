@@ -97,7 +97,7 @@ public class DrawUtils
      *
      * @return {void}
      */
-	public static void drawAdvancedString(Graphics graphics, GameContainer gameContainer, String text, TrueTypeFont font, Color color, float size, Object xAxis, Object yAxis)
+	public static void drawAdvancedString(Graphics graphics, GameContainer gameContainer, String text, TrueTypeFont font, Color color, Object xAxis, Object yAxis)
 	{
 		// Declaring the position variables.
 		
