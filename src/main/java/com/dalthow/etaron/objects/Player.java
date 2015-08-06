@@ -59,7 +59,6 @@ public class Player extends WorldObject
 	@Override
 	public void tick(List<WorldObject> objectList)
 	{
-		System.out.println("i get ticked!");
 		// Applying forces to the Player's position.
 		
 		xPos += xVel;

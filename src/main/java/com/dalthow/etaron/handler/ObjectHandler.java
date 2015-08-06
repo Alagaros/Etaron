@@ -44,9 +44,9 @@ public class ObjectHandler
 	
 	
 	/**
-     * addObject Adds a object to the objects list.
+     * addObject Adds a WorldObject to the objects List.
      *
-     * @param  {WorldObject} object The WorldObject that should be added to the objects list.
+     * @param  {WorldObject} object The WorldObject that should be added to the objects List.
      * 
      * @return {void}
      */
@@ -57,15 +57,41 @@ public class ObjectHandler
 
 	
 	/**
-     * removeObject Removes a object from the objects list.
+     * removeObject Removes a WorldObject from the objects List.
      *
-     * @param  {WorldObject} object The WorldObject that should be removed from the objects list.
+     * @param  {WorldObject} object The WorldObject that should be removed from the objects List.
      * 
      * @return {void}
      */
 	public void removeObject(WorldObject object)
 	{
 		objects.remove(object);
+	}
+	
+	
+	/**
+     * addPlayer Adds a Player to the players List.
+     *
+     * @param  {Player} player The Player that should be added to the players List.
+     * 
+     * @return {void}
+     */
+	public void addPlayer(Player player)
+	{
+		players.add(player);
+	}
+
+	
+	/**
+     * removePlayer Removes a Player to the players List.
+     *
+     * @param  {Player} player The Player that should be removed from the players List.
+     * 
+     * @return {void}
+     */
+	public void removePlayer(Player player)
+	{
+		players.remove(player);
 	}
 	
 	
@@ -110,7 +136,12 @@ public class ObjectHandler
 				
 				else if(red == 255 && green == 128 && blue == 0)
 				{
-					addObject(new Turret((i * 32), (j * 32), Identifier.TURRET, true));
+					addObject(new Turret((i * 32), (j * 32 - 8), Identifier.TURRET, true));
+				}
+				
+				else if(red == 0 && green == 255 && blue == 0)
+				{
+					addObject(new Block((i * 32), (j * 32), Identifier.FLAG, false));
 				}
 				
 				else if(red == 0 && green == 0 && blue == 255)

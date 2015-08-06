@@ -19,5 +19,6 @@ public enum Identifier
 	COIN(),
 	BULLET(),
 	LAVA(),
-	TURRET();
+	TURRET(),
+	FLAG();
 }

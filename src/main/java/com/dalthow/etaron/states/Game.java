@@ -1,19 +1,27 @@
 package com.dalthow.etaron.states;
 
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.ResourceLoader;
 
 import com.dalthow.etaron.Run;
 import com.dalthow.etaron.framework.Camera;
 import com.dalthow.etaron.framework.States;
 import com.dalthow.etaron.framework.WorldObject;
 import com.dalthow.etaron.handler.ObjectHandler;
+import com.dalthow.etaron.media.ImageResource;
 import com.dalthow.etaron.objects.Player;
 
 /**
@@ -37,6 +45,11 @@ public class Game implements GameState
 	public static Camera cameraObject;
 	public static WorldObject cameraFocus;
 
+	
+	// Declaration of the fonts used in this state.
+	
+	private TrueTypeFont infoFont;
+		
 	
 	// Declaring some other variables.
 	
@@ -170,6 +183,22 @@ public class Game implements GameState
 	
 	public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException 
 	{
+		try 
+		{
+			// Loading fonts.
+			
+			InputStream inputStream = ResourceLoader.getResourceAsStream("assets/fonts/bit-bold.ttf");
+			Font bitBold = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+			
+			infoFont = new TrueTypeFont(bitBold.deriveFont(10F), false);
+		}
+		
+		catch(IOException | FontFormatException error) 
+		{
+			error.printStackTrace();
+		}
+		
+		
 		// Creating undefined objects.
 		
 		objectHandler = new ObjectHandler();
@@ -208,10 +237,10 @@ public class Game implements GameState
 		if(displayInfo)
 		{
 			graphics.setColor(new Color(0, 0, 0));
-			graphics.fillRect(0, 0, 170, 105);
+			graphics.fillRect(0, 0, 133, 98);
 
 			graphics.setColor(new Color(255, 255, 255));
-			// TODO: Add the proper font. graphics.setFont(info);
+			graphics.setFont(infoFont);
 
 			graphics.drawString("VERSION:" + " " + Run.version, 15, 15);
 			graphics.drawString("FPS:" + " " + gameContainer.getFPS(), 15, 30);
@@ -228,6 +257,5 @@ public class Game implements GameState
 	{
 		objectHandler.tick();
 		cameraObject.tick(cameraFocus);
-		System.out.println("Game: " + Game.objectHandler.players.size());
 	}
 }
