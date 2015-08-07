@@ -23,7 +23,7 @@ import com.dalthow.etaron.states.Game;
 
 public class Turret extends WorldObject
 {
-	// Declaration of the Variables the Turret needs to decide if it should fire and where.
+	// Declaration of the variables the Turret needs to decide if it should fire and where.
 
 	private int direction;
 	private int tickToFire;

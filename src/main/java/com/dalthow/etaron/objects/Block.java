@@ -2,7 +2,6 @@ package com.dalthow.etaron.objects;
 
 import java.awt.Rectangle;
 import java.util.List;
-import java.util.Random;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -110,7 +109,7 @@ public class Block extends WorldObject
 		}
 		
 		
-		// Drawing the block.
+		// Drawing the Block.
 		
 		graphics.setColor(blockColor);		
 		graphics.fillRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
