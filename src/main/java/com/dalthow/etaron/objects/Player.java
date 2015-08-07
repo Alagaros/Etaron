@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.http.message.BasicNameValuePair;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -14,6 +15,7 @@ import com.dalthow.etaron.framework.Identifier;
 import com.dalthow.etaron.framework.WorldObject;
 import com.dalthow.etaron.media.SoundResource;
 import com.dalthow.etaron.states.Game;
+import com.dalthow.etaron.utils.NetworkUtil;
 
 /**
  * Etaron
@@ -184,6 +186,26 @@ public class Player extends WorldObject
 				{
 					Game.objectHandler.reloadLevel();
 					Run.resourceHandler.sounds.get(SoundResource.FAILURE).play();
+					
+					break;
+				}
+				
+				
+				// If the player is logged in, submit his score then go on to the next level.
+				
+				if(temporaryObject.getId() == Identifier.FLAG)
+				{
+					// TODO: Navigate the user to the next level.
+					
+					BasicNameValuePair[] scoreData = new BasicNameValuePair[4];
+					scoreData[0] = new BasicNameValuePair("accessToken", Run.accessToken);
+					scoreData[1] = new BasicNameValuePair("level", "1"); // TODO: Resolve the level id.
+					scoreData[2] = new BasicNameValuePair("coins", "1"); // TODO: Resolve the collected coin count.
+					scoreData[3] = new BasicNameValuePair("duration", "milliseconds go here"); // TODO: Resolve the amount of miliseconds it took the user to finish the level.
+					
+					NetworkUtil.postData("http://www.dalthow.com/share/games/etaron/submit-scores.php", scoreData);
+					
+					Run.resourceHandler.sounds.get(SoundResource.VICTORY).play();
 					
 					break;
 				}

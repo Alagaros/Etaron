@@ -234,9 +234,17 @@ public class Run extends StateBasedGame
 		
 		try 
 		{
-			JSONObject response = new JSONObject(NetworkUtil.postData("http://datayma.dalthow.com/share/scripts/php/authentication.php", authenticationData));
+			JSONObject response = new JSONObject(NetworkUtil.postData("http://www.dalthow.com/share/scripts/php/authentication.php", authenticationData));
 		
-			return response.getString("session");
+			if(response.getString("status").matches("success"))
+			{
+				return response.getString("session");
+			}
+			
+			else
+			{
+				System.out.println(response.getString("status")); // TODO: Give this some nice formatting.
+			}
 		} 
 		
 		catch(JSONException error)
