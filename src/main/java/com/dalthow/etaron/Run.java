@@ -99,7 +99,7 @@ public class Run extends StateBasedGame
 	
 	public static void main(String args[])
 	{
-		//System.setProperty("java.library.path", "natives/");
+		System.setProperty("java.library.path", "natives/");
 		 
 		try 
 		{

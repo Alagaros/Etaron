@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-   <modelVersion>4.0.0</modelVersion>
-   <groupId>com.dalthow</groupId>
-   <artifactId>etaron</artifactId>
-   <version>0.2.0.0</version>
-   <name>Etaron</name>
-   <description>A two dimensional competitive platform game.</description>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.dalthow</groupId>
+	<artifactId>etaron</artifactId>
+	<version>0.2.0.0</version>
+	<name>Etaron</name>
+	<description>A two dimensional competitive platform game.</description>
 
-   <properties>
-      <lwjgl.version>2.8.2</lwjgl.version>
-   </properties>
+	<properties>
+		<lwjgl.version>2.8.2</lwjgl.version>
+	</properties>
 
-   <organization>
-	  <name>Dalthow Game Studios</name>
-      <url>http://www.dalthow.com</url>
-   </organization>
+	<organization>
+		<name>Dalthow Game Studios</name>
+		<url>http://www.dalthow.com</url>
+	</organization>
 
-   <dependencies>
-      <dependency>
-         <groupId>org.lwjgl.lwjgl</groupId>
-         <artifactId>lwjgl</artifactId>
-         <version>${lwjgl.version}</version>
-      </dependency>
-      <dependency>
-         <groupId>org.slick2d</groupId>
-         <artifactId>slick2d-core</artifactId>
-         <version>1.0.1</version>
-      </dependency>
-      <dependency>
-		 <groupId>org.json</groupId>
-		 <artifactId>json</artifactId>
-		 <version>20090211</version>
-	  </dependency>
-	  <dependency>
-		 <groupId>org.apache.httpcomponents</groupId>
-		 <artifactId>httpclient</artifactId>
-		 <version>4.5</version>
-	  </dependency>
-   </dependencies>
+	<dependencies>
+		<dependency>
+			<groupId>org.lwjgl.lwjgl</groupId>
+			<artifactId>lwjgl</artifactId>
+			<version>${lwjgl.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slick2d</groupId>
+			<artifactId>slick2d-core</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20090211</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5</version>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>
-         <plugin>
+			<plugin>
 				<groupId>com.googlecode.mavennatives</groupId>
 				<artifactId>maven-nativedependencies-plugin</artifactId>
 				<version>0.0.5</version>
 
-            <executions>
+				<executions>
 					<execution>
 						<id>unpacknatives</id>
 						<phase>generate-resources</phase>
@@ -56,27 +56,27 @@
 					</execution>
 				</executions>
 
-            <configuration>
-                <nativesTargetDir>src/main/resources/natives</nativesTargetDir>
-            </configuration>
+				<configuration>
+					<nativesTargetDir>src/main/resources/natives</nativesTargetDir>
+				</configuration>
 			</plugin>
 
-         <plugin>
+			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
-               <finalName>etaron</finalName>
+					<finalName>etaron</finalName>
 
-               <archive>
+					<archive>
 						<manifest>
 							<mainClass>com.dalthow.etaron.Run</mainClass>
 						</manifest>
 					</archive>
 
-               <descriptors>
-                  <descriptor>assembly/jar.xml</descriptor>
-                  <descriptor>assembly/bin.xml</descriptor>
-                  <descriptor>assembly/src.xml</descriptor>
-               </descriptors>
+					<descriptors>
+						<descriptor>assembly/jar.xml</descriptor>
+						<descriptor>assembly/bin.xml</descriptor>
+						<descriptor>assembly/src.xml</descriptor>
+					</descriptors>
 				</configuration>
 			</plugin>
 
