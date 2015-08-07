@@ -14,8 +14,13 @@ import org.newdawn.slick.opengl.ImageIOImageData;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.ResourceLoader;
 
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import com.dalthow.etaron.framework.States;
 import com.dalthow.etaron.handler.ResourceHandler;
+import com.dalthow.etaron.network.TransferData;
 import com.dalthow.etaron.states.Game;
 import com.dalthow.etaron.states.Menu;
 import com.dalthow.etaron.states.Splash;
@@ -36,8 +41,20 @@ public class Run extends StateBasedGame
 	public static int width = 960, height = 720;
 	private static boolean fullScreen = false, vSync = false;
 	
+	
+	// Declaration of the ResourceHandler.
+	
 	public static ResourceHandler resourceHandler;
-	public static String version = "0.2.0.0";
+	
+	
+	// Declaration for the authentication variables.
+	
+	private static String email;
+	private transient static String password;
+	
+	public static String accessToken;
+	
+	public static String version = "0.2.0.0"; // TODO: Get this from the Maven pom.xml.
 	
 	
 	// Constructor that creates the game container.
@@ -49,6 +66,14 @@ public class Run extends StateBasedGame
 		AppGameContainer gameContainer = new AppGameContainer(this);
 		
 		
+		// Tries to log the user in if he entered credentials.
+		
+		if(email != null && password != null)
+		{
+			accessToken = attemptLogin(email, password);
+		}
+		
+				
 		// If full-screen is enabled, then reset the width and height so it fits the screen.
 		
 		if(fullScreen)
@@ -74,7 +99,7 @@ public class Run extends StateBasedGame
 	
 	public static void main(String args[])
 	{
-		System.setProperty("java.library.path", "natives/");
+		//System.setProperty("java.library.path", "natives/");
 		 
 		try 
 		{
@@ -147,6 +172,16 @@ public class Run extends StateBasedGame
 					{
 						vSync = Boolean.parseBoolean(args[i].substring("-vsync=".length()));
 					}
+					
+					else if(args[i].startsWith("-email="))
+					{
+						email = args[i].substring("-email=".length());
+					}
+					
+					else if(args[i].startsWith("-password="))
+					{
+						password = args[i].substring("-password=".length());
+					}
 				}
 				
 				catch(Exception error)
@@ -181,5 +216,25 @@ public class Run extends StateBasedGame
 		addState(new Game());
 		
 		enterState(States.SPLASH_STATE.getId());
+	}
+	
+	/**
+     * attemptLogin Tries to log the user in and obtain an access token.
+     *
+     * @param  {String} email    The users email.
+     * @param  {String} password The users password.
+     * 
+     * @return {String}			  The access token.		
+     */
+	private String attemptLogin(String email, String password)
+	{
+		BasicNameValuePair[] authenticationData = new BasicNameValuePair[3];
+		authenticationData[0] = new BasicNameValuePair("email", email);
+		authenticationData[1] = new BasicNameValuePair("password", password);
+		authenticationData[2] = new BasicNameValuePair("getToken", "true");
+		
+		System.out.println(TransferData.postData("http://datayma.dalthow.com/share/scripts/php/authentication.php", authenticationData));
+		
+		return null;
 	}
 }
