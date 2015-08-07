@@ -135,13 +135,22 @@ public class Sand extends WorldObject
 	}
 	
 	
-	// TODO: Document this.
-	
+	/**
+     * getBoundsBottom Used to check if the Sand is touching a solid WorldObject on the bottom.
+     * 
+     * @return {Rectangle}
+     */
 	public Rectangle getBoundsBottom()
 	{
 		return new Rectangle((int)xPos + 8, (int)yPos + 24, 16, 8);
 	}
-
+	
+	
+	/**
+     * getBoundsTop Used to check if the Sand is touching a solid WorldObject on the top.
+     * 
+     * @return {Rectangle}
+     */
 	public Rectangle getBoundsTop()
 	{
 		return new Rectangle((int)xPos + 8, (int)yPos, 16, 8);

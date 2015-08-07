@@ -206,7 +206,7 @@ public class Player extends WorldObject
 	
 	
 	/**
-     * getBoundsTop Used to check if we are touching a wall on the top.
+     * getBoundsTop Used to check if we are touching a solid WorldObject on the top.
      * 
      * @return {Rectangle}
      */
@@ -217,7 +217,7 @@ public class Player extends WorldObject
 
 	
 	/**
-     * getBoundsBottom Used to check if we are touching a wall on the bottom.
+     * getBoundsBottom Used to check if we are touching a solid WorldObject on the bottom.
      * 
      * @return {Rectangle}
      */

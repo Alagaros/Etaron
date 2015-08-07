@@ -21,11 +21,6 @@ import com.dalthow.etaron.states.Game;
 
 public class Block extends WorldObject
 {
-	// Declaring a temporary player.
-	
-	private Player temporaryPlayer;
-	
-	
 	// Constructor that sets the variables for the WorldObject.
 	
 	public Block(float xPos, float yPos, Identifier id, boolean isSolid) 
@@ -39,14 +34,14 @@ public class Block extends WorldObject
 	@Override
 	public void tick(List<WorldObject> objectList) 
 	{
-		temporaryPlayer = (Player)Game.cameraFocus;
-		
 		if(id == Identifier.DOOR)
 		{
 			// Making sure the user can touch the block.
 			
 			Rectangle touchBounds = getBounds();
 			touchBounds.grow(1, 1);
+
+			Player temporaryPlayer = (Player)Game.cameraFocus;
 			
 			if(temporaryPlayer.getBounds().intersects(touchBounds))
 			{
@@ -64,14 +59,19 @@ public class Block extends WorldObject
 			Rectangle touchBounds = getBounds();
 			touchBounds.grow(0, 1);
 			
-			if(temporaryPlayer.getBoundsTop().intersects(touchBounds))
+			for (int i = 0; i < Game.objectHandler.players.size(); i++) 
 			{
-				temporaryPlayer.setVelY((float)(Player.jumpHeight * 1.75));
-			}
-			
-			else if(temporaryPlayer.getBoundsBottom().intersects(touchBounds))
-			{
-				temporaryPlayer.setVelY((float)(-Player.jumpHeight * 1.75));
+				Player temporaryPlayer = Game.objectHandler.players.get(i);
+				
+				if(temporaryPlayer.getBoundsTop().intersects(touchBounds))
+				{
+					temporaryPlayer.setVelY((float)(Player.jumpHeight * 1.75));
+				}
+				
+				else if(temporaryPlayer.getBoundsBottom().intersects(touchBounds))
+				{
+					temporaryPlayer.setVelY((float)(-Player.jumpHeight * 1.75));
+				}
 			}
 		}
 	}
