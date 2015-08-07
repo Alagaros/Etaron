@@ -1,4 +1,4 @@
-package com.dalthow.etaron.network;
+package com.dalthow.etaron.utils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,12 +20,20 @@ import org.apache.http.util.EntityUtils;
  *
  *
  * @author Dalthow Game Studios 
- * @class TransferData.java
+ * @class NetworkUtil.java
  *
  **/
 
-public class TransferData
+public class NetworkUtil
 {
+	/**
+     * postData Makes a http post request to a specific page with some values.
+     *
+     * @param  {String} url                  The web-page we should post to.
+     * @param  {BasicNameValuePair[]} values The variables that should be posted with the request.
+     *
+     * @return {String}						 The response pages.
+     */
 	public static String postData(String url,  BasicNameValuePair[] values)
 	{
 		HttpClient httpClient = HttpClientBuilder.create().build();
