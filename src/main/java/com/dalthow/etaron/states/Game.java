@@ -21,7 +21,6 @@ import com.dalthow.etaron.framework.Camera;
 import com.dalthow.etaron.framework.States;
 import com.dalthow.etaron.framework.WorldObject;
 import com.dalthow.etaron.handler.ObjectHandler;
-import com.dalthow.etaron.media.ImageResource;
 import com.dalthow.etaron.objects.Player;
 
 /**

@@ -6,6 +6,9 @@ import java.nio.ByteBuffer;
 
 import javax.imageio.ImageIO;
 
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
@@ -14,16 +17,12 @@ import org.newdawn.slick.opengl.ImageIOImageData;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.ResourceLoader;
 
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import com.dalthow.etaron.framework.States;
 import com.dalthow.etaron.handler.ResourceHandler;
-import com.dalthow.etaron.network.TransferData;
 import com.dalthow.etaron.states.Game;
 import com.dalthow.etaron.states.Menu;
 import com.dalthow.etaron.states.Splash;
+import com.dalthow.etaron.utils.NetworkUtil;
 
 /**
  * Etaron
@@ -233,7 +232,17 @@ public class Run extends StateBasedGame
 		authenticationData[1] = new BasicNameValuePair("password", password);
 		authenticationData[2] = new BasicNameValuePair("getToken", "true");
 		
-		System.out.println(TransferData.postData("http://datayma.dalthow.com/share/scripts/php/authentication.php", authenticationData));
+		try 
+		{
+			JSONObject response = new JSONObject(NetworkUtil.postData("http://datayma.dalthow.com/share/scripts/php/authentication.php", authenticationData));
+		
+			return response.getString("session");
+		} 
+		
+		catch(JSONException error)
+		{
+			error.printStackTrace();
+		}
 		
 		return null;
 	}
