@@ -8,7 +8,6 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
 
 import com.dalthow.etaron.Run;
 import com.dalthow.etaron.framework.Identifier;
@@ -139,7 +138,7 @@ public class Player extends WorldObject
 		
 		for(int i = 0; i < objectList.size(); i++)
 		{
-			WorldObject temporaryObject = Game.objectHandler.objects.get(i);
+			WorldObject temporaryObject = objectList.get(i);
 
 			
 			// Checking if the object is solid and not a Player.
@@ -194,7 +193,7 @@ public class Player extends WorldObject
 				
 				else if(temporaryObject.getId() == Identifier.COIN || temporaryObject.getId() == Identifier.KEY)
 				{
-					Game.objectHandler.objects.remove(temporaryObject);
+					objectList.remove(temporaryObject);
 					
 					Item item = (Item)temporaryObject;
 					item.getPickupSound().play();

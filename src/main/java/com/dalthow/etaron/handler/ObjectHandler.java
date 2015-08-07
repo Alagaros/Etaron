@@ -17,6 +17,7 @@ import com.dalthow.etaron.objects.Block;
 import com.dalthow.etaron.objects.Elevator;
 import com.dalthow.etaron.objects.Item;
 import com.dalthow.etaron.objects.Player;
+import com.dalthow.etaron.objects.Sand;
 import com.dalthow.etaron.objects.Turret;
 import com.dalthow.etaron.states.Game;
 
@@ -164,6 +165,11 @@ public class ObjectHandler
 				else if(red == 139 && green == 69 && blue == 19)
 				{
 					addObject(new Block((i * 32), (j * 32), Identifier.DOOR, true));
+				}
+				
+				else if(red == 139 && green == 139 && blue == 0)
+				{
+					addObject(new Sand((i * 32), (j * 32), Identifier.SAND, true));
 				}
 				
 				else if(red == 255 && green == 175 && blue == 175)

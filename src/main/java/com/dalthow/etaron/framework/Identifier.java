@@ -24,5 +24,6 @@ public enum Identifier
 	TURRET(),
 	DECOR(),
 	FLAG(),
+	SAND(),
 	DOOR();
 }

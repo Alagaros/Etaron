@@ -70,7 +70,7 @@ public class Projectile extends WorldObject
 		
 		for(int i = 0; i < objectList.size(); i++)
 		{
-			WorldObject temporaryObject = Game.objectHandler.objects.get(i);
+			WorldObject temporaryObject = objectList.get(i);
 			
 			
 			// Remove the Projectile from the world if the hit object is solid and not a Player.
