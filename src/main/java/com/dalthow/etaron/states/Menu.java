@@ -290,7 +290,7 @@ public class Menu implements GameState
 				{
 					try 
 					{
-						Game.objectHandler.loadLevel((Image) allPages[page].get(i));
+						Game.objectHandler.loadLevel((Image)allPages[page].get(i));
 					} 
 					
 					catch(IOException error)

@@ -98,26 +98,5 @@ public enum ImageResource
 		{
 			this.level = level;
 		}
-
-		
-		/**
-	     * getLevelByNumber Returns a type with the path based on an id.
-	     *
-	     * @param  {int} id The level id.
-	     *
-	     * @return {Levels}
-	     */
-		public static Levels getLevelByNumber(int id)
-		{
-			for(Levels level : Levels.values())
-			{
-				if(level.getLevel() == id)
-				{
-					return level;
-				}
-			}
-			
-			return null;
-		}
 	}
 }
