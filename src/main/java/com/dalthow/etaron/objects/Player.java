@@ -198,12 +198,12 @@ public class Player extends WorldObject
 				{
 					Game.objectHandler.endTime = System.currentTimeMillis();
 					Game.objectHandler.reloadLevel(); // TODO: Navigate the user to the next level instead of reloading the current one.
-					
+
 					BasicNameValuePair[] scoreData = new BasicNameValuePair[4];
 					scoreData[0] = new BasicNameValuePair("accessToken", Run.accessToken);
 					scoreData[1] = new BasicNameValuePair("level", ""); // TODO: Resolve the level id.
-					scoreData[2] = new BasicNameValuePair("coins", "1"); // TODO: Resolve the collected coin count.
-					scoreData[3] = new BasicNameValuePair("duration", Float.toString(Game.objectHandler.getDurationInSeconds())); // TODO: Resolve the amount of milliseconds it took the user to finish the level.
+					scoreData[2] = new BasicNameValuePair("coins", Integer.toString(getItemCount(Identifier.COIN)));
+					scoreData[3] = new BasicNameValuePair("duration", Float.toString(Game.objectHandler.getDurationInSeconds()));
 					
 					String response = NetworkUtil.postData("http://www.dalthow.com/share/games/etaron/submit-score.php", scoreData);
 					
@@ -285,10 +285,10 @@ public class Player extends WorldObject
 
 	
 	/**
-     * hasItem Used to figure out if the user has a specific item, if thats true there is also an option to remove the item.
+     * hasItem Used to figure out if the Player has a specific item, if thats true there is also an option to remove the item.
      * 
      * @param  {Identifier} id       The id the Item should have.
-     * @param  {boolean} consumeItem Whether the Item should be removed if the user has it.
+     * @param  {boolean} consumeItem Whether the Item should be removed if the Player has it.
      * 
      * @return {boolean}
      */
@@ -308,5 +308,28 @@ public class Player extends WorldObject
 		}
 		
 		return false;
+	}
+	
+	
+	/**
+     * getItemCount Used to figure out how much the Player has of a certain item.
+     * 
+     * @param  {Identifier} id The id the Item should have.
+     * 
+     * @return {int}
+     */
+	private int getItemCount(Identifier id)
+	{
+		int itemCount = 0;
+		
+		for(int i = 0; i < inventory.size(); i++) 
+		{
+			if(inventory.get(i).getId() == id)
+			{
+				itemCount++;
+			}
+		}
+		
+		return itemCount;
 	}
 }
