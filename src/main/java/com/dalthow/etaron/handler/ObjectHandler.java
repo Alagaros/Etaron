@@ -40,7 +40,7 @@ public class ObjectHandler
 	
 	// Declaration of the duration variables.
 	
-	public long startTime, endTime;
+	public long startTime;
 	
 	
 	// Declaration of the level image.
@@ -117,6 +117,8 @@ public class ObjectHandler
      */
 	public void loadLevel(Image image) throws SlickException, IOException
 	{
+		startTime = System.currentTimeMillis();
+		
 		clearLevel();
 
 		int imageWidth = image.getWidth();
@@ -208,8 +210,6 @@ public class ObjectHandler
 				Game.cameraFocus = players.get(i);
 			}
 		}
-		
-		startTime = System.currentTimeMillis();
 	}
 	
 	
@@ -299,14 +299,16 @@ public class ObjectHandler
 	
 	
 	/**
-     * getDurationInSeconds Calculates how many seconds it took for the Player to finish the level.
+     * nextLevel Goes to the next level.
      *
-     * @return {float}
+     * @return {float} The amount of seconds it took to complete the previous level.
+     * 
+	 * @throws {SlickException}
      */
-	public float getDurationInSeconds()
+	public float nextLevel() throws SlickException
 	{
-		float milliSeconds = endTime - startTime;
+		reloadLevel();
 		
-		return milliSeconds / 1000;
+		return ((float)(System.currentTimeMillis() - startTime) / 1000);
 	}
 }

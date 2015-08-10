@@ -268,8 +268,8 @@ public class Game implements GameState
 			graphics.drawString("VERSION:" + " " + Run.version, 15, 15);
 			graphics.drawString("FPS:" + " " + gameContainer.getFPS(), 15, 30);
 
-			graphics.drawString("X:" + " " + (int) cameraObject.getPosX(), 15, 60);
-			graphics.drawString("Y:" + " " + (int) cameraObject.getPosY(), 15, 75);
+			graphics.drawString("X:" + " " + (int)cameraObject.getPosX(), 15, 60);
+			graphics.drawString("Y:" + " " + (int)cameraObject.getPosY(), 15, 75);
 		}
 	}
 	
