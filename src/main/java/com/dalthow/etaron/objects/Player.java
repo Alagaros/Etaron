@@ -196,13 +196,14 @@ public class Player extends WorldObject
 				
 				if(temporaryObject.getId() == Identifier.FLAG)
 				{
+					Game.objectHandler.endTime = System.currentTimeMillis();
 					Game.objectHandler.reloadLevel(); // TODO: Navigate the user to the next level instead of reloading the current one.
 					
 					BasicNameValuePair[] scoreData = new BasicNameValuePair[4];
 					scoreData[0] = new BasicNameValuePair("accessToken", Run.accessToken);
 					scoreData[1] = new BasicNameValuePair("level", ""); // TODO: Resolve the level id.
 					scoreData[2] = new BasicNameValuePair("coins", "1"); // TODO: Resolve the collected coin count.
-					scoreData[3] = new BasicNameValuePair("duration", "milliseconds go here"); // TODO: Resolve the amount of milliseconds it took the user to finish the level.
+					scoreData[3] = new BasicNameValuePair("duration", Float.toString(Game.objectHandler.getDurationInSeconds())); // TODO: Resolve the amount of milliseconds it took the user to finish the level.
 					
 					String response = NetworkUtil.postData("http://www.dalthow.com/share/games/etaron/submit-score.php", scoreData);
 					

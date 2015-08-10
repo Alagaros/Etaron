@@ -217,6 +217,7 @@ public class Run extends StateBasedGame
 		enterState(States.SPLASH_STATE.getId());
 	}
 	
+	
 	/**
      * attemptLogin Tries to log the user in and obtain an access token.
      *
@@ -230,7 +231,7 @@ public class Run extends StateBasedGame
 		BasicNameValuePair[] authenticationData = new BasicNameValuePair[3];
 		authenticationData[0] = new BasicNameValuePair("email", email);
 		authenticationData[1] = new BasicNameValuePair("password", password);
-		authenticationData[2] = new BasicNameValuePair("getToken", "true");
+		authenticationData[2] = new BasicNameValuePair("type", "token");
 		
 		try 
 		{
@@ -238,7 +239,7 @@ public class Run extends StateBasedGame
 		
 			if(response.getString("status").matches("success"))
 			{
-				return response.getString("session");
+				return response.getString("token");
 			}
 			
 			else

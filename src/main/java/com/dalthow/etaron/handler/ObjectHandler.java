@@ -38,6 +38,11 @@ public class ObjectHandler
 	private Player temporaryPlayer;
 	
 	
+	// Declaration of the duration variables.
+	
+	public long startTime, endTime;
+	
+	
 	// Declaration of the level image.
 	
 	private Image currentLevel;
@@ -203,6 +208,8 @@ public class ObjectHandler
 				Game.cameraFocus = players.get(i);
 			}
 		}
+		
+		startTime = System.currentTimeMillis();
 	}
 	
 	
@@ -288,5 +295,18 @@ public class ObjectHandler
 			temporaryPlayer = players.get(i);
 			temporaryPlayer.render(graphics);
 		}
+	}
+	
+	
+	/**
+     * getDurationInSeconds Calculates how many seconds it took for the Player to finish the level.
+     *
+     * @return {float}
+     */
+	public float getDurationInSeconds()
+	{
+		float milliSeconds = endTime - startTime;
+		
+		return milliSeconds / 1000;
 	}
 }
