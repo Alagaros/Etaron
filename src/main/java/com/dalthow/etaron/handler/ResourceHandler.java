@@ -57,11 +57,14 @@ public class ResourceHandler
      */
 	public void loadLevels() throws SlickException
 	{
-		for(ImageResource.Levels image : ImageResource.Levels.values())
+		for(ImageResource.Levels imageResource : ImageResource.Levels.values())
 		{
-			if(image.name().startsWith("LEVEL_"))
+			if(imageResource.name().startsWith("LEVEL_"))
 			{
-				levels.put(image, new Image(ResourceLoader.getResourceAsStream(image.getPath()), image.name(), false));
+				Image image = new Image(ResourceLoader.getResourceAsStream(imageResource.getPath()), imageResource.name(), false);
+				image.setName(imageResource.getPath());
+
+				levels.put(imageResource, image);
 			}
 		}
 	}
@@ -79,7 +82,7 @@ public class ResourceHandler
      */
 	public Image get(ImageResource image, boolean flipped) throws SlickException, IOException
 	{
-		return new Image(ResourceLoader.getResourceAsStream(image.getPath()), image.name(), flipped);
+		return new Image(ResourceLoader.getResourceAsStream(image.getPath()), image.getPath(), flipped);
 	}
 
 	

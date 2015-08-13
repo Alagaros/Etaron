@@ -98,5 +98,26 @@ public enum ImageResource
 		{
 			this.level = level;
 		}
+		
+		
+		/**
+	     * findByPath Gets a Levels enum based on the path..
+	     *
+	     * @param  {String} path The Image it's path.
+	     * 
+	     * @return {Levels}
+	     */
+		public static Levels findByPath(String path)
+		{
+		    for(Levels levels : values())
+		    {
+		        if(levels.getPath().equals(path))
+		        {
+		            return levels;
+		        }
+		    }
+		    
+		    return null;
+		}
 	}
 }

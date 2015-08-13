@@ -45,7 +45,7 @@ public class ObjectHandler
 	
 	// Declaration of the level image.
 	
-	private Image currentLevel;
+	public Image currentLevel;
 
 	
 	// Declaration of the objects and players list.
