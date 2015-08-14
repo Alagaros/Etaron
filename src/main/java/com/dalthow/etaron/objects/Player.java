@@ -200,7 +200,7 @@ public class Player extends WorldObject
 					scoreData[0] = new BasicNameValuePair("accessToken", Run.accessToken);
 					scoreData[1] = new BasicNameValuePair("level", Integer.toString(ImageResource.Levels.findByPath(Game.objectHandler.currentLevel.getName()).getLevel()));
 					scoreData[2] = new BasicNameValuePair("coins", Integer.toString(getItemCount(Identifier.COIN)));
-					scoreData[3] = new BasicNameValuePair("duration", Float.toString(Game.objectHandler.nextLevel()));
+					scoreData[3] = new BasicNameValuePair("duration", Float.toString(Game.objectHandler.nextLevel())); // TODO: Fix this, probably with the Joda-Time library.
 					
 					String response = NetworkUtil.postData("http://www.dalthow.com/share/games/etaron/submit-score.php", scoreData);
 					
