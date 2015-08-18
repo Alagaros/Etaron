@@ -51,7 +51,7 @@ public class Run extends StateBasedGame
 	private static String email;
 	private transient static String password;
 	
-	public static String accessToken;
+	public static String accessToken, scores;
 	
 	public static String version = "0.2.0.0"; // TODO: Get this from the Maven pom.xml.
 	
@@ -70,6 +70,16 @@ public class Run extends StateBasedGame
 		if(email != null && password != null)
 		{
 			accessToken = attemptLogin(email, password);
+		}
+		
+		
+		// Getting scores and sending some client information.
+		
+		if(accessToken != null)
+		{
+			scores = getScores();
+			
+			sendClientInformation();
 		}
 		
 				
@@ -254,5 +264,71 @@ public class Run extends StateBasedGame
 		}
 		
 		return null;
+	}
+	
+	
+	/**
+     * getScores Tries to get the previous scores from a user.
+     *
+     * @return {String}	The json String.	
+     */
+	private String getScores()
+	{
+		BasicNameValuePair[] scoresData = new BasicNameValuePair[1];
+		scoresData[0] = new BasicNameValuePair("accessToken", accessToken);
+		
+		try 
+		{
+			JSONObject response = new JSONObject(NetworkUtil.postData("http://www.dalthow.com/share/games/etaron/get-scores.php", scoresData));
+		
+			if(response.getString("status").matches("success"))
+			{
+				return response.getString("scores");
+			}
+			
+			else
+			{
+				System.out.println(response.getString("status")); // TODO: Give this some nice formatting.
+			}
+		} 
+		
+		catch(JSONException error)
+		{
+			error.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+
+	private boolean sendClientInformation() 
+	{
+		BasicNameValuePair[] clientData = new BasicNameValuePair[4];
+		clientData[0] = new BasicNameValuePair("accessToken", accessToken);
+		clientData[1] = new BasicNameValuePair("java", System.getProperty("java.version"));
+		clientData[2] = new BasicNameValuePair("os", System.getProperty("os.name"));
+		clientData[3] = new BasicNameValuePair("arch", System.getProperty("os.arch"));
+	
+		try 
+		{
+			JSONObject response = new JSONObject(NetworkUtil.postData("http://www.dalthow.com/share/scripts/php/provide-client-info.php", clientData));
+			
+			if(response.getString("status").matches("success"))
+			{
+				return true;
+			}
+			
+			else
+			{
+				System.out.println(response.getString("status")); // TODO: Give this some nice formatting.
+			}
+		} 
+		
+		catch (JSONException error) 
+		{
+			error.printStackTrace();
+		}
+		
+		return false;
 	}
 }
