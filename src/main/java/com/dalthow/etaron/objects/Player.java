@@ -197,6 +197,7 @@ public class Player extends WorldObject
 				if(temporaryObject.getId() == Identifier.FLAG)
 				{
 					BasicNameValuePair[] scoreData = new BasicNameValuePair[4];
+					System.out.println(Run.accessToken);
 					scoreData[0] = new BasicNameValuePair("accessToken", Run.accessToken);
 					scoreData[1] = new BasicNameValuePair("level", Integer.toString(ImageResource.Levels.findByPath(Game.objectHandler.currentLevel.getName()).getLevel()));
 					scoreData[2] = new BasicNameValuePair("coins", Integer.toString(getItemCount(Identifier.COIN)));
