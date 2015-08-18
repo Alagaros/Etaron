@@ -7,6 +7,7 @@ import java.nio.ByteBuffer;
 import javax.imageio.ImageIO;
 
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray ;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.lwjgl.opengl.Display;
@@ -17,6 +18,7 @@ import org.newdawn.slick.opengl.ImageIOImageData;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.ResourceLoader;
 
+import com.dalthow.etaron.framework.Score ;
 import com.dalthow.etaron.framework.States;
 import com.dalthow.etaron.handler.ResourceHandler;
 import com.dalthow.etaron.states.Game;
@@ -51,7 +53,7 @@ public class Run extends StateBasedGame
 	private static String email;
 	private transient static String password;
 	
-	public static String accessToken, scores;
+	public static String accessToken;
 	
 	public static String version = "0.2.0.0"; // TODO: Get this from the Maven pom.xml.
 	
@@ -77,9 +79,24 @@ public class Run extends StateBasedGame
 		
 		if(accessToken != null)
 		{
-			scores = getScores();
+			JSONArray scores = getScores();
 			
-			sendClientInformation();
+			for(int i = 0; i < scores.length(); i++)
+			{
+				try
+				{
+					JSONObject temporaryObject = scores.getJSONObject(i);
+					
+					Menu.scores.add(new Score(temporaryObject.getInt("coins"), temporaryObject.getInt("level"), temporaryObject.getDouble("duration")));
+				}
+				
+				catch(JSONException error)
+				{
+					error.printStackTrace();
+				}
+			}
+			
+			sendSystemInfo();
 		}
 		
 				
@@ -272,7 +289,7 @@ public class Run extends StateBasedGame
      *
      * @return {String}	The json String.	
      */
-	private String getScores()
+	private JSONArray getScores()
 	{
 		BasicNameValuePair[] scoresData = new BasicNameValuePair[1];
 		scoresData[0] = new BasicNameValuePair("accessToken", accessToken);
@@ -283,7 +300,7 @@ public class Run extends StateBasedGame
 		
 			if(response.getString("status").matches("success"))
 			{
-				return response.getString("scores");
+				return response.getJSONArray("scores");
 			}
 			
 			else
@@ -301,7 +318,7 @@ public class Run extends StateBasedGame
 	}
 	
 
-	private boolean sendClientInformation() 
+	private boolean sendSystemInfo() 
 	{
 		BasicNameValuePair[] clientData = new BasicNameValuePair[4];
 		clientData[0] = new BasicNameValuePair("accessToken", accessToken);
@@ -311,7 +328,7 @@ public class Run extends StateBasedGame
 	
 		try 
 		{
-			JSONObject response = new JSONObject(NetworkUtil.postData("http://www.dalthow.com/share/scripts/php/provide-client-info.php", clientData));
+			JSONObject response = new JSONObject(NetworkUtil.postData("http://www.dalthow.com/share/scripts/php/upload-system-info.php", clientData));
 			
 			if(response.getString("status").matches("success"))
 			{

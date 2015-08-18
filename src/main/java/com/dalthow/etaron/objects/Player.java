@@ -12,10 +12,12 @@ import org.newdawn.slick.SlickException;
 
 import com.dalthow.etaron.Run;
 import com.dalthow.etaron.framework.Identifier;
+import com.dalthow.etaron.framework.Score ;
 import com.dalthow.etaron.framework.WorldObject;
 import com.dalthow.etaron.media.ImageResource;
 import com.dalthow.etaron.media.SoundResource;
 import com.dalthow.etaron.states.Game;
+import com.dalthow.etaron.states.Menu ;
 import com.dalthow.etaron.utils.NetworkUtil;
 
 /**
@@ -197,13 +199,15 @@ public class Player extends WorldObject
 				if(temporaryObject.getId() == Identifier.FLAG)
 				{
 					BasicNameValuePair[] scoreData = new BasicNameValuePair[4];
-					System.out.println(Run.accessToken);
+
 					scoreData[0] = new BasicNameValuePair("accessToken", Run.accessToken);
 					scoreData[1] = new BasicNameValuePair("level", Integer.toString(ImageResource.Levels.findByPath(Game.objectHandler.currentLevel.getName()).getLevel()));
 					scoreData[2] = new BasicNameValuePair("coins", Integer.toString(getItemCount(Identifier.COIN)));
 					scoreData[3] = new BasicNameValuePair("duration", Float.toString(Game.objectHandler.nextLevel())); // TODO: Fix this, probably with the Joda-Time library.
 					
 					String response = NetworkUtil.postData("http://www.dalthow.com/share/games/etaron/submit-score.php", scoreData);
+					
+					Menu.scores.add(new Score(Integer.parseInt(scoreData[2].getValue()), Integer.parseInt(scoreData[1].getValue()), Float.parseFloat(scoreData[3].getValue())));
 					
 					Run.resourceHandler.sounds.get(SoundResource.VICTORY).play();
 					

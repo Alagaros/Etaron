@@ -20,6 +20,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.ResourceLoader;
 
 import com.dalthow.etaron.Run;
+import com.dalthow.etaron.framework.Score ;
 import com.dalthow.etaron.framework.States;
 import com.dalthow.etaron.media.ImageResource;
 import com.dalthow.etaron.utils.DrawUtils;
@@ -46,7 +47,7 @@ public class Menu implements GameState
 	private Rectangle levels[];
 	
 	
-	// Declaration of all the levels.
+	// Declaration of all the levels and scores.
 	
 	public static List<Image> easyLevelPage = new ArrayList<Image>();
 	public static List<Image> mediumLevelPage = new ArrayList<Image>();
@@ -55,17 +56,19 @@ public class Menu implements GameState
 	
 	public static List[] allPages = {easyLevelPage, mediumLevelPage, hardLevelPage, customLevelPage};
 	
+	public static List<Score> scores = new ArrayList<Score>();
+	
 	
 	// Declaration of the fonts used in this state.
 	
 	private TrueTypeFont difficultyFont, infoFont;
 	
 	
-	// Declaration of the mouse position.
+	// Declaration of the mouse position and states.
 	
 	private int xMouse, yMouse;
-	private Rectangle mousePixel;
 	private boolean mouseDown;
+	private Rectangle mousePixel;
 	
 	
 	// Declaring some other variables.
@@ -363,6 +366,19 @@ public class Menu implements GameState
 			list.get(i).draw((gameContainer.getWidth() - 578) / 2 + (col * 150), 200 + (row * 150), 2);
 			levels[i] = new Rectangle((gameContainer.getWidth() - 578) / 2 + (col * 150), 200 + (row * 150), 128, 128);
 			
+			Score score = getHighestScoreForLevel(i + 1 + (page * 12));
+			
+			if(score != null)
+			{
+				DrawUtils.drawAdvancedString(graphics, gameContainer, "Coins: " + score.getCoins(), infoFont, new Color(255, 255, 255), (gameContainer.getWidth() - 570) / 2 + (col * 150), 332 + (row * 150));
+				DrawUtils.drawAdvancedString(graphics, gameContainer, score.getDuration() + "ms", infoFont, new Color(255, 255, 255), (gameContainer.getWidth() - 376 - infoFont.getWidth(score.getDuration() + "ms")) / 2 + (col * 150), 332 + (row * 150));
+			}
+			
+			else
+			{
+				DrawUtils.drawAdvancedString(graphics, gameContainer, "?", infoFont, new Color(255, 255, 255), (gameContainer.getWidth() - 456) / 2 + (col * 150), 332 + (row * 150));
+			}
+			
 			col++;
 			
 		
@@ -374,5 +390,55 @@ public class Menu implements GameState
 				row++;
 			}
 		}
+	}
+	
+	
+	/**
+     * getHighestScoreForLevel Checks what the highest achieved score is for a certain level.
+     *
+     * @param  {int} level The level we should check for.
+     * 
+     * @return {Score}
+     */
+	private Score getHighestScoreForLevel(int level)
+	{
+		Score highestScore = null;
+		
+		
+		// Looping trough all the scores.
+		
+		for(int i = 0; i < scores.size(); i++)
+		{
+			if(scores.get(i).getLevel() == level)
+			{
+				// If there is no "highestScore" specified yet.
+				
+				if(highestScore == null)
+				{
+					highestScore = scores.get(i); 
+				}
+				
+				
+				// If there is a score with a higher coin count.
+				
+				else if(scores.get(i).getCoins() > highestScore.getCoins())
+				{
+					highestScore = scores.get(i); 
+				}
+				
+				
+				// If the coin count is equal but the duration faster.
+				
+				else if(scores.get(i).getCoins() == highestScore.getCoins())
+				{	
+					if(scores.get(i).getDuration() < highestScore.getDuration())
+					{
+						highestScore = scores.get(i);
+					}
+				}
+			}
+		}
+		
+		return highestScore;
 	}
 }
