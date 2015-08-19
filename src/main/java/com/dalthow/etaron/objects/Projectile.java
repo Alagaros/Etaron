@@ -8,7 +8,6 @@ import org.newdawn.slick.Graphics;
 
 import com.dalthow.etaron.framework.Identifier;
 import com.dalthow.etaron.framework.WorldObject;
-import com.dalthow.etaron.states.Game;
 
 /**
  * Etaron

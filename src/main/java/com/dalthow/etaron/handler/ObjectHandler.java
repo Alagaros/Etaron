@@ -22,7 +22,6 @@ import com.dalthow.etaron.objects.Player;
 import com.dalthow.etaron.objects.Sand;
 import com.dalthow.etaron.objects.Turret;
 import com.dalthow.etaron.states.Game;
-import com.dalthow.etaron.states.Splash ;
 
 /**
  * Etaron
@@ -237,7 +236,7 @@ public class ObjectHandler
 		
 		catch(IOException error) 
 		{
-			error.printStackTrace();
+			logger.error(error);
 		}
 	}
 

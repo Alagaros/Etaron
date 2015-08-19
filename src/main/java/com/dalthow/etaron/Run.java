@@ -85,7 +85,7 @@ public class Run extends StateBasedGame
 
 		// Getting scores and sending some client information.
 
-		if(accessToken != null)
+		if(isLoggedIn())
 		{
 			JSONArray scores = getScores();
 
@@ -364,5 +364,16 @@ public class Run extends StateBasedGame
 		}
 
 		return false;
+	}
+	
+	
+	/**
+	 * isLoggedIn Checks if the access token is empty.
+	 *
+	 * @return {boolean} If the user is logged in or not.
+	 */
+	public static boolean isLoggedIn()
+	{
+		return accessToken != null;
 	}
 }

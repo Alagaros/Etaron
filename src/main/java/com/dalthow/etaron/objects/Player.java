@@ -7,6 +7,8 @@ import java.util.List;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.LogManager ;
 import org.apache.log4j.Logger ;
+import org.json.JSONException ;
+import org.json.JSONObject ;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -20,6 +22,7 @@ import com.dalthow.etaron.media.ImageResource;
 import com.dalthow.etaron.media.SoundResource;
 import com.dalthow.etaron.states.Game;
 import com.dalthow.etaron.states.Menu ;
+import com.dalthow.etaron.utils.LogUtils ;
 import com.dalthow.etaron.utils.NetworkUtils;
 
 /**
@@ -205,16 +208,42 @@ public class Player extends WorldObject
 				
 				if(temporaryObject.getId() == Identifier.FLAG)
 				{
-					BasicNameValuePair[] scoreData = new BasicNameValuePair[4];
+					if(Run.isLoggedIn())
+					{
+						BasicNameValuePair[] scoreData = new BasicNameValuePair[4];
 
-					scoreData[0] = new BasicNameValuePair("accessToken", Run.accessToken);
-					scoreData[1] = new BasicNameValuePair("level", Integer.toString(ImageResource.Levels.findByPath(Game.objectHandler.currentLevel.getName()).getLevel()));
-					scoreData[2] = new BasicNameValuePair("coins", Integer.toString(getItemCount(Identifier.COIN)));
-					scoreData[3] = new BasicNameValuePair("duration", Float.toString(Game.objectHandler.nextLevel())); // TODO: Fix this, probably with the Joda-Time library.
+						scoreData[0] = new BasicNameValuePair("accessToken", Run.accessToken);
+						scoreData[1] = new BasicNameValuePair("level", Integer.toString(ImageResource.Levels.findByPath(Game.objectHandler.currentLevel.getName()).getLevel()));
+						scoreData[2] = new BasicNameValuePair("coins", Integer.toString(getItemCount(Identifier.COIN)));
+						scoreData[3] = new BasicNameValuePair("duration", Float.toString(Game.objectHandler.nextLevel())); // TODO: Fix this, probably with the Joda-Time library.
+						
+						try
+						{
+							JSONObject response = new JSONObject(NetworkUtils.postData("http://www.dalthow.com/share/games/etaron/submit-score.php", scoreData));
+							
+							if(response.getString("status").matches("success"))
+							{
+								logger.info("Successfuly submited scores to the server for level: " + scoreData[1].getValue() + ".");
+							}
+							
+							else
+							{
+								logger.warn("Could not submit scores server responded with: " + LogUtils.formatServerMessage(response.getString("status")));
+							}
+						}
+						
+						catch(JSONException error)
+						{
+							logger.error(error);
+						}
+
+						Menu.scores.add(new Score(Integer.parseInt(scoreData[2].getValue()), Integer.parseInt(scoreData[1].getValue()), Float.parseFloat(scoreData[3].getValue())));
+					}
 					
-					String response = NetworkUtils.postData("http://www.dalthow.com/share/games/etaron/submit-score.php", scoreData);
-					
-					Menu.scores.add(new Score(Integer.parseInt(scoreData[2].getValue()), Integer.parseInt(scoreData[1].getValue()), Float.parseFloat(scoreData[3].getValue())));
+					else
+					{
+						Menu.scores.add(new Score(getItemCount(Identifier.COIN), ImageResource.Levels.findByPath(Game.objectHandler.currentLevel.getName()).getLevel(), Game.objectHandler.nextLevel()));
+					}
 					
 					Run.resourceHandler.sounds.get(SoundResource.VICTORY).play();
 					
