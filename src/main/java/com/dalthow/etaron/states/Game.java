@@ -5,6 +5,8 @@ import java.awt.FontFormatException;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.apache.log4j.LogManager ;
+import org.apache.log4j.Logger ;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -37,7 +39,12 @@ public class Game implements GameState
 	// Declaration of the WorldObject's.
 	
 	public static ObjectHandler objectHandler;
+	
+	
+	// Declaration of the Logger object.
 
+	private static final Logger logger = LogManager.getLogger(Game.class);
+		
 	
 	// Declaration of the Camera.
 	
@@ -173,7 +180,7 @@ public class Game implements GameState
 			
 			catch(SlickException error) 
 			{
-				error.printStackTrace();
+				logger.error(error);
 			}
 		}
 	}
@@ -218,7 +225,7 @@ public class Game implements GameState
 		
 		catch(IOException | FontFormatException error) 
 		{
-			error.printStackTrace();
+			logger.error(error);
 		}
 		
 		
@@ -254,7 +261,9 @@ public class Game implements GameState
 	public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException 
 	{
 		graphics.translate(cameraObject.getPosX(), cameraObject.getPosY());
+		
 		objectHandler.render(graphics);
+		
 		graphics.translate(-cameraObject.getPosX(), -cameraObject.getPosY());
 		
 		if(displayInfo)

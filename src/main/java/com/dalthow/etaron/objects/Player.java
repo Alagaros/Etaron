@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.log4j.LogManager ;
+import org.apache.log4j.Logger ;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -18,7 +20,7 @@ import com.dalthow.etaron.media.ImageResource;
 import com.dalthow.etaron.media.SoundResource;
 import com.dalthow.etaron.states.Game;
 import com.dalthow.etaron.states.Menu ;
-import com.dalthow.etaron.utils.NetworkUtil;
+import com.dalthow.etaron.utils.NetworkUtils;
 
 /**
  * Etaron
@@ -35,7 +37,12 @@ public class Player extends WorldObject
 
 	private float playerWidth;
 	private float playerHeight;
+	
+	
+	// Declaration of the Logger object.
 
+	private static final Logger logger = LogManager.getLogger(Player.class);
+			
 	
 	// Declaration of some constant variables.
 	
@@ -94,7 +101,7 @@ public class Player extends WorldObject
 		
 		catch(SlickException error)
 		{
-			error.printStackTrace();
+			logger.error(error);
 		}
 	}
 	
@@ -205,7 +212,7 @@ public class Player extends WorldObject
 					scoreData[2] = new BasicNameValuePair("coins", Integer.toString(getItemCount(Identifier.COIN)));
 					scoreData[3] = new BasicNameValuePair("duration", Float.toString(Game.objectHandler.nextLevel())); // TODO: Fix this, probably with the Joda-Time library.
 					
-					String response = NetworkUtil.postData("http://www.dalthow.com/share/games/etaron/submit-score.php", scoreData);
+					String response = NetworkUtils.postData("http://www.dalthow.com/share/games/etaron/submit-score.php", scoreData);
 					
 					Menu.scores.add(new Score(Integer.parseInt(scoreData[2].getValue()), Integer.parseInt(scoreData[1].getValue()), Float.parseFloat(scoreData[3].getValue())));
 					

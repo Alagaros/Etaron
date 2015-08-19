@@ -14,18 +14,25 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.apache.log4j.LogManager ;
+import org.apache.log4j.Logger ;
 
 /**
  * Etaron
  *
  *
  * @author Dalthow Game Studios 
- * @class NetworkUtil.java
+ * @class NetworkUtils.java
  *
  **/
 
-public class NetworkUtil
+public class NetworkUtils
 {
+	// Declaration of the Logger object.
+
+	private static final Logger logger = LogManager.getLogger(NetworkUtils.class);
+	
+	
 	/**
      * postData Makes a http post request to a specific page with some values.
      *
@@ -39,6 +46,9 @@ public class NetworkUtil
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost httpPost = new HttpPost(url);
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		
+		
+		// Adding the parameters to the ArrayList.
 		
 		for(int i = 0; i < values.length; i++) 
 		{
@@ -59,12 +69,12 @@ public class NetworkUtil
 		
 		catch(ClientProtocolException error) 
 		{
-		    error.printStackTrace();
+			logger.error(error);
 		} 
 		
 		catch(IOException error) 
 		{
-		   System.out.println("Could not access the requested resource on the server.");
+			logger.error(error);
 		}
 		
 		return null;

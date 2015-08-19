@@ -46,8 +46,13 @@ public enum MusicResource
 	}
 	
 	
-	// Returns a type with the path based on an id.
-	
+	/**
+	 * getMusicById Returns a MusicResource based on a a id.
+	 * 
+	 * @param  {int} id The of the music that should be returned.
+	 * 
+	 * @return {MusicResource}
+	 */
 	public static MusicResource getMusicById(int id)
 	{
 		for(MusicResource music : MusicResource.values())

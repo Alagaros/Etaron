@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.LogManager ;
+import org.apache.log4j.Logger ;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -40,6 +42,11 @@ public class Menu implements GameState
 	
 	private Image header, arrowLeft, arrowRight;
 	
+	
+	// Declaration of the Logger object.
+
+	private static final Logger logger = LogManager.getLogger(Menu.class);
+		
 	
 	// Declaration of the rectangles used for click detection.
 	
@@ -178,7 +185,7 @@ public class Menu implements GameState
 		
 		catch(IOException | FontFormatException error) 
 		{
-			error.printStackTrace();
+			logger.error(error);
 		}
 		
 		
@@ -298,7 +305,7 @@ public class Menu implements GameState
 					
 					catch(IOException error)
 					{
-						error.printStackTrace();
+						logger.error(error);
 					}
 					
 					stateBasedGame.enterState(States.GAME_STATE.getId());

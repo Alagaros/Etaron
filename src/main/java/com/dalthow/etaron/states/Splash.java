@@ -2,6 +2,8 @@ package com.dalthow.etaron.states;
 
 import java.io.IOException;
 
+import org.apache.log4j.LogManager ;
+import org.apache.log4j.Logger ;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -31,6 +33,16 @@ public class Splash implements GameState
 	
 	private Image logo;
 	
+	
+	// Declaration of a variable used to check how long the user is in the Splash state.
+	
+	private int ticksInSplash;
+	
+	
+	// Declaration of the Logger object.
+
+	private static final Logger logger = LogManager.getLogger(Splash.class);
+		
 	
 	// Default implementation for mouse.
 	
@@ -98,7 +110,7 @@ public class Splash implements GameState
 		
 		catch(IOException error) 
 		{
-			error.printStackTrace();
+			logger.error(error);
 		}
 	}
 	
@@ -115,7 +127,7 @@ public class Splash implements GameState
 
 	public void leave(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException 
 	{
-		Run.resourceHandler.loadSounds();
+		
 	}
 
 	
@@ -132,6 +144,11 @@ public class Splash implements GameState
 
 	public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int delta) throws SlickException 
 	{
-		stateBasedGame.enterState(States.MENU_STATE.getId());
+		ticksInSplash += delta;
+		
+		if(ticksInSplash > 1000)
+		{
+			stateBasedGame.enterState(States.MENU_STATE.getId());
+		}
 	}
 }

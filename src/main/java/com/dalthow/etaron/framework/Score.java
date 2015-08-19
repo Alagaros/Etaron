@@ -8,6 +8,7 @@ package com.dalthow.etaron.framework;
  * @class Score.java
  * 
  **/
+
 public class Score
 {
 	// Declaration of all the fields in the database.
