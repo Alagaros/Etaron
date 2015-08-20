@@ -2,6 +2,7 @@ package com.dalthow.etaron.states;
 
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.io.File ;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ import com.dalthow.etaron.framework.Score ;
 import com.dalthow.etaron.framework.States;
 import com.dalthow.etaron.media.ImageResource;
 import com.dalthow.etaron.utils.DrawUtils;
+import com.dalthow.etaron.utils.FileUtils ;
+import com.dalthow.etaron.utils.ImageUtils ;
 
 /**
  * Etaron
@@ -203,6 +206,7 @@ public class Menu implements GameState
 		// Loading the levels.
 
 		loadLevelImages();
+		loadCustomLevels();
 		
 		
 		// Filling in some variables.
@@ -346,8 +350,53 @@ public class Menu implements GameState
 				hardLevelPage.add(Run.resourceHandler.levels.get(image));
 			}
 		}
+	}
+	
+	
+	private void loadCustomLevels() throws SlickException
+	{
+		customLevelPage.clear();
 		
-		//addCustomLevels();
+		File folder;
+		
+		folder = new File(System.getenv("Appdata") + "/Dalthow/Games/Etaron/custom levels/");
+
+		
+		// Checking if the folder already exists. If not create it.
+		
+		if(!folder.exists())
+		{
+			folder.mkdirs();
+			
+			logger.info("Custom level folder not found, creating one.");
+		}
+		
+		else
+		{
+			File[] listOfFiles = folder.listFiles();
+
+			for(int i = 0; i < listOfFiles.length; i++)
+			{
+				// Checking if the File is a file and not a file folder.
+				
+				if(listOfFiles[i].isFile())
+				{
+					// Checking if the File is a png.
+					
+					if(FileUtils.getFileExtension(listOfFiles[i]).matches("png"))
+					{
+						Image customLevel = new Image(folder.getPath() + "/" + listOfFiles[i].getName());
+						
+						// Checking if the level is valid.
+						
+						if(ImageUtils.isValidLevel(customLevel))
+						{
+							customLevelPage.add(customLevel);
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	
