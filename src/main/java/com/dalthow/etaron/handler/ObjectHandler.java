@@ -1,11 +1,15 @@
 package com.dalthow.etaron.handler;
 
 import java.io.IOException;
+import java.text.DecimalFormat ;
+import java.text.NumberFormat ;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.LogManager ;
 import org.apache.log4j.Logger ;
+import org.joda.time.DateTime ;
+import org.joda.time.Interval ;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -47,7 +51,7 @@ public class ObjectHandler
 	
 	// Declaration of the duration variables.
 	
-	public long startTime;
+	public DateTime startTime;
 	
 	
 	// Declaration of the level image.
@@ -124,7 +128,7 @@ public class ObjectHandler
      */
 	public void loadLevel(Image image) throws SlickException, IOException
 	{
-		startTime = System.currentTimeMillis();
+		startTime = new DateTime();
 		
 		clearLevel();
 
@@ -312,10 +316,15 @@ public class ObjectHandler
      * 
 	 * @throws {SlickException}
      */
-	public float nextLevel() throws SlickException
+	public String nextLevel() throws SlickException
 	{
-		reloadLevel();
+		NumberFormat formatter = new DecimalFormat("#0.000");     
 		
-		return ((float)(System.currentTimeMillis() - startTime) / 1000);
+		DateTime endTime = new DateTime();
+		Interval duration = new Interval(startTime, endTime);
+		
+		reloadLevel();
+
+		return formatter.format((double)duration.toDurationMillis() / 1000);
 	}
 }

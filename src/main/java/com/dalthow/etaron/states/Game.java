@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Random ;
 
 import org.apache.log4j.LogManager ;
 import org.apache.log4j.Logger ;
@@ -12,6 +13,8 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music ;
+import org.newdawn.slick.MusicListener ;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.GameState;
@@ -23,6 +26,7 @@ import com.dalthow.etaron.framework.Camera;
 import com.dalthow.etaron.framework.States;
 import com.dalthow.etaron.framework.WorldObject;
 import com.dalthow.etaron.handler.ObjectHandler;
+import com.dalthow.etaron.media.MusicResource ;
 import com.dalthow.etaron.objects.Player;
 
 /**
@@ -65,6 +69,8 @@ public class Game implements GameState
 	private boolean displayInfo;
 	
 	private StateBasedGame stateBasedGame;
+	
+	private Music lastSong;
 	
 	
 	// Default implementation for mouse.
@@ -245,6 +251,7 @@ public class Game implements GameState
 
 	public void enter(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException 
 	{
+		playRandomMusic();
 	}
 	
 	
@@ -252,7 +259,7 @@ public class Game implements GameState
 
 	public void leave(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException 
 	{
-		
+		lastSong.pause();
 	}
 
 	
@@ -289,5 +296,62 @@ public class Game implements GameState
 	{
 		objectHandler.tick();
 		cameraObject.tick(cameraFocus);
+	}
+	
+	
+	
+	/**
+	 * getRandomMusic Gets a random Music file.
+	 *
+	 * @return {Music}
+	 */
+	private Music getRandomMusic()
+	{
+		Random random = new Random();
+
+		
+		// Getting a random song based on how many are currently loaded.
+		
+		Music randomSong = Run.resourceHandler.music.get(MusicResource.getMusicById(random.nextInt(MusicResource.values().length)));
+		
+		
+		// Like Steve Jobs said, "We are making it less random to make it feel more random.".
+		
+		if(lastSong == randomSong)
+		{
+			return getRandomMusic();
+		}
+		
+		if(randomSong != null)
+		{
+			lastSong = randomSong;
+			lastSong.play();
+		}
+		
+		return randomSong;
+	}
+
+	
+	/**
+	 * playRandomMusic Keeps on playing random Music files.
+	 *
+	 * @return {void}
+	 */
+	private void playRandomMusic()
+	{
+		getRandomMusic().addListener(new MusicListener()
+		{
+			@Override
+			public void musicEnded(Music oldMusic)
+			{
+				playRandomMusic();
+			}
+
+			@Override
+			public void musicSwapped(Music oldMusic, Music newMusic)
+			{
+				
+			}
+		});
 	}
 }

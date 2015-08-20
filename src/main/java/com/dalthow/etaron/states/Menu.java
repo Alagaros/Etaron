@@ -378,7 +378,7 @@ public class Menu implements GameState
 			if(score != null)
 			{
 				DrawUtils.drawAdvancedString(graphics, gameContainer, "Coins: " + score.getCoins(), infoFont, new Color(255, 255, 255), (gameContainer.getWidth() - 570) / 2 + (col * 150), 332 + (row * 150));
-				DrawUtils.drawAdvancedString(graphics, gameContainer, score.getDuration() + "ms", infoFont, new Color(255, 255, 255), (gameContainer.getWidth() - 376 - infoFont.getWidth(score.getDuration() + "ms")) / 2 + (col * 150), 332 + (row * 150));
+				DrawUtils.drawAdvancedString(graphics, gameContainer, score.getDuration() + "'s", infoFont, new Color(255, 255, 255), (gameContainer.getWidth() - 376 - infoFont.getWidth(score.getDuration() + "ms")) / 2 + (col * 150), 332 + (row * 150));
 			}
 			
 			else

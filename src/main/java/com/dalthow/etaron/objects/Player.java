@@ -215,7 +215,7 @@ public class Player extends WorldObject
 						scoreData[0] = new BasicNameValuePair("accessToken", Run.accessToken);
 						scoreData[1] = new BasicNameValuePair("level", Integer.toString(ImageResource.Levels.findByPath(Game.objectHandler.currentLevel.getName()).getLevel()));
 						scoreData[2] = new BasicNameValuePair("coins", Integer.toString(getItemCount(Identifier.COIN)));
-						scoreData[3] = new BasicNameValuePair("duration", Float.toString(Game.objectHandler.nextLevel())); // TODO: Fix this, probably with the Joda-Time library.
+						scoreData[3] = new BasicNameValuePair("duration", Game.objectHandler.nextLevel());
 						
 						try
 						{
@@ -237,12 +237,12 @@ public class Player extends WorldObject
 							logger.error(error);
 						}
 
-						Menu.scores.add(new Score(Integer.parseInt(scoreData[2].getValue()), Integer.parseInt(scoreData[1].getValue()), Float.parseFloat(scoreData[3].getValue())));
+						Menu.scores.add(new Score(Integer.parseInt(scoreData[2].getValue()), Integer.parseInt(scoreData[1].getValue()), Double.parseDouble(scoreData[3].getValue())));
 					}
 					
 					else
 					{
-						Menu.scores.add(new Score(getItemCount(Identifier.COIN), ImageResource.Levels.findByPath(Game.objectHandler.currentLevel.getName()).getLevel(), Game.objectHandler.nextLevel()));
+						Menu.scores.add(new Score(getItemCount(Identifier.COIN), ImageResource.Levels.findByPath(Game.objectHandler.currentLevel.getName()).getLevel(), Double.parseDouble(Game.objectHandler.nextLevel())));
 					}
 					
 					Run.resourceHandler.sounds.get(SoundResource.VICTORY).play();
