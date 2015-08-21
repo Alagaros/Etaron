@@ -8,6 +8,7 @@ import org.newdawn.slick.Graphics;
 
 import com.dalthow.etaron.framework.Identifier;
 import com.dalthow.etaron.framework.WorldObject;
+import com.dalthow.etaron.utils.DrawUtils ;
 
 /**
  * Etaron
@@ -79,11 +80,11 @@ public class Elevator extends WorldObject
 	{
 		// Switching the Elevator's color based on the direction.
 		
-		Color elevatorColor = new Color(255, 0, 255);
+		Color elevatorColor = DrawUtils.DrawHelper.ELEVATOR_DOWN.getColor();
 	
 		if(direction == 1)
 		{
-			elevatorColor = new Color(0, 255, 255);
+			elevatorColor = DrawUtils.DrawHelper.ELEVATOR_UP.getColor();
 		}
 		
 		graphics.setColor(elevatorColor);

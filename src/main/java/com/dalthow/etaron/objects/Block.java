@@ -9,6 +9,7 @@ import org.newdawn.slick.Graphics;
 import com.dalthow.etaron.framework.Identifier;
 import com.dalthow.etaron.framework.WorldObject;
 import com.dalthow.etaron.states.Game;
+import com.dalthow.etaron.utils.DrawUtils ;
 
 /**
  * Etaron
@@ -85,27 +86,27 @@ public class Block extends WorldObject
 
 		if(id == Identifier.LAVA)
 		{
-			blockColor = new Color(255, 0, 0);
+			blockColor = DrawUtils.DrawHelper.LAVA.getColor();
 		}
 
 		else if(id == Identifier.FLAG)
 		{
-			blockColor = new Color(0, 255, 0);
+			blockColor = DrawUtils.DrawHelper.FLAG.getColor();
 		}
 
 		else if(id == Identifier.DOOR)
 		{
-			blockColor = new Color(139, 69, 19);
+			blockColor = DrawUtils.DrawHelper.DOOR.getColor();
 		}
 
 		else if(id == Identifier.JELLY)
 		{
-			blockColor = new Color(255, 175, 175);
+			blockColor = DrawUtils.DrawHelper.JELLY.getColor();
 		}
 
 		else if(id == Identifier.DECOR)
 		{
-			blockColor = new Color(128, 128, 128);
+			blockColor = DrawUtils.DrawHelper.DECOR.getColor();
 		}
 
 

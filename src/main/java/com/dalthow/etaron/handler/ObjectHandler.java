@@ -26,6 +26,8 @@ import com.dalthow.etaron.objects.Player;
 import com.dalthow.etaron.objects.Sand;
 import com.dalthow.etaron.objects.Turret;
 import com.dalthow.etaron.states.Game;
+import com.dalthow.etaron.utils.DrawUtils ;
+import com.dalthow.etaron.utils.DrawUtils.DrawHelper ;
 
 /**
  * Etaron
@@ -126,86 +128,82 @@ public class ObjectHandler
      * 
 	 * @throws {SlickException, IOException} 
      */
-	public void loadLevel(Image image) throws SlickException, IOException
+	public void loadLevel(Image level) throws SlickException, IOException
 	{
 		startTime = new DateTime();
 		
 		clearLevel();
 
-		int imageWidth = image.getWidth();
-		int imageHeight = image.getHeight();
+		int imageWidth = level.getWidth();
+		int imageHeight = level.getHeight();
 
-		currentLevel = image;
+		currentLevel = level;
 
 		for(int i = 0; i < imageWidth; i++)
 		{
 			for(int j = 0; j < imageHeight; j++)
 			{
-				int red = image.getColor(i, j).getRed();
-				int blue = image.getColor(i, j).getBlue();
-				int green = image.getColor(i, j).getGreen();
-
-				if(red == 255 && green == 255 && blue == 255)
+				if(level.getColor(i, j).equals(DrawHelper.BLOCK.getColor()))
 				{
 					addObject(new Block((i * 32), (j * 32), Identifier.BLOCK, true));
 				}
 				
-				if(red == 128 && green == 128 && blue == 128)
+				else if(level.getColor(i, j).equals(DrawHelper.DECOR.getColor()))
 				{
 					addObject(new Block((i * 32), (j * 32), Identifier.DECOR, false));
 				}
 
-				else if(red == 255 && green == 0 && blue == 0)
+				else if(level.getColor(i, j).equals(DrawHelper.LAVA.getColor()))
 				{
 					addObject(new Block((i * 32), (j * 32), Identifier.LAVA, false));
 				}
 				
-				else if(red == 255 && green == 255 && blue == 0)
+				else if(level.getColor(i, j).equals(DrawHelper.COIN.getColor()))
 				{
 					addObject(new Item((i * 32), (j * 32), Identifier.COIN, false, Run.resourceHandler.get(ImageResource.COIN, false), Run.resourceHandler.get(SoundResource.COIN), 0, 0, true, false));
 				}
 				
-				else if(red == 192 && green == 192 && blue == 192)
+				else if(level.getColor(i, j).equals(DrawHelper.KEY.getColor()))
 				{
 					addObject(new Item((i * 32), (j * 32), Identifier.KEY, false, Run.resourceHandler.get(ImageResource.KEY, false), Run.resourceHandler.get(SoundResource.CHAIN), -17, 16, false, true));
 				}
 				
-				else if(red == 255 && green == 128 && blue == 0)
+				else if(level.getColor(i, j).equals(DrawHelper.TURRET.getColor()))
 				{
 					addObject(new Turret((i * 32), (j * 32 - 8), Identifier.TURRET, true));
 				}
 				
-				else if(red == 0 && green == 255 && blue == 0)
+				else if(level.getColor(i, j).equals(DrawHelper.FLAG.getColor()))
 				{
 					addObject(new Block((i * 32), (j * 32), Identifier.FLAG, false));
 				}
 				
-				else if(red == 139 && green == 69 && blue == 19)
+				else if(level.getColor(i, j).equals(DrawHelper.DOOR.getColor()))
 				{
 					addObject(new Block((i * 32), (j * 32), Identifier.DOOR, true));
 				}
 				
-				else if(red == 139 && green == 139 && blue == 0)
+				else if(level.getColor(i, j).equals(DrawHelper.SAND.getColor()))
 				{
 					addObject(new Sand((i * 32), (j * 32), Identifier.SAND, true));
 				}
 				
-				else if(red == 255 && green == 175 && blue == 175)
+				else if(level.getColor(i, j).equals(DrawHelper.JELLY.getColor()))
 				{
 					addObject(new Block((i * 32), (j * 32), Identifier.JELLY, true));
 				}
 
-				else if(red == 255 && green == 0 && blue == 255)
+				else if(level.getColor(i, j).equals(DrawHelper.ELEVATOR_DOWN.getColor()))
 				{
 					addObject(new Elevator((i * 32), (j * 32), 0, 8, Identifier.ELEVATOR, true));
 				}
 				
-				else if(red == 0 && green == 255 && blue == 255)
+				else if(level.getColor(i, j).equals(DrawHelper.ELEVATOR_UP.getColor()))
 				{
 					addObject(new Elevator((i * 32), (j * 32), 1, 8, Identifier.ELEVATOR, true));
 				}
 				
-				else if(red == 0 && green == 0 && blue == 255)
+				else if(level.getColor(i, j).equals(DrawHelper.PLAYER.getColor()))
 				{
 					addPlayer(new Player((i * 32), (j * 32), Identifier.PLAYER, true));
 				}

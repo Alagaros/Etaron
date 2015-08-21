@@ -11,6 +11,7 @@ import com.dalthow.etaron.framework.Identifier;
 import com.dalthow.etaron.framework.WorldObject;
 import com.dalthow.etaron.media.SoundResource;
 import com.dalthow.etaron.states.Game;
+import com.dalthow.etaron.utils.DrawUtils ;
 
 /**
  * Etaron
@@ -133,7 +134,7 @@ public class Turret extends WorldObject
 	@Override
 	public void render(Graphics graphics)
 	{
-		graphics.setColor(new Color(255, 128, 0));
+		graphics.setColor(DrawUtils.DrawHelper.TURRET.getColor());
 
 		graphics.fillRect(getBounds().x, getBounds().y, 32, 32);
 		graphics.fillRect(getBounds().x + 8, getBounds().y + 32, 16, 8);

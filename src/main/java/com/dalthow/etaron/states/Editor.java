@@ -28,6 +28,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.BufferedImageUtil ;
 
 import com.dalthow.etaron.Run ;
+import com.dalthow.etaron.framework.Identifier ;
 import com.dalthow.etaron.framework.States;
 import com.dalthow.etaron.framework.editor.Pixel;
 import com.dalthow.etaron.media.ImageResource ;
@@ -54,6 +55,7 @@ public class Editor implements GameState
 	
 	private StateBasedGame stateBasedGame;
 	private Color selectedColor;
+	private Color[] palet;
 	private int pixelSize;
 	
 	
@@ -239,7 +241,7 @@ public class Editor implements GameState
 		{
 			for(int i = 0; i < pixels.size(); i++)
 			{
-				Rectangle pixelWrapper = new Rectangle(40 + (pixels.get(i).getX() * 10), (Run.height / 2 - (pixelSize * 64 / 2)) + pixels.get(i).getY() * pixelSize, pixelSize, pixelSize);
+				Rectangle pixelWrapper = new Rectangle(pixels.get(i).getX() * pixelSize + 40, (Run.height / 2 - (pixelSize * 64 / 2)) + pixels.get(i).getY() * pixelSize, pixelSize, pixelSize);
 
 				
 				// Setting the Pixel's color to the selected color.

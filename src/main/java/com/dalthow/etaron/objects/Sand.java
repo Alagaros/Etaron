@@ -9,6 +9,7 @@ import org.newdawn.slick.Graphics;
 import com.dalthow.etaron.framework.Identifier;
 import com.dalthow.etaron.framework.WorldObject;
 import com.dalthow.etaron.states.Game;
+import com.dalthow.etaron.utils.DrawUtils ;
 
 /**
  * Etaron
@@ -124,7 +125,7 @@ public class Sand extends WorldObject
 	@Override
 	public void render(Graphics graphics) 
 	{
-		graphics.setColor(new Color(139, 139, 0));
+		graphics.setColor(DrawUtils.DrawHelper.SAND.getColor());
 		graphics.fillRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
 	}
 

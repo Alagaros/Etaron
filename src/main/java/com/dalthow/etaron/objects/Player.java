@@ -22,6 +22,7 @@ import com.dalthow.etaron.media.ImageResource;
 import com.dalthow.etaron.media.SoundResource;
 import com.dalthow.etaron.states.Game;
 import com.dalthow.etaron.states.Menu ;
+import com.dalthow.etaron.utils.DrawUtils ;
 import com.dalthow.etaron.utils.LogUtils ;
 import com.dalthow.etaron.utils.NetworkUtils;
 
@@ -113,7 +114,7 @@ public class Player extends WorldObject
 	{
 		// Drawing the player.
 		
-		graphics.setColor(new Color(0, 0, 255));
+		graphics.setColor(DrawUtils.DrawHelper.PLAYER.getColor());
 		graphics.fillRect(getBounds().x, getBounds().y, (int) playerWidth, (int) playerHeight);
 
 		
