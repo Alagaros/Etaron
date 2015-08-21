@@ -17,7 +17,9 @@ public enum ImageResource
 	HEADER("assets/images/header.png"),
 	ARROW("assets/images/arrow.png"),
 	KEY("assets/images/items/key.png"),
-	COIN("assets/images/items/coin.png");
+	COIN("assets/images/items/coin.png"),
+	BLANK_LEVEL("assets/images/blank-level.png"),
+	PLUS("assets/images/plus.png");
 	
 	
 	// Declaration of the path.
@@ -46,17 +48,17 @@ public enum ImageResource
 	public static enum Levels
 	{
 		LEVEL_TUTORIAL("assets/levels/easy/tutorial.png", 1), 
-		LEVEL_THE_CLIMB("assets/levels/easy/the climb.png", 2), 
+		LEVEL_THE_CLIMB("assets/levels/easy/the-climb.png", 2), 
 		LEVEL_CAVEMAN("assets/levels/easy/caveman.png", 3), 
-		LEVEL_THE_FALL("assets/levels/easy/the fall.png", 4), 
+		LEVEL_THE_FALL("assets/levels/easy/the-fall.png", 4), 
 		LEVEL_INVADERS("assets/levels/easy/invaders.png", 5),
 		LEVEL_FLAPPY("assets/levels/easy/flappy.png", 6),
 		LEVEL_RESCUE("assets/levels/easy/rescue.png", 7),
 
-		LEVEL_UNDER_FIRE("assets/levels/medium/under fire.png", 13), 
+		LEVEL_UNDER_FIRE("assets/levels/medium/under-fire.png", 13), 
 		LEVEL_SOUNDWAVE("assets/levels/medium/soundwave.png", 14),
 
-		LEVEL_GET_WREKT("assets/levels/hard/get wrekt.png", 25);
+		LEVEL_GET_WREKT("assets/levels/hard/get-wrekt.png", 25);
 
 		
 		// Declaration of the path and level variable.

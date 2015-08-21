@@ -23,6 +23,7 @@ import org.newdawn.slick.util.ResourceLoader;
 import com.dalthow.etaron.framework.Score;
 import com.dalthow.etaron.framework.States;
 import com.dalthow.etaron.handler.ResourceHandler;
+import com.dalthow.etaron.states.Editor ;
 import com.dalthow.etaron.states.Game;
 import com.dalthow.etaron.states.Menu;
 import com.dalthow.etaron.states.Splash;
@@ -44,6 +45,11 @@ public class Run extends StateBasedGame
 
 	public static int width = 960, height = 720;
 	private static boolean fullScreen = false, vSync = false;
+	
+	
+	// The location of the custom level folder.
+	
+	public static final String customLevelLocation = "/Dalthow/Games/Etaron/Custom Levels/";
 
 
 	// Declaration of the Logger object.
@@ -128,6 +134,17 @@ public class Run extends StateBasedGame
 		gameContainer.setVSync(vSync);
 		gameContainer.start();
 	}
+	
+	
+	// Gets called whenever the window is closed.
+	
+	@Override
+    public boolean closeRequested() 
+	{
+       logger.info("Stopping Etaron.");
+       
+       return true;
+    }
 
 
 	// First method to get called.
@@ -246,6 +263,7 @@ public class Run extends StateBasedGame
 		addState(new Splash());
 		addState(new Menu());
 		addState(new Game());
+		addState(new Editor());
 
 		enterState(States.SPLASH_STATE.getId());
 	}

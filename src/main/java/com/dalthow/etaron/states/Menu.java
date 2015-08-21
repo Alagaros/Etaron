@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.apache.log4j.LogManager ;
 import org.apache.log4j.Logger ;
+import org.lwjgl.input.Keyboard ;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -43,7 +44,7 @@ public class Menu implements GameState
 {
 	// Declaration of the images used in this state.
 	
-	private Image header, arrowLeft, arrowRight;
+	private Image header, arrowLeft, arrowRight, plus;
 	
 	
 	// Declaration of the Logger object.
@@ -53,7 +54,7 @@ public class Menu implements GameState
 	
 	// Declaration of the rectangles used for click detection.
 	
-	private Rectangle pageBack, pageNext;
+	private Rectangle pageBack, pageNext, newLevel;
 	private Rectangle levels[];
 	
 	
@@ -152,7 +153,22 @@ public class Menu implements GameState
 	
 	// Default implementation for keyboards.
 	
-	public void keyPressed(int par1, char par2){}
+	public void keyPressed(int par1, char par2)
+	{
+		if(par1 == Keyboard.KEY_F5)
+		{
+			try
+			{
+				loadCustomLevels();
+			}
+			
+			catch(SlickException error)
+			{
+				logger.error(error);
+			}
+		}
+	}
+	
 	public void keyReleased(int par1, char par2){}
 	
 
@@ -175,6 +191,7 @@ public class Menu implements GameState
 			header = Run.resourceHandler.get(ImageResource.HEADER, false);
 			arrowLeft = Run.resourceHandler.get(ImageResource.ARROW, false);
 			arrowRight = Run.resourceHandler.get(ImageResource.ARROW, false);
+			plus = Run.resourceHandler.get(ImageResource.PLUS, false);
 			
 			
 			// Loading fonts.
@@ -196,6 +213,7 @@ public class Menu implements GameState
 		
 		arrowRight.setFilter(Image.FILTER_NEAREST);
 		arrowLeft.setFilter(Image.FILTER_NEAREST);
+		plus.setFilter(Image.FILTER_NEAREST);
 		
 		
 		// Rotating the images.
@@ -213,6 +231,9 @@ public class Menu implements GameState
 		
 		page = 0;
 
+		
+		// Filling in the button dimensions.
+		
 		pageBack = new Rectangle(75, gameContainer.getHeight() / 2 - 40, 40, 80);
 		pageNext = new Rectangle(gameContainer.getWidth() - 115, gameContainer.getHeight() / 2 - 40, 40, 80);
 	}
@@ -222,7 +243,7 @@ public class Menu implements GameState
 
 	public void enter(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException 
 	{
-
+		
 	}
 	
 	
@@ -274,6 +295,14 @@ public class Menu implements GameState
 		}
 		
 		
+		// New level button.
+		
+		if(newLevel != null && page == 3)
+		{
+			plus.draw(newLevel.getCenterX() - (plus.getWidth() * 4 / 2), newLevel.getCenterY() - (plus.getHeight() * 4 / 2), 4);
+		}
+		
+		
 		// The levels.
 		
 		drawLevels(allPages[page], graphics, gameContainer);
@@ -284,21 +313,52 @@ public class Menu implements GameState
 
 	public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int delta) throws SlickException 
 	{
+		handleMouse(stateBasedGame);
+	}
+	
+	
+	/**
+     * handleMouse Checks if something should happen when the mouse is moved.
+     * 
+     * @param  {StateBasedGame} stateBasedGame Used so we can switch between game states.
+     *
+     * @return {void}
+     * 
+     * @throws {SlickException}
+     */
+	private void handleMouse(StateBasedGame stateBasedGame) throws SlickException
+	{
 		mousePixel = new Rectangle(xMouse, yMouse, 1, 1);
 
 		if(mouseDown)
 		{
+			// Going back a level page.
+			
 			if(mousePixel.intersects(pageBack) && page > 0)
 			{
 				page--;
 			}
+			
+			
+			// Going to the next level page.
 			
 			else if(mousePixel.intersects(pageNext) && page < allPages.length - 1)
 			{
 				page++;
 			}
 			
-			for (int i = 0; i < levels.length; i++) 
+			
+			// Going to the Editor state.
+			
+			else if(newLevel != null && page == 3 && mousePixel.intersects(newLevel))
+			{
+				stateBasedGame.enterState(States.EDITOR_STATE.getId());
+			}
+			
+			
+			// Starting a level.
+			
+			for(int i = 0; i < levels.length; i++) 
 			{
 				if(mousePixel.intersects(levels[i]))
 				{
@@ -320,7 +380,7 @@ public class Menu implements GameState
 		}
 	}
 	
-	
+
 	/**
      * loadLevelImages Loads all levels into their appropriate list.
      *
@@ -359,7 +419,7 @@ public class Menu implements GameState
 		
 		File folder;
 		
-		folder = new File(System.getenv("Appdata") + "/Dalthow/Games/Etaron/custom levels/");
+		folder = new File(System.getenv("Appdata") + Run.customLevelLocation);
 
 		
 		// Checking if the folder already exists. If not create it.
@@ -396,6 +456,8 @@ public class Menu implements GameState
 					}
 				}
 			}
+			
+			logger.info("Finished loading " + customLevelPage.size() + " custom levels.");
 		}
 	}
 	
@@ -420,6 +482,7 @@ public class Menu implements GameState
 		{
 			list.get(i).setFilter(Image.FILTER_NEAREST);
 			list.get(i).draw((gameContainer.getWidth() - 578) / 2 + (col * 150), 200 + (row * 150), 2);
+			
 			levels[i] = new Rectangle((gameContainer.getWidth() - 578) / 2 + (col * 150), 200 + (row * 150), 128, 128);
 			
 			Score score = getHighestScoreForLevel(i + 1 + (page * 12));
@@ -436,6 +499,14 @@ public class Menu implements GameState
 			}
 			
 			col++;
+			
+			if(list == customLevelPage)
+			{
+				if(i == list.size() - 1)
+				{
+					newLevel = new Rectangle((gameContainer.getWidth() - 578) / 2 + (col * 150), 200 + (row * 150), 128, 128);
+				}
+			}
 			
 		
 			// Going to the next row.
