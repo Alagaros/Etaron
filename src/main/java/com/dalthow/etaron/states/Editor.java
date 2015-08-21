@@ -28,11 +28,11 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.BufferedImageUtil ;
 
 import com.dalthow.etaron.Run ;
-import com.dalthow.etaron.framework.Identifier ;
 import com.dalthow.etaron.framework.States;
 import com.dalthow.etaron.framework.editor.Pixel;
 import com.dalthow.etaron.media.ImageResource ;
 import com.dalthow.etaron.utils.DrawUtils;
+import com.dalthow.etaron.utils.DrawUtils.DrawHelper ;
 import com.dalthow.etaron.utils.ImageUtils ;
 
 /**
@@ -209,10 +209,30 @@ public class Editor implements GameState
 		}
 		
 		
+		// Drawing the color palette.
+		
+		int col = 0;
+		int row = 0;
+		
+		for(int i = 0; i < DrawHelper.values().length; i++)
+		{
+			graphics.setColor(DrawHelper.values()[i].getColor());
+			graphics.fillRect(gameContainer.getWidth() - 87 - (row * 48), 40 + 20 + (col * 48), 32, 32);
+
+			col++;
+
+			if(col == 4)
+			{
+				col = 0;
+				row++;
+			}
+		}
+		
+		
 		// Drawing the mouse pixel.
 		
 		graphics.setColor(selectedColor);
-		graphics.fillRect(mousePixel.getX() - (pixelSize / 2), mousePixel.getY() - (pixelSize / 2), pixelSize, pixelSize);	
+		graphics.fillRect(mousePixel.getX() - (pixelSize / 2), mousePixel.getY() - (pixelSize / 2), pixelSize, pixelSize);
 	}
 	
 	
