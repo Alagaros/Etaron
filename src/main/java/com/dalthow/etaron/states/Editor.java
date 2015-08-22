@@ -322,6 +322,8 @@ public class Editor implements GameState
 		
 		if(mouseDown)
 		{
+			// Looping trough all the pixels in the level.
+			
 			for(int i = 0; i < pixels.size(); i++)
 			{
 				Rectangle pixelWrapper = new Rectangle(pixels.get(i).getX() * pixelSize + 40, (Run.height / 2 - (pixelSize * 64 / 2)) + pixels.get(i).getY() * pixelSize, pixelSize, pixelSize);
@@ -334,6 +336,9 @@ public class Editor implements GameState
 					pixels.get(i).setColor(selectedColor);
 				}
 			}
+			
+			
+			// Drawing all the object color's so the user can pick one to draw with.
 			
 			int col = 0;
 			int row = 0;
@@ -356,12 +361,18 @@ public class Editor implements GameState
 				}
 			}
 			
+			
+			// Used to return to the Menu state.
+			
 			if(mousePixel.intersects(exitEditor))
 			{
 				stateBasedGame.enterState(States.MENU_STATE.getId());
 				
 				mouseDown = false;
 			}
+			
+			
+			// Saves the level to the disk if its valid.
 			
 			else if(mousePixel.intersects(saveLevel))
 			{
@@ -373,7 +384,14 @@ public class Editor implements GameState
 	}
 	
 	
-	private void loadLevel(Image level)
+	/**
+     * loadLevelInEditor Unpacks a level Image into the pixels array.
+     * 
+     * @param  {Image} level The level we should tear appart.
+     *
+     * @return {void}
+     */
+	private void loadLevelInEditor(Image level)
 	{
 		for(int i = 0; i < level.getWidth(); i++)
 		{
@@ -387,6 +405,12 @@ public class Editor implements GameState
 		}
 	}
 	
+	
+	/**
+     * resetEditor Resets the level editor.
+     * 
+     * @return {void}
+     */
 	private void resetEditor() throws SlickException, IOException
 	{
 		selectedColor = new Color(255, 255, 255);
@@ -394,19 +418,33 @@ public class Editor implements GameState
 		
 		// Loading in a blank level.
 		
-		loadLevel(Run.resourceHandler.get(ImageResource.BLANK_LEVEL, false));
+		loadLevelInEditor(Run.resourceHandler.get(ImageResource.BLANK_LEVEL, false));
 	}
 	
+	
+	/**
+     * saveLevel Generates a Image from the pixels array. Then saves it to the disk after that it returns to the Menu state.
+     * 
+     * @return {void}
+     */
 	private void saveLevel()
 	{
+		// Generating a time stamp for the level.
+		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 		Calendar calendar = Calendar.getInstance();
 		String timeStamp = dateFormat.format(calendar.getTime());
+		
+		
+		// Creating a new BufferedImage that is 64 by 64.
 		
 		BufferedImage image = new BufferedImage(64, 64, BufferedImage.TYPE_INT_RGB);
 
 		java.awt.Graphics awtGraphics = image.getGraphics();
 
+		
+		// Looping trough the pixels and adding them to the image.
+		
 		for(int i = 0; i < pixels.size(); i++)
 		{
 			awtGraphics.setColor(new java.awt.Color(pixels.get(i).getColor().getRed(), pixels.get(i).getColor().getGreen(), pixels.get(i).getColor().getBlue()));
@@ -415,6 +453,8 @@ public class Editor implements GameState
 		
 		try
 		{
+			// Converting the awt image to slick.
+			
 			Texture texture = BufferedImageUtil.getTexture("", image);
 			Image slickImage = new Image(texture.getImageWidth(), texture.getImageHeight());
 			slickImage.setTexture(texture);
@@ -422,9 +462,14 @@ public class Editor implements GameState
 			
 			if(ImageUtils.isValidLevel(slickImage))
 			{
-				ImageIO.write(image, "PNG", new File(System.getenv("Appdata") + Run.customLevelLocation + timeStamp + ".png"));
-				Menu.customLevelPage.add(slickImage);
+				// Writing the image to the disk.
 				
+				ImageIO.write(image, "PNG", new File(System.getenv("Appdata") + Run.customLevelLocation + timeStamp + ".png"));
+				
+				
+				// Adding the image to the Menu state.
+				
+				Menu.customLevelPage.add(slickImage);
 				stateBasedGame.enterState(States.MENU_STATE.getId());
 			}
 			
