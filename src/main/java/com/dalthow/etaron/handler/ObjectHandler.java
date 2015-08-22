@@ -26,7 +26,6 @@ import com.dalthow.etaron.objects.Player;
 import com.dalthow.etaron.objects.Sand;
 import com.dalthow.etaron.objects.Turret;
 import com.dalthow.etaron.states.Game;
-import com.dalthow.etaron.utils.DrawUtils ;
 import com.dalthow.etaron.utils.DrawUtils.DrawHelper ;
 
 /**

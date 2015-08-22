@@ -490,7 +490,7 @@ public class Menu implements GameState
 			if(score != null)
 			{
 				DrawUtils.drawAdvancedString(graphics, gameContainer, "Coins: " + score.getCoins(), infoFont, new Color(255, 255, 255), (gameContainer.getWidth() - 570) / 2 + (col * 150), 332 + (row * 150));
-				DrawUtils.drawAdvancedString(graphics, gameContainer, score.getDuration() + "'s", infoFont, new Color(255, 255, 255), (gameContainer.getWidth() - 376 - infoFont.getWidth(score.getDuration() + "ms")) / 2 + (col * 150), 332 + (row * 150));
+				DrawUtils.drawAdvancedString(graphics, gameContainer, score.getDuration() + "'s", infoFont, new Color(255, 255, 255), (gameContainer.getWidth() - 376 - infoFont.getWidth(score.getDuration() + "'s")) / 2 + (col * 150), 332 + (row * 150));
 			}
 			
 			else
@@ -499,6 +499,18 @@ public class Menu implements GameState
 			}
 			
 			col++;
+
+			
+			// Going to the next row.
+			
+			if(col == 4)
+			{
+				col = 0;
+				row++;
+			}
+			
+			
+			// Figuring out where to draw the plus button for a new custom level.
 			
 			if(list == customLevelPage)
 			{
@@ -506,15 +518,6 @@ public class Menu implements GameState
 				{
 					newLevel = new Rectangle((gameContainer.getWidth() - 578) / 2 + (col * 150), 200 + (row * 150), 128, 128);
 				}
-			}
-			
-		
-			// Going to the next row.
-			
-			if(col == 4)
-			{
-				col = 0;
-				row++;
 			}
 		}
 	}

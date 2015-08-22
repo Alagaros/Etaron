@@ -150,7 +150,7 @@ public class DrawUtils
 		COIN(new Color(255, 255, 0)), 
 		ELEVATOR_UP(new Color(0, 255, 255)), 
 		ELEVATOR_DOWN(new Color(255, 0, 255)), 
-		DOOR(new Color(137, 69, 19)), 
+		DOOR(new Color(139, 69, 19)), 
 		KEY(new Color(192, 192, 192)), 
 		TURRET(new Color(255, 128, 0)), 
 		JELLY(new Color(255, 175, 175)),

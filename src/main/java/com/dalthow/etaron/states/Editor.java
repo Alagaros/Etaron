@@ -1,16 +1,19 @@
 package com.dalthow.etaron.states;
 
-import java.awt.image.BufferedImage ;
-import java.io.File ;
-import java.io.IOException ;
-import java.text.DateFormat ;
-import java.text.SimpleDateFormat ;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar ;
+import java.util.Calendar;
 import java.util.List;
 
-import javax.imageio.ImageIO ;
-import javax.swing.JOptionPane ;
+import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -18,33 +21,35 @@ import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image ;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Rectangle ;
-import org.newdawn.slick.opengl.Texture ;
+import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.util.BufferedImageUtil ;
+import org.newdawn.slick.util.BufferedImageUtil;
+import org.newdawn.slick.util.ResourceLoader;
 
-import com.dalthow.etaron.Run ;
+import com.dalthow.etaron.Run;
 import com.dalthow.etaron.framework.States;
 import com.dalthow.etaron.framework.editor.Pixel;
-import com.dalthow.etaron.media.ImageResource ;
+import com.dalthow.etaron.media.ImageResource;
 import com.dalthow.etaron.utils.DrawUtils;
-import com.dalthow.etaron.utils.DrawUtils.DrawHelper ;
-import com.dalthow.etaron.utils.ImageUtils ;
+import com.dalthow.etaron.utils.DrawUtils.DrawHelper;
+import com.dalthow.etaron.utils.ImageUtils;
 
 /**
  * Etaron
  *
  *
- * @author Dalthow Game Studios 
+ * @author Dalthow Game Studios
  * @class Editor.java
  *
  **/
 
-public class Editor implements GameState 
+public class Editor implements GameState
 {
 	// Declaration of the Logger object.
 
@@ -55,13 +60,27 @@ public class Editor implements GameState
 	
 	private StateBasedGame stateBasedGame;
 	private Color selectedColor;
-	private Color[] palet;
 	private int pixelSize;
 	
+	
+	// Declaration of the font used in this state.
+	
+	private TrueTypeFont headerFont;
+	
+	
+	// Declaration of the images used in this state.
+	
+	private Image cross, disk;
+		
 	
 	// Declaration of the array list with Pixel's.
 	
 	private List<Pixel> pixels = new ArrayList<Pixel>();
+	
+	
+	// Declaration of the rectangles used for click detection.
+	
+	private Rectangle saveLevel, exitEditor;
 	
 	
 	// Declaration of the mouse position and states.
@@ -163,9 +182,43 @@ public class Editor implements GameState
 		this.stateBasedGame = stateBasedGame;
 		
 		
+		try 
+		{
+			// Loading font.
+			
+			InputStream inputStream = ResourceLoader.getResourceAsStream("assets/fonts/bit-bold.ttf");
+			Font bitBold = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+			
+			headerFont = new TrueTypeFont(bitBold.deriveFont(32F), false);
+			
+			
+			// Loading images.
+			
+			cross = Run.resourceHandler.get(ImageResource.CROSS, false);
+			disk = Run.resourceHandler.get(ImageResource.DISK, false);
+		}
+		
+		catch(IOException | FontFormatException error) 
+		{
+			logger.error(error);
+		}
+		
+		
+		// Adding filters to the images.
+		
+		cross.setFilter(Image.FILTER_NEAREST);
+		disk.setFilter(Image.FILTER_NEAREST);
+		
+		
 		// Setting the Pixel size.
 		
 		pixelSize = 10;
+		
+		
+		// Filling in the button dimensions.
+		
+		saveLevel = new Rectangle(gameContainer.getWidth() - 86 - disk.getWidth() * 4, gameContainer.getHeight() - 40 - disk.getHeight() * 4, 32, 36);
+		exitEditor = new Rectangle(gameContainer.getWidth() - 40 - cross.getWidth() * 4, gameContainer.getHeight() - 40 - cross.getHeight() * 4, 32, 32);
 	}
 	
 	
@@ -189,7 +242,7 @@ public class Editor implements GameState
 
 	public void leave(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException 
 	{
-		saveLevel();
+		
 	}
 
 	
@@ -217,7 +270,7 @@ public class Editor implements GameState
 		for(int i = 0; i < DrawHelper.values().length; i++)
 		{
 			graphics.setColor(DrawHelper.values()[i].getColor());
-			graphics.fillRect(gameContainer.getWidth() - 87 - (row * 48), 40 + 20 + (col * 48), 32, 32);
+			graphics.fillRect(gameContainer.getWidth() - 72 - (col * 48), 86 + (row * 48), 32, 32);
 
 			col++;
 
@@ -228,11 +281,21 @@ public class Editor implements GameState
 			}
 		}
 		
+		graphics.setColor(new Color(255, 255, 255));
+		graphics.setFont(headerFont);
+		graphics.drawString("Palette", gameContainer.getWidth() - headerFont.getWidth("Palette") - 39, 40);
+		
 		
 		// Drawing the mouse pixel.
 		
 		graphics.setColor(selectedColor);
 		graphics.fillRect(mousePixel.getX() - (pixelSize / 2), mousePixel.getY() - (pixelSize / 2), pixelSize, pixelSize);
+		
+		
+		// Drawing the close and save button.
+		
+		cross.draw(gameContainer.getWidth() - 40 - cross.getWidth() * 4, gameContainer.getHeight() - 40 - cross.getHeight() * 4, 4);
+		disk.draw(gameContainer.getWidth() - 86 - disk.getWidth() * 4, gameContainer.getHeight() - 40 - disk.getHeight() * 4, 4);
 	}
 	
 	
@@ -270,6 +333,41 @@ public class Editor implements GameState
 				{
 					pixels.get(i).setColor(selectedColor);
 				}
+			}
+			
+			int col = 0;
+			int row = 0;
+			
+			for(int i = 0; i < DrawHelper.values().length; i++)
+			{
+				Rectangle paletWrapper = new Rectangle(Run.width - 72 - (col * 48), 86 + (row * 48), 32, 32);
+
+				if(mousePixel.intersects(paletWrapper))
+				{
+					selectedColor = new Color(DrawHelper.values()[i].getColor());
+				}
+
+				col++;
+
+				if(col == 4)
+				{
+					col = 0;
+					row++;
+				}
+			}
+			
+			if(mousePixel.intersects(exitEditor))
+			{
+				stateBasedGame.enterState(States.MENU_STATE.getId());
+				
+				mouseDown = false;
+			}
+			
+			else if(mousePixel.intersects(saveLevel))
+			{
+				saveLevel();
+				
+				mouseDown = false;
 			}
 		}
 	}

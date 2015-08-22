@@ -157,9 +157,9 @@ public class Player extends WorldObject
 			WorldObject temporaryObject = objectList.get(i);
 
 			
-			// Checking if the object is solid and not a Player.
+			// Checking if the object is solid.
 			
-			if(temporaryObject.isSolid() == true && temporaryObject != this)
+			if(temporaryObject.isSolid() == true)
 			{
 				if(getBoundsTop().intersects(temporaryObject.getBounds()))
 				{

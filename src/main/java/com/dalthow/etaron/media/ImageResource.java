@@ -18,6 +18,8 @@ public enum ImageResource
 	ARROW("assets/images/arrow.png"),
 	KEY("assets/images/items/key.png"),
 	COIN("assets/images/items/coin.png"),
+	DISK("assets/images/disk.png"),
+	CROSS("assets/images/cross.png"),
 	BLANK_LEVEL("assets/images/blank-level.png"),
 	PLUS("assets/images/plus.png");
 	
