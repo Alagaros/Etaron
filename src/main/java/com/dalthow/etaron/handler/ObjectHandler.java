@@ -2,6 +2,7 @@ package com.dalthow.etaron.handler;
 
 import java.io.IOException;
 import java.text.DecimalFormat ;
+import java.text.DecimalFormatSymbols ;
 import java.text.NumberFormat ;
 import java.util.ArrayList;
 import java.util.List;
@@ -315,13 +316,17 @@ public class ObjectHandler
      */
 	public double nextLevel() throws SlickException
 	{
-		NumberFormat formatter = new DecimalFormat("#0.000");     
+		DecimalFormat decimalFormat = new DecimalFormat("#.###");
+	    
+		DecimalFormatSymbols formatSymbols = new DecimalFormatSymbols();
+	    formatSymbols.setDecimalSeparator('.');
+	    decimalFormat.setDecimalFormatSymbols(formatSymbols);
 		
 		DateTime endTime = new DateTime();
 		Interval duration = new Interval(startTime, endTime);
 		
 		reloadLevel();
 
-		return Double.parseDouble(formatter.format((double)duration.toDurationMillis() / 1000));
+		return Double.parseDouble(decimalFormat.format((double)duration.toDurationMillis() / 1000));
 	}
 }
