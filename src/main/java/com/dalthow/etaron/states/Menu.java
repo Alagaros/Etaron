@@ -508,17 +508,14 @@ public class Menu implements GameState
 				col = 0;
 				row++;
 			}
-			
-			
-			// Figuring out where to draw the plus button for a new custom level.
-			
-			if(list == customLevelPage)
-			{
-				if(i == list.size() - 1)
-				{
-					newLevel = new Rectangle((gameContainer.getWidth() - 578) / 2 + (col * 150), 200 + (row * 150), 128, 128);
-				}
-			}
+		}
+		
+		
+		// Figuring out where to draw the plus button for a new custom level.
+		
+		if(page == 3)
+		{
+			newLevel = new Rectangle((gameContainer.getWidth() - 578) / 2 + (col * 150), 200 + (row * 150), 128, 128);
 		}
 	}
 	
