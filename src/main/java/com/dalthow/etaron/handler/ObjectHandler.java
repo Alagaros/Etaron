@@ -313,7 +313,7 @@ public class ObjectHandler
      * 
 	 * @throws {SlickException}
      */
-	public String nextLevel() throws SlickException
+	public double nextLevel() throws SlickException
 	{
 		NumberFormat formatter = new DecimalFormat("#0.000");     
 		
@@ -322,6 +322,6 @@ public class ObjectHandler
 		
 		reloadLevel();
 
-		return formatter.format((double)duration.toDurationMillis() / 1000);
+		return Double.parseDouble(formatter.format((double)duration.toDurationMillis() / 1000));
 	}
 }

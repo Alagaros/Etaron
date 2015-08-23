@@ -209,14 +209,19 @@ public class Player extends WorldObject
 				
 				if(temporaryObject.getId() == Identifier.FLAG)
 				{
+					int level = ImageResource.Levels.findByPath(Game.objectHandler.currentLevel.getName()).getLevel();
+					int coins = getItemCount(Identifier.COIN);
+					double duration = Game.objectHandler.nextLevel();
+					
+					
 					if(Run.isLoggedIn())
 					{
 						BasicNameValuePair[] scoreData = new BasicNameValuePair[4];
 
 						scoreData[0] = new BasicNameValuePair("accessToken", Run.accessToken);
-						scoreData[1] = new BasicNameValuePair("level", Integer.toString(ImageResource.Levels.findByPath(Game.objectHandler.currentLevel.getName()).getLevel()));
-						scoreData[2] = new BasicNameValuePair("coins", Integer.toString(getItemCount(Identifier.COIN)));
-						scoreData[3] = new BasicNameValuePair("duration", Game.objectHandler.nextLevel());
+						scoreData[1] = new BasicNameValuePair("level", Integer.toString(level));
+						scoreData[2] = new BasicNameValuePair("coins", Integer.toString(coins));
+						scoreData[3] = new BasicNameValuePair("duration", Double.toString(duration));
 						
 						try
 						{
@@ -238,12 +243,12 @@ public class Player extends WorldObject
 							logger.error(error);
 						}
 
-						Menu.scores.add(new Score(Integer.parseInt(scoreData[2].getValue()), Integer.parseInt(scoreData[1].getValue()), Double.parseDouble(scoreData[3].getValue())));
+						Menu.scores.add(new Score(coins, level, duration));
 					}
 					
 					else
 					{
-						Menu.scores.add(new Score(getItemCount(Identifier.COIN), ImageResource.Levels.findByPath(Game.objectHandler.currentLevel.getName()).getLevel(), Double.parseDouble(Game.objectHandler.nextLevel())));
+						Menu.scores.add(new Score(coins, level, duration));
 					}
 					
 					Run.resourceHandler.sounds.get(SoundResource.VICTORY).play();
