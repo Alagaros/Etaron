@@ -100,14 +100,59 @@ public class Game implements GameState
 	
 	// Default implementation for controllers.
 	
-	public void controllerButtonPressed(int par1, int par2){}
+	public void controllerButtonPressed(int par1, int par2)
+	{
+		if(par2 == 1 && cameraFocus.isJumping() == false)
+		{
+			cameraFocus.setVelY(-Player.jumpHeight);
+			cameraFocus.setJumping(true);
+		}
+		
+		else if(par2 == 3)
+		{
+			objectHandler.reloadLevel();
+		}
+		
+		else if(par2 == 5 || par2 == 6)
+		{
+			switchPlayer();
+		}
+		
+		else if(par2 == 7)
+		{
+			displayInfo = !displayInfo;
+		}
+		
+		else if(par2 == 8)
+		{
+			stateBasedGame.enterState(States.MENU_STATE.getId());
+		}
+	}
+	
 	public void controllerButtonReleased(int par1, int par2){}
 	public void controllerDownPressed(int par1){}
 	public void controllerDownReleased(int par1){}
-	public void controllerLeftPressed(int par1){}
-	public void controllerLeftReleased(int par1){}
-	public void controllerRightPressed(int par1){}
-	public void controllerRightReleased(int par1){}
+	
+	public void controllerLeftPressed(int par1)
+	{
+		cameraFocus.setVelX(-Player.walkSpeed);
+	}
+	
+	public void controllerLeftReleased(int par1)
+	{
+		cameraFocus.setVelX(0);
+	}
+	
+	public void controllerRightPressed(int par1)
+	{
+		cameraFocus.setVelX(Player.walkSpeed);
+	}
+	
+	public void controllerRightReleased(int par1)
+	{
+		cameraFocus.setVelX(0);
+	}
+	
 	public void controllerUpPressed(int par1){}
 	public void controllerUpReleased(int par1){}
 	
@@ -155,23 +200,7 @@ public class Game implements GameState
 		
 		if(par1 == Keyboard.KEY_Q)
 		{
-			int currentPlayer = objectHandler.players.indexOf(cameraFocus);
-			
-			if(objectHandler.players.size() > 1)
-			{
-				if(currentPlayer < objectHandler.players.size() - 1)
-				{
-					currentPlayer++;
-				}
-
-				else
-				{
-					currentPlayer = 0;
-				}
-
-				cameraFocus.setVelX(0);
-				cameraFocus = objectHandler.players.get(currentPlayer);
-			}
+			switchPlayer();
 		}
 		
 		
@@ -179,17 +208,37 @@ public class Game implements GameState
 		
 		if(par1 == Keyboard.KEY_R)
 		{
-			try 
-			{
-				objectHandler.reloadLevel();
-			} 
-			
-			catch(SlickException error) 
-			{
-				logger.error(error);
-			}
+			objectHandler.reloadLevel();
 		}
 	}
+	
+	
+	/**
+	 * switchPlayer Sets the camera focus on the next player in the List.
+	 *
+	 * @return {void}
+	 */
+	private void switchPlayer() 
+	{
+		int currentPlayer = objectHandler.players.indexOf(cameraFocus);
+		
+		if(objectHandler.players.size() > 1)
+		{
+			if(currentPlayer < objectHandler.players.size() - 1)
+			{
+				currentPlayer++;
+			}
+
+			else
+			{
+				currentPlayer = 0;
+			}
+
+			cameraFocus.setVelX(0);
+			cameraFocus = objectHandler.players.get(currentPlayer);
+		}
+	}
+	
 	
 	public void keyReleased(int par1, char par2)
 	{
