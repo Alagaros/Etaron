@@ -225,17 +225,15 @@ public class ObjectHandler
      * reloadLevel Reloads the current level.
      *
      * @return {void}
-     * 
-     * @throws {SlickException}
      */
-	public void reloadLevel() throws SlickException
+	public void reloadLevel()
 	{
 		try 
 		{
 			loadLevel(currentLevel);
 		} 
 		
-		catch(IOException error) 
+		catch(IOException | SlickException error) 
 		{
 			logger.error(error);
 		}
