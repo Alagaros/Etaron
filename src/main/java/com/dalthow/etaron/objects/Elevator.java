@@ -13,16 +13,12 @@ import com.dalthow.etaron.utils.DrawUtils ;
 /**
  * Etaron
  *
- *
- * @author Dalthow Game Studios 
- * @class Elevator.java
- *
+ * @author Trevi Awater
  **/
 
 public class Elevator extends WorldObject
 {
 	// Declaration of the variables the Elevator needs to go up or down.
-	
 	private int direction;
 	private int amount;
 	
@@ -30,7 +26,6 @@ public class Elevator extends WorldObject
 	
 	
 	// Constructor that sets the variables for the WorldObject as well as the declared variables.
-	
 	public Elevator(float xPos, float yPos, int direction, int amount, Identifier id, boolean isSolid) 
 	{
 		super(xPos, yPos, id, isSolid);
@@ -43,18 +38,15 @@ public class Elevator extends WorldObject
 
 	
 	// Default WorldObject methods.
-	
 	@Override
 	public void tick(List<WorldObject> objectList) 
 	{
 		// Applying forces to the Elevator.
-		
 		xPos += xVel;
 		yPos += yVel;
 		
 		
 		// Switching which direction it goes in.
-		
 		if(timePassed < (amount * 32))
 		{
 			yVel = (direction == 0 ? 1 : -1);
@@ -79,7 +71,6 @@ public class Elevator extends WorldObject
 	public void render(Graphics graphics) 
 	{
 		// Switching the Elevator's color based on the direction.
-		
 		Color elevatorColor = DrawUtils.DrawHelper.ELEVATOR_DOWN.getColor();
 	
 		if(direction == 1)

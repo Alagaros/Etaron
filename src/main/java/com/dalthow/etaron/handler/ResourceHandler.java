@@ -20,32 +20,24 @@ import com.dalthow.etaron.media.SoundResource;
 /**
  * Etaron
  *
- * 
- * @author Dalthow Game Studios
- * @class ResourceHandler.java
- * 
+ * @author Trevi Awater
  **/
 
 public class ResourceHandler
 {
 	// Declaration of the Logger object.
-
 	private static final Logger logger = LogManager.getLogger(ResourceHandler.class);
 
-
 	// Declaration of the hash maps that hold all the resources.
-
 	public Map<ImageResource.Levels, Image> levels = new HashMap<>(ImageResource.Levels.values().length);
 	public Map<SoundResource, Sound> sounds = new HashMap<>(SoundResource.values().length);
 	public Map<MusicResource, Music> music = new HashMap<>(MusicResource.values().length);
 
 
 	/**
-	 * loadSounds Loads all declared sounds.
+	 * Loads all declared sounds.
 	 *
-	 * @return {void}
-	 * 
-	 * @throws {SlickException}
+	 * @throws SlickException
 	 */
 	private void loadSounds() throws SlickException
 	{
@@ -57,13 +49,10 @@ public class ResourceHandler
 		logger.info("Finished loading " + sounds.size() + " sounds.");
 	}
 	
-	
 	/**
-	 * loadMusic Loads all declared music.
+	 * Loads all declared music.
 	 *
-	 * @return {void}
-	 * 
-	 * @throws {SlickException}
+	 * @throws SlickException
 	 */
 	private void loadMusic() throws SlickException
 	{
@@ -75,13 +64,10 @@ public class ResourceHandler
 		logger.info("Finished loading " + music.size() + " songs.");
 	}
 
-
 	/**
-	 * loadLevels Loads all declared levels.
+	 * Loads all declared levels.
 	 *
-	 * @return {void}
-	 * 
-	 * @throws {SlickException}
+	 * @throws SlickException
 	 */
 	public void loadLevels() throws SlickException
 	{
@@ -99,31 +85,29 @@ public class ResourceHandler
 		logger.info("Finished loading " + levels.size() + " levels.");
 	}
 
-
 	/**
-	 * get Gets an image.
+	 * Gets an image.
 	 * 
-	 * @param {ImageResource} image The ImageResource media object that should be obtained.
-	 * @param {boolean} flipped If the image should be flipped or not.
+	 * @param image The ImageResource media object that should be obtained.
+	 * @param flipped If the image should be flipped or not.
 	 *
-	 * @return {void}
+	 * @return Image
 	 * 
-	 * @throws {SlickException, IOException}
+	 * @throws SlickException, IOException
 	 */
 	public Image get(ImageResource image, boolean flipped) throws SlickException, IOException
 	{
 		return new Image(ResourceLoader.getResourceAsStream(image.getPath()), image.getPath(), flipped);
 	}
 
-
 	/**
-	 * get Gets an music file.
+	 * Gets an music file.
 	 *
-	 * @param {MusicResource} music The MusicResource media object that should be obtained.
+	 * @param music The MusicResource media object that should be obtained.
 	 *
-	 * @return {void}
+	 * @return Music
 	 * 
-	 * @throws {SlickException}
+	 * @throws SlickException
 	 */
 	@Deprecated
 	public Music get(MusicResource music) throws SlickException
@@ -131,15 +115,14 @@ public class ResourceHandler
 		return new Music(ResourceLoader.getResourceAsStream(music.getPath()), music.getPath());
 	}
 
-
 	/**
-	 * get Gets a sounds file.
+	 * Gets a sounds file.
 	 *
-	 * @param {SoundResource} sound The SoundResource media object that should be obtained.
+	 * @param sound The SoundResource media object that should be obtained.
 	 *
-	 * @return {void}
+	 * @return Sound
 	 * 
-	 * @throws {SlickException}
+	 * @throws SlickException
 	 */
 	@Deprecated
 	public Sound get(SoundResource sound) throws SlickException
@@ -147,13 +130,10 @@ public class ResourceHandler
 		return new Sound(ResourceLoader.getResourceAsStream(sound.getPath()), sound.getPath());
 	}
 
-	
 	/**
-	 * loadAudio Loads both the SoundResource's and the MusicResource's on a separate Thread.
+	 * Loads both the SoundResource's and the MusicResource's on a separate Thread.
 	 *
-	 * @return {void}
-	 * 
-	 * @throws {SlickException}
+	 * @throws SlickException
 	 */
 	public void loadAudio()
 	{
@@ -165,10 +145,8 @@ public class ResourceHandler
 				{
 					Run.resourceHandler.loadSounds();
 					Run.resourceHandler.loadMusic();
-					
-					
+
 					// Stopping the Thread.
-					
 					interrupt();
 				}
 				

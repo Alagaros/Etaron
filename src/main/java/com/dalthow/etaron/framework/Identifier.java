@@ -3,27 +3,13 @@ package com.dalthow.etaron.framework;
 /**
  * Etaron
  *
- * 
- * @author Dalthow Game Studios 
- * @class Identifier.java
- * 
+ * @author Trevi Awater
  **/
 
 public enum Identifier 
 {
 	// A list of all the object-interactions available in the game.
-	
-	PLAYER(),
-	BLOCK(),
-	ELEVATOR(),
-	JELLY(),
-	COIN(),
-	KEY(),
-	BULLET(),
-	LAVA(),
-	TURRET(),
-	DECOR(),
-	FLAG(),
-	SAND(),
-	DOOR();
+	PLAYER(), BLOCK(), ELEVATOR(), JELLY(), COIN(),
+	KEY(), BULLET(), LAVA(), TURRET(), DECOR(),
+	FLAG(), SAND(), DOOR();
 }

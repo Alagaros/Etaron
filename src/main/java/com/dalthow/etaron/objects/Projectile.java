@@ -12,23 +12,18 @@ import com.dalthow.etaron.framework.WorldObject;
 /**
  * Etaron
  *
- * 
- * @author Dalthow Game Studios 
- * @class Projectile.java
- * 
+ * @author Trevi Awater
  **/
 
 public class Projectile extends WorldObject
 {
 	// Declaration of the Projectile's speed and lifetime.
-	
 	private float xVel, yVel;
-	
+
 	private int timeInWorld, maxLifeSpawn;
-	
-	
+
+
 	// Constructor that sets the variables for the WorldObject as well as the declared variables.
-	
 	public Projectile(float xPos, float yPos, float xSpeed, float ySpeed, int maxLifeSpawn, Identifier id, boolean isSolid) 
 	{
 		super(xPos, yPos, id, isSolid);
@@ -42,18 +37,14 @@ public class Projectile extends WorldObject
 
 	
 	// Default WorldObject methods.
-	
 	@Override
 	public void tick(List<WorldObject> objectList) 
 	{
 		// Applying forces to the Projectile's position.
-		
 		xPos += xVel;
 		xPos += yVel;
-		
 
 		// Makes sure that the Projectile disappears after a certain time.
-		
 		if(timeInWorld >= maxLifeSpawn)
 		{
 			objectList.remove(this);
@@ -63,17 +54,13 @@ public class Projectile extends WorldObject
 		{
 			timeInWorld++;
 		}
-		
-		
+
 		// Checking if the Projectile hits something.
-		
 		for(int i = 0; i < objectList.size(); i++)
 		{
 			WorldObject temporaryObject = objectList.get(i);
-			
-			
+
 			// Remove the Projectile from the world if the hit object is solid and not a Player.
-			
 			if(temporaryObject.isSolid() && temporaryObject.getId() != Identifier.PLAYER)
 			{
 				if(getBounds().intersects(temporaryObject.getBounds()))
@@ -88,7 +75,6 @@ public class Projectile extends WorldObject
 	public void render(Graphics graphics)
 	{
 		// Switching the shape and color based on the Identifier.
-		
 		if(id == Identifier.BULLET)
 		{
 			graphics.setColor(new Color(255, 255, 255));

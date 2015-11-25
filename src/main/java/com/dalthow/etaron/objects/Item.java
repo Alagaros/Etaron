@@ -15,16 +15,12 @@ import com.dalthow.etaron.framework.WorldObject;
 /**
  * Etaron
  *
- *
- * @author Dalthow Game Studios 
- * @class Item.java
- *
+ * @author Trevi Awater
  **/
 
 public class Item extends WorldObject
 {
 	// Declaration of the icon or animation.
-	
 	private Image icon;
 	private Sound pickupSound;
 	private Animation animation;
@@ -33,14 +29,11 @@ public class Item extends WorldObject
 	
 	
 	// Constructor that sets the variables for the WorldObject as well as the declared variables.
-	
 	public Item(float xPos, float yPos, Identifier id, boolean isSolid, Image icon, Sound pickupSound, int offsetX, int offsetY, boolean hasAnimation, boolean drawOnPlayer) 
 	{
 		super(xPos, yPos, id, isSolid);
 
-		
 		// Creating the animation if there is one.
-		
 		if(hasAnimation)
 		{
 			SpriteSheet temporarySpriteSheet = new SpriteSheet(icon, 32, 32);
@@ -56,18 +49,13 @@ public class Item extends WorldObject
 	
 	
 	// Default WorldObject methods.
-	
 	@Override
-	public void tick(List<WorldObject> objectList) 
-	{
-		
-	}
+	public void tick(List<WorldObject> objectList) {}
 
 	@Override
 	public void render(Graphics graphics) 
 	{
 		// Checking if there is an animation, if not draw the static icon.
-		
 		if(animation != null)
 		{
 			animation.draw(xPos, yPos);
@@ -87,27 +75,22 @@ public class Item extends WorldObject
 
 	
 	// Getters.
-
 	public Image getIcon() 
 	{
 		return icon;
 	}
-
 	public Sound getPickupSound()
 	{
 		return pickupSound;
 	}
-	
 	public int getRenderX() 
 	{
 		return offsetX;
 	}
-
 	public int getRenderY() 
 	{
 		return offsetY;
 	}
-
 	public boolean drawOnPlayer() 
 	{
 		return drawOnPlayer;

@@ -16,31 +16,24 @@ import com.dalthow.etaron.utils.DrawUtils ;
 /**
  * Etaron
  *
- *
- * @author Dalthow Game Studios 
- * @class Turret.java
- *
+ * @author Trevi Awater
  **/
 
 public class Turret extends WorldObject
 {
 	// Declaration of the variables the Turret needs to decide if it should fire and where.
-
 	private int direction;
 	private int tickToFire;
 
 	private boolean shouldFire;
-	
-	
+
 	// Declaration of the variables required to make the Turret look nice.
-	
 	private int backFire;
 
 	private Color detectionColor;
 
 	
 	// Constructor that sets the variables for the WorldObject as well as the declared variables.
-	
 	public Turret(float xPos, float yPos, Identifier id, boolean isSolid)
 	{
 		super(xPos, yPos, id, isSolid);
@@ -52,7 +45,6 @@ public class Turret extends WorldObject
 	
 
 	// Default WorldObject methods.
-	
 	@Override
 	public void tick(List<WorldObject> objectList)
 	{
@@ -161,20 +153,19 @@ public class Turret extends WorldObject
 
 
 	/**
-     * getVisionLeft Used to check if a Player is in the area left from the Turret.
+     * Used to check if a Player is in the area left from the Turret.
      * 
-     * @return {Rectangle}
+     * @return Rectangle
      */
 	public Rectangle getVisionLeft()
 	{
 		return new Rectangle((int)xPos - 290, (int)yPos - 128, 288, 216);
 	}
-
 	
 	/**
-     * getVisionRight Used to check if a Player is in the area right from the Turret.
+     * Used to check if a Player is in the area right from the Turret.
      * 
-     * @return {Rectangle}
+     * @return Rectangle
      */
 	public Rectangle getVisionRight()
 	{

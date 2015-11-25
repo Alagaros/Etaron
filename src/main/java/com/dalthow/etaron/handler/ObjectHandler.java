@@ -31,101 +31,75 @@ import com.dalthow.etaron.utils.DrawUtils.DrawHelper ;
 /**
  * Etaron
  *
- *
- * @author Dalthow Game Studios 
- * @class ObjectHandler.java
- *
+ * @author Trevi Awater
  **/
 
 public class ObjectHandler 
 {
 	// Declaration of the temporary objects, used for data sorting.
-
 	private WorldObject temporaryObject;
 	private Player temporaryPlayer;
-	
 
 	// Declaration of the Logger object.
-
 	private static final Logger logger = LogManager.getLogger(ObjectHandler.class);
-		
-	
-	// Declaration of the duration variables.
-	
-	public DateTime startTime;
-	
-	
-	// Declaration of the level image.
-	
-	public Image currentLevel;
 
+	// Declaration of the duration variables.
+	public DateTime startTime;
+
+	// Declaration of the level image.
+	public Image currentLevel;
 	
 	// Declaration of the objects and players list.
-	
 	public List<WorldObject> objects = new ArrayList<>();
 	public List<Player> players = new ArrayList<>();
 	
 	
 	/**
-     * addObject Adds a WorldObjects to the objects List.
+     * Adds a WorldObjects to the objects List.
      *
-     * @param  {WorldObject} object The WorldObject that should be added to the objects List.
-     * 
-     * @return {void}
+     * @param object The WorldObject that should be added to the objects List.
      */
 	public void addObject(WorldObject object)
 	{
 		objects.add(object);
 	}
 
-	
 	/**
-     * removeObject Removes a WorldObject from the objects List.
+     * Removes a WorldObject from the objects List.
      *
-     * @param  {WorldObject} object The WorldObject that should be removed from the objects List.
-     * 
-     * @return {void}
+     * @param object The WorldObject that should be removed from the objects List.
      */
 	public void removeObject(WorldObject object)
 	{
 		objects.remove(object);
 	}
-	
-	
+
 	/**
-     * addPlayer Adds a Player to the players List.
+     * Adds a Player to the players List.
      *
-     * @param  {Player} player The Player that should be added to the players List.
-     * 
-     * @return {void}
+     * @param player The Player that should be added to the players List.
      */
 	public void addPlayer(Player player)
 	{
 		players.add(player);
 	}
 
-	
 	/**
-     * removePlayer Removes a Player to the players List.
+     * Removes a Player to the players List.
      *
-     * @param  {Player} player The Player that should be removed from the players List.
-     * 
-     * @return {void}
+     * @param player The Player that should be removed from the players List.
      */
 	public void removePlayer(Player player)
 	{
 		players.remove(player);
 	}
-	
-	
+
 	/**
-     * loadLevel Loads a level based on a image checking every pixel from the top left to the bottom right.
+     * Loads a level based on a image checking every pixel from the top left to the bottom right.
      *
-     * @param  {Image} image The Image that contains all the level data.
-     * 
-     * @return {void}
-     * 
-	 * @throws {SlickException, IOException} 
+     * @param level The Image that contains all the level data.
+     *
+	 * @throws SlickException, IOException
      */
 	public void loadLevel(Image level) throws SlickException, IOException
 	{
@@ -219,12 +193,9 @@ public class ObjectHandler
 			}
 		}
 	}
-	
-	
+
 	/**
-     * reloadLevel Reloads the current level.
-     *
-     * @return {void}
+     * Reloads the current level.
      */
 	public void reloadLevel()
 	{
@@ -239,11 +210,8 @@ public class ObjectHandler
 		}
 	}
 
-	
 	/**
      * clearLevel Clears the entire level so a new one can be loaded.
-     *
-     * @return {void}
      */
 	private void clearLevel() 
 	{
@@ -251,11 +219,8 @@ public class ObjectHandler
 		players.clear();
 	}
 
-
 	/**
-     * tick Makes all the world objects tick.
-     *
-     * @return {void}
+     * Makes all the world objects tick.
      */
 	public void tick()
 	{
@@ -272,44 +237,34 @@ public class ObjectHandler
 		}
 	}
 
-	
 	/**
-     * render Makes all the world objects render.
-     *
-     * @return {void}
+     * Makes all the world objects render.
      */
 	public void render(Graphics graphics)
 	{
 		for(int i = 0; i < objects.size(); i++)
 		{
 			temporaryObject = objects.get(i);
-			
-			
+
 			// Checking if this object is on the screen, if not don't draw it.
-			
 			if(temporaryPlayer != null && ((Player)Game.cameraFocus).getRenderBounds().intersects(temporaryObject.getBounds()))
 			{	
 				temporaryObject.render(graphics);
 			}
 		}
-		
-		
+
 		// Rendering the players above all objects.
-		
 		for(int i = 0; i < players.size(); i++) 
 		{
 			temporaryPlayer = players.get(i);
 			temporaryPlayer.render(graphics);
 		}
 	}
-	
-	
+
 	/**
-     * nextLevel Goes to the next level.
+     * Goes to the next level.
      *
-     * @return {float} The amount of seconds it took to complete the previous level.
-     * 
-	 * @throws {SlickException}
+     * @return float The amount of seconds it took to complete the previous level.
      */
 	public double nextLevel() throws SlickException
 	{

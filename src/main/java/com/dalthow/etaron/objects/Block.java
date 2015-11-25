@@ -14,16 +14,12 @@ import com.dalthow.etaron.utils.DrawUtils ;
 /**
  * Etaron
  *
- *
- * @author Dalthow Game Studios
- * @class Block.java
- *
+ * @author Trevi Awater
  **/
 
 public class Block extends WorldObject
 {
 	// Constructor that sets the variables for the WorldObject.
-
 	public Block(float xPos, float yPos, Identifier id, boolean isSolid)
 	{
 		super(xPos, yPos, id, isSolid);
@@ -31,14 +27,12 @@ public class Block extends WorldObject
 
 
 	// Default WorldObject methods.
-
 	@Override
 	public void tick(List<WorldObject> objectList)
 	{
 		if(id == Identifier.DOOR)
 		{
 			// Making sure the user can touch the block.
-
 			Rectangle touchBounds = getBounds();
 			touchBounds.grow(1, 1);
 
@@ -47,7 +41,6 @@ public class Block extends WorldObject
 			if(temporaryPlayer.getBounds().intersects(touchBounds))
 			{
 				// Checking if the player has a key, if so delete it and open the door.
-
 				if(temporaryPlayer.hasItem(Identifier.KEY, true))
 				{
 					Game.objectHandler.objects.remove(this);
@@ -81,7 +74,6 @@ public class Block extends WorldObject
 	public void render(Graphics graphics)
 	{
 		// Switching the Block's color based on the Identifier.
-
 		Color blockColor = new Color(255, 255, 255);
 
 		if(id == Identifier.LAVA)
@@ -111,7 +103,6 @@ public class Block extends WorldObject
 
 
 		// Drawing the Block.
-
 		graphics.setColor(blockColor);
 		graphics.fillRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
 	}

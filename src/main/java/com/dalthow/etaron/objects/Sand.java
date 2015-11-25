@@ -14,21 +14,16 @@ import com.dalthow.etaron.utils.DrawUtils ;
 /**
  * Etaron
  *
- *
- * @author Dalthow Game Studios 
- * @class Sand.java
- *
+ * @author Trevi Awater
  **/
 
 public class Sand extends WorldObject
 {
 	// Declaration of the variables the Sand needs to get triggered and fall down.
-	
 	private boolean isTriggered;
 	
 	
 	// Constructor that sets the variables for the WorldObject as well as the declared variables.
-	
 	public Sand(float xPos, float yPos, Identifier id, boolean isSolid) 
 	{
 		super(xPos, yPos, id, isSolid);
@@ -38,18 +33,14 @@ public class Sand extends WorldObject
 
 	
 	// Default WorldObject methods.
-	
 	@Override
 	public void tick(List<WorldObject> objectList) 
 	{
 		// Applying forces to the Sand.
-		
 		xPos += xVel;
 		yPos += yVel;
-		
-		
+
 		// Applying gravity to the Sand's position if its set off.
-		
 		if(isTriggered)
 		{
 			if(yVel <= 0)
@@ -67,7 +58,6 @@ public class Sand extends WorldObject
 				}
 			}
 		}
-		
 		
 		// Stopping the falling if the Sand hits a solid object.
 
@@ -104,15 +94,12 @@ public class Sand extends WorldObject
 				}
 			}
 		}
-		
-		
+
 		// Making sure the user can touch the block.
-		
 		Rectangle touchBounds = getBounds();
 		touchBounds.grow(1, 1);
 		
 		Player temporaryPlayer = (Player)Game.cameraFocus;
-		
 		
 		// Trigger the fall when the user touches this block.
 		
@@ -137,9 +124,9 @@ public class Sand extends WorldObject
 	
 	
 	/**
-     * getBoundsBottom Used to check if the Sand is touching a solid WorldObject on the bottom.
+     * Used to check if the Sand is touching a solid WorldObject on the bottom.
      * 
-     * @return {Rectangle}
+     * @return Rectangle
      */
 	public Rectangle getBoundsBottom()
 	{
@@ -148,9 +135,9 @@ public class Sand extends WorldObject
 	
 	
 	/**
-     * getBoundsTop Used to check if the Sand is touching a solid WorldObject on the top.
+     * Used to check if the Sand is touching a solid WorldObject on the top.
      * 
-     * @return {Rectangle}
+     * @return Rectangle
      */
 	public Rectangle getBoundsTop()
 	{

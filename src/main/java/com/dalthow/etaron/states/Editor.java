@@ -43,61 +43,43 @@ import com.dalthow.etaron.utils.ImageUtils;
 /**
  * Etaron
  *
- *
- * @author Dalthow Game Studios
- * @class Editor.java
- *
+ * @author Trevi Awater
  **/
 
 public class Editor implements GameState
 {
 	// Declaration of the Logger object.
-
 	private static final Logger logger = LogManager.getLogger(Editor.class);
-	
-	
+
 	// Declaring some other variables.
-	
 	private StateBasedGame stateBasedGame;
 	private Color selectedColor;
 	private int pixelSize;
-	
-	
+
 	// Declaration of the font used in this state.
-	
 	private TrueTypeFont headerFont;
-	
-	
+
 	// Declaration of the images used in this state.
-	
 	private Image cross, disk;
-		
-	
+
 	// Declaration of the array list with Pixel's.
-	
 	private List<Pixel> pixels = new ArrayList<Pixel>();
-	
-	
+
 	// Declaration of the rectangles used for click detection.
-	
 	private Rectangle saveLevel, exitEditor;
-	
-	
+
 	// Declaration of the mouse position and states.
-	
 	private int xMouse, yMouse;
 	private boolean mouseDown;
 	private Rectangle mousePixel;
 	
 	
 	// Default implementation for mouse.
-	
 	public void mouseClicked(int par1, int par2, int par3, int par4){}
 	
 	public void mouseDragged(int par1, int par2, int par3, int par4)
 	{
 		// Setting the mouse position equal to the declared class variables.
-		
 		xMouse = par3;
 		yMouse = par4;
 	}
@@ -105,7 +87,6 @@ public class Editor implements GameState
 	public void mouseMoved(int par1, int par2, int par3, int par4)
 	{
 		// Setting the mouse position equal to the declared class variables.
-		
 		xMouse = par3;
 		yMouse = par4;
 	}
@@ -114,32 +95,25 @@ public class Editor implements GameState
 	{
 		mouseDown = true;
 	}
-	
 	public void mouseReleased(int par1, int par2, int par3)
 	{
 		mouseDown = false;
 	}
-	
 	public void mouseWheelMoved(int par1){}
-	
-	
+
 	// Default implementation for general input.
-	
 	public void inputEnded(){}
 	public void inputStarted(){}
 	public void setInput(Input par1){}
 	
 	
 	// Determines whether user input is allowed or not.
-	
 	public boolean isAcceptingInput() 
 	{
 		return true;
 	}
-	
-	
+
 	// Default implementation for controllers.
-	
 	public void controllerButtonPressed(int par1, int par2){}
 	public void controllerButtonReleased(int par1, int par2){}
 	public void controllerDownPressed(int par1){}
@@ -150,10 +124,8 @@ public class Editor implements GameState
 	public void controllerRightReleased(int par1){}
 	public void controllerUpPressed(int par1){}
 	public void controllerUpReleased(int par1){}
-	
-	
+
 	// Default implementation for keyboards.
-	
 	public void keyPressed(int par1, char par2)
 	{
 		if(par1 == Keyboard.KEY_ESCAPE)
@@ -163,37 +135,28 @@ public class Editor implements GameState
 	}
 	
 	public void keyReleased(int par1, char par2){}
-	
 
 	// Lets the state know which id it has.
-
 	public int getID() 
 	{
 		return States.EDITOR_STATE.getId();
 	}
 
-	
 	// Gets called when the state is created.
-	
 	public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException 
 	{
 		// Setting the global StateBasedGame to the local one so we can use it in other methods.
-		
 		this.stateBasedGame = stateBasedGame;
-		
-		
-		try 
+
+		try
 		{
 			// Loading font.
-			
 			InputStream inputStream = ResourceLoader.getResourceAsStream("assets/fonts/bit-bold.ttf");
 			Font bitBold = Font.createFont(Font.TRUETYPE_FONT, inputStream);
 			
 			headerFont = new TrueTypeFont(bitBold.deriveFont(32F), false);
-			
-			
+
 			// Loading images.
-			
 			cross = Run.resourceHandler.get(ImageResource.CROSS, false);
 			disk = Run.resourceHandler.get(ImageResource.DISK, false);
 		}
@@ -202,28 +165,20 @@ public class Editor implements GameState
 		{
 			logger.error(error);
 		}
-		
-		
+
 		// Adding filters to the images.
-		
 		cross.setFilter(Image.FILTER_NEAREST);
 		disk.setFilter(Image.FILTER_NEAREST);
-		
-		
+
 		// Setting the Pixel size.
-		
 		pixelSize = 10;
 		
-		
 		// Filling in the button dimensions.
-		
 		saveLevel = new Rectangle(gameContainer.getWidth() - 86 - disk.getWidth() * 4, gameContainer.getHeight() - 40 - disk.getHeight() * 4, 32, 36);
 		exitEditor = new Rectangle(gameContainer.getWidth() - 40 - cross.getWidth() * 4, gameContainer.getHeight() - 40 - cross.getHeight() * 4, 32, 32);
 	}
-	
-	
-	// Gets called when the player enters this state.
 
+	// Gets called when the player enters this state.
 	public void enter(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException 
 	{
 		try
@@ -236,34 +191,26 @@ public class Editor implements GameState
 			error.printStackTrace();
 		}
 	}
-	
-	
-	// Gets called when the player leaves this state.
 
+	// Gets called when the player leaves this state.
 	public void leave(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException 
 	{
 		
 	}
 
-	
 	// Gets called every frame.
-
-	public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException 
+	public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException
 	{
 		DrawUtils.drawBackground(graphics, gameContainer, new Color(20, 20, 20));
 		
-		
 		// Drawing all the Pixel's on the screen.
-		
 		for(int i = 0; i < pixels.size(); i++)
 		{
 			graphics.setColor(pixels.get(i).getColor());
 			graphics.fillRect(pixels.get(i).getX() * pixelSize + 40, (gameContainer.getHeight() / 2 - (pixelSize * 64 / 2)) + pixels.get(i).getY() * pixelSize, pixelSize, pixelSize);
 		}
-		
-		
+
 		// Drawing the color palette.
-		
 		int col = 0;
 		int row = 0;
 		
@@ -284,37 +231,29 @@ public class Editor implements GameState
 		graphics.setColor(new Color(255, 255, 255));
 		graphics.setFont(headerFont);
 		graphics.drawString("Palette", gameContainer.getWidth() - headerFont.getWidth("Palette") - 39, 40);
-		
-		
+
 		// Drawing the mouse pixel.
-		
 		graphics.setColor(selectedColor);
 		graphics.fillRect(mousePixel.getX() - (pixelSize / 2), mousePixel.getY() - (pixelSize / 2), pixelSize, pixelSize);
 		
-		
 		// Drawing the close and save button.
-		
 		cross.draw(gameContainer.getWidth() - 40 - cross.getWidth() * 4, gameContainer.getHeight() - 40 - cross.getHeight() * 4, 4);
 		disk.draw(gameContainer.getWidth() - 86 - disk.getWidth() * 4, gameContainer.getHeight() - 40 - disk.getHeight() * 4, 4);
 	}
-	
-	
-	// Gets called every frame.
 
+	// Gets called every frame.
 	public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int delta) throws SlickException 
 	{
 		handleMouse(stateBasedGame);
 	}
-	
-	
+
+
 	/**
-     * handleMouse Checks if something should happen when the mouse is moved.
+     * Checks if something should happen when the mouse is moved.
      * 
-     * @param  {StateBasedGame} stateBasedGame Used so we can switch between game states.
+     * @param stateBasedGame Used so we can switch between game states.
      *
-     * @return {void}
-     * 
-     * @throws {SlickException}
+     * @throws SlickException
      */
 	private void handleMouse(StateBasedGame stateBasedGame) throws SlickException
 	{
@@ -323,23 +262,18 @@ public class Editor implements GameState
 		if(mouseDown)
 		{
 			// Looping trough all the pixels in the level.
-			
 			for(int i = 0; i < pixels.size(); i++)
 			{
 				Rectangle pixelWrapper = new Rectangle(pixels.get(i).getX() * pixelSize + 40, (Run.height / 2 - (pixelSize * 64 / 2)) + pixels.get(i).getY() * pixelSize, pixelSize, pixelSize);
 
-				
 				// Setting the Pixel's color to the selected color.
-				
 				if(mousePixel.intersects(pixelWrapper))
 				{
 					pixels.get(i).setColor(selectedColor);
 				}
 			}
 			
-			
 			// Drawing all the object color's so the user can pick one to draw with.
-			
 			int col = 0;
 			int row = 0;
 			
@@ -361,9 +295,7 @@ public class Editor implements GameState
 				}
 			}
 			
-			
 			// Used to return to the Menu state.
-			
 			if(mousePixel.intersects(exitEditor))
 			{
 				stateBasedGame.enterState(States.MENU_STATE.getId());
@@ -371,9 +303,7 @@ public class Editor implements GameState
 				mouseDown = false;
 			}
 			
-			
 			// Saves the level to the disk if its valid.
-			
 			else if(mousePixel.intersects(saveLevel))
 			{
 				saveLevel();
@@ -382,14 +312,11 @@ public class Editor implements GameState
 			}
 		}
 	}
-	
-	
+
 	/**
-     * loadLevelInEditor Unpacks a level Image into the pixels array.
+     * Unpacks a level Image into the pixels array.
      * 
-     * @param  {Image} level The level we should tear appart.
-     *
-     * @return {void}
+     * @param level The level we should tear apart.
      */
 	private void loadLevelInEditor(Image level)
 	{
@@ -404,47 +331,34 @@ public class Editor implements GameState
 			}
 		}
 	}
-	
-	
+
 	/**
-     * resetEditor Resets the level editor.
-     * 
-     * @return {void}
+     * Resets the level editor.
      */
 	private void resetEditor() throws SlickException, IOException
 	{
 		selectedColor = new Color(255, 255, 255);
-		
-		
+
 		// Loading in a blank level.
-		
 		loadLevelInEditor(Run.resourceHandler.get(ImageResource.BLANK_LEVEL, false));
 	}
-	
-	
+
 	/**
-     * saveLevel Generates a Image from the pixels array. Then saves it to the disk after that it returns to the Menu state.
-     * 
-     * @return {void}
+     * Generates a Image from the pixels array. Then saves it to the disk after that it returns to the Menu state.
      */
 	private void saveLevel()
 	{
 		// Generating a time stamp for the level.
-		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 		Calendar calendar = Calendar.getInstance();
 		String timeStamp = dateFormat.format(calendar.getTime());
-		
-		
+
 		// Creating a new BufferedImage that is 64 by 64.
-		
 		BufferedImage image = new BufferedImage(64, 64, BufferedImage.TYPE_INT_RGB);
 
 		java.awt.Graphics awtGraphics = image.getGraphics();
-
 		
 		// Looping trough the pixels and adding them to the image.
-		
 		for(int i = 0; i < pixels.size(); i++)
 		{
 			awtGraphics.setColor(new java.awt.Color(pixels.get(i).getColor().getRed(), pixels.get(i).getColor().getGreen(), pixels.get(i).getColor().getBlue()));
@@ -454,7 +368,6 @@ public class Editor implements GameState
 		try
 		{
 			// Converting the awt image to slick.
-			
 			Texture texture = BufferedImageUtil.getTexture("", image);
 			Image slickImage = new Image(texture.getImageWidth(), texture.getImageHeight());
 			slickImage.setTexture(texture);
@@ -463,12 +376,9 @@ public class Editor implements GameState
 			if(ImageUtils.isValidLevel(slickImage))
 			{
 				// Writing the image to the disk.
-				
 				ImageIO.write(image, "PNG", new File(System.getenv("Appdata") + Run.customLevelLocation + timeStamp + ".png"));
-				
-				
+
 				// Adding the image to the Menu state.
-				
 				Menu.customLevelPage.add(slickImage);
 				stateBasedGame.enterState(States.MENU_STATE.getId());
 			}
