@@ -31,10 +31,7 @@ import com.dalthow.etaron.states.Splash;
 /**
  * Etaron
  *
- *
- * @author Dalthow Game Studios
- * @class Run.java
- *
+ * @author Trevi Awater
  **/
 
 public class Run extends StateBasedGame
