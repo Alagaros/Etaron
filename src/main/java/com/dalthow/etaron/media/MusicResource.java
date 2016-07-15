@@ -12,12 +12,10 @@ public enum MusicResource
 	STARTING_OUT_SMALL("assets/music/starting out small.ogg", 0), KEEP_ON_JUMPING("assets/music/keep on jumping.ogg", 1),
 	NEW_MYSTERIES("assets/music/new mysteries.ogg", 2);
 
-	
 	// Declaration of the path and id.
 	private String path;
 	private int id;
 
-	
 	// Constructor that sets the declared variables.
 	MusicResource(String path, int id)
 	{
@@ -25,7 +23,6 @@ public enum MusicResource
 		this.id = id;
 	}
 
-	
 	// Getters.
 	public String getPath()
 	{
@@ -35,8 +32,7 @@ public enum MusicResource
 	{
 		return id;
 	}
-	
-	
+
 	/**
 	 * Returns a MusicResource based on a a id.
 	 * 
@@ -47,12 +43,8 @@ public enum MusicResource
 	public static MusicResource getMusicById(int id)
 	{
 		for(MusicResource music : MusicResource.values())
-		{
 			if(music.id == id)
-			{
 				return music;
-			}
-		}
 		
 		return null;
 	}

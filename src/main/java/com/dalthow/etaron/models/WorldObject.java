@@ -1,4 +1,4 @@
-package com.dalthow.etaron.framework;
+package com.dalthow.etaron.models;
 
 import java.awt.Rectangle;
 import java.util.List;
@@ -26,7 +26,6 @@ public abstract class WorldObject
 	// Declaration of the identifier.
 	protected Identifier id;
 
-	
 	// Constructor that fills the declared variables.
 	public WorldObject(float xPos, float yPos, Identifier id, boolean isSolid)
 	{
@@ -41,7 +40,6 @@ public abstract class WorldObject
 		this.isSolid = isSolid;
 	}
 
-	
 	// Used to make the object tick and render.
 	public abstract void tick(List<WorldObject> objectList);
 	public abstract void render(Graphics graphics);
@@ -49,7 +47,6 @@ public abstract class WorldObject
 	// Used for collision.
 	public abstract Rectangle getBounds();
 
-	
 	// Getters.
 	public float getPosX()
 	{

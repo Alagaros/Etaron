@@ -3,11 +3,10 @@ package com.dalthow.etaron.objects;
 import java.awt.Rectangle;
 import java.util.List;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-import com.dalthow.etaron.framework.Identifier;
-import com.dalthow.etaron.framework.WorldObject;
+import com.dalthow.etaron.models.Identifier;
+import com.dalthow.etaron.models.WorldObject;
 import com.dalthow.etaron.states.Game;
 import com.dalthow.etaron.utils.DrawUtils ;
 
@@ -21,8 +20,7 @@ public class Sand extends WorldObject
 {
 	// Declaration of the variables the Sand needs to get triggered and fall down.
 	private boolean isTriggered;
-	
-	
+
 	// Constructor that sets the variables for the WorldObject as well as the declared variables.
 	public Sand(float xPos, float yPos, Identifier id, boolean isSolid) 
 	{
@@ -31,7 +29,6 @@ public class Sand extends WorldObject
 		this.isTriggered = false;
 	}
 
-	
 	// Default WorldObject methods.
 	@Override
 	public void tick(List<WorldObject> objectList) 
@@ -44,18 +41,14 @@ public class Sand extends WorldObject
 		if(isTriggered)
 		{
 			if(yVel <= 0)
-			{
 				isFalling = true;
-			}
 
 			if(isFalling)
 			{
 				yVel += Game.gravity;
 
 				if(yVel >= Game.maximumVelocity)
-				{
 					yVel = Game.maximumVelocity;
-				}
 			}
 		}
 		
@@ -68,30 +61,24 @@ public class Sand extends WorldObject
 				WorldObject temporaryObject = objectList.get(i);
 				
 				if(temporaryObject.isSolid() == true && temporaryObject != this)
-				{
 					if(getBoundsBottom().intersects(temporaryObject.getBounds()))
 					{
 						if(temporaryObject.getId() == Identifier.SAND)
 						{
 							Sand temporarySand = (Sand)temporaryObject;
-							
+
 							temporarySand.isTriggered = true;
 						}
-						
+
 						yPos = temporaryObject.getPosY() - 31;
 						yVel = 0;
 
 						isFalling = false;
 					}
-				}
 				
 				else if(temporaryObject.getId() == Identifier.LAVA)
-				{
 					if(getBounds().intersects(temporaryObject.getBounds()))
-					{
 						objectList.remove(this);
-					}
-				}
 			}
 		}
 
@@ -102,11 +89,8 @@ public class Sand extends WorldObject
 		Player temporaryPlayer = (Player)Game.cameraFocus;
 		
 		// Trigger the fall when the user touches this block.
-		
 		if(temporaryPlayer.getBounds().intersects(touchBounds))
-		{
 			isTriggered = true;
-		}
 	}
 
 	@Override

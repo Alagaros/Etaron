@@ -4,19 +4,16 @@ import java.awt.Rectangle;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.LogManager ;
 import org.apache.log4j.Logger ;
-import org.json.JSONException ;
-import org.json.JSONObject ;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import com.dalthow.etaron.Run;
-import com.dalthow.etaron.framework.Identifier;
-import com.dalthow.etaron.framework.Score ;
-import com.dalthow.etaron.framework.WorldObject;
+import com.dalthow.etaron.models.Identifier;
+import com.dalthow.etaron.models.Score ;
+import com.dalthow.etaron.models.WorldObject;
 import com.dalthow.etaron.media.ImageResource;
 import com.dalthow.etaron.media.SoundResource;
 import com.dalthow.etaron.states.Game;
@@ -45,7 +42,6 @@ public class Player extends WorldObject
 	// Declaration of the Player's inventory.
 	public LinkedList<Item> inventory = new LinkedList<Item>();
 
-	
 	// Constructor that sets the variables for the WorldObject.
 	public Player(float xPos, float yPos, Identifier id, boolean isSolid) throws SlickException
 	{
@@ -55,7 +51,6 @@ public class Player extends WorldObject
 		playerHeight = 64F;
 	}
 
-	
 	// Default WorldObject methods.
 	@Override
 	public void tick(List<WorldObject> objectList)
@@ -64,21 +59,16 @@ public class Player extends WorldObject
 		xPos += xVel;
 		yPos += yVel;
 
-		
 		// Applying gravity to the Player's position.
 		if(yVel <= 0)
-		{
 			isFalling = true;
-		}
 
 		if(isFalling || isJumping)
 		{
 			yVel += Game.gravity;
 			
 			if(yVel >= Game.maximumVelocity && isFalling)
-			{
 				yVel = Game.maximumVelocity;
-			}
 		}
 
 		try
@@ -106,9 +96,7 @@ public class Player extends WorldObject
 
 			// Checking if an icon is set, if not go to the next entry.
 			if(inventory.get(i).drawOnPlayer())
-			{
 				icon.draw(inventory.get(i).getRenderX() + getPosX(), inventory.get(i).getRenderY() + getPosY());
-			}
 		}
 	}
 	
@@ -118,7 +106,6 @@ public class Player extends WorldObject
 		return new Rectangle((int)xPos, (int)yPos, (int) playerWidth, (int)playerHeight);
 	}
 
-	
 	/**
      * Performs a certain action when the player collides with a certain WorldObject.
      *
@@ -139,9 +126,7 @@ public class Player extends WorldObject
 					yPos = temporaryObject.getPosY() + (playerHeight / 2);
 
 					if(!(temporaryObject.getId() == Identifier.ELEVATOR))
-					{
 						yVel = 0;
-					}
 				}
 
 				if(getBoundsBottom().intersects(temporaryObject.getBounds()))
@@ -155,14 +140,10 @@ public class Player extends WorldObject
 				}
 
 				if(getBoundsRight().intersects(temporaryObject.getBounds()))
-				{
 					xPos = temporaryObject.getPosX() - playerWidth;
-				}
 
 				if(getBoundsLeft().intersects(temporaryObject.getBounds()))
-				{
 					xPos = temporaryObject.getPosX() + playerWidth;
-				}
 			}
 			
 			else if(getBounds().intersects(temporaryObject.getBounds()))
@@ -263,18 +244,14 @@ public class Player extends WorldObject
      */
 	public boolean hasItem(Identifier id, boolean consumeItem) 
 	{
-		for(int i = 0; i < inventory.size(); i++) 
-		{
+		for(int i = 0; i < inventory.size(); i++)
 			if(inventory.get(i).getId() == id)
 			{
 				if(consumeItem)
-				{
 					inventory.remove(i);
-				}
-				
+
 				return true;
 			}
-		}
 		
 		return false;
 	}
@@ -290,13 +267,9 @@ public class Player extends WorldObject
 	{
 		int itemCount = 0;
 		
-		for(int i = 0; i < inventory.size(); i++) 
-		{
+		for(int i = 0; i < inventory.size(); i++)
 			if(inventory.get(i).getId() == id)
-			{
 				itemCount++;
-			}
-		}
 		
 		return itemCount;
 	}

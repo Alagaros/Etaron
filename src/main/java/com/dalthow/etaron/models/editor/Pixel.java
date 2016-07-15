@@ -1,4 +1,4 @@
-package com.dalthow.etaron.framework.editor;
+package com.dalthow.etaron.models.editor;
 
 import org.newdawn.slick.Color;
 
@@ -16,14 +16,12 @@ public class Pixel
 	// Declaration of the pixel's color.
 	private Color color;
 
-
 	// Constructor that sets the Pixel's position.
 	public Pixel(int xPos, int yPos)
 	{
 		this.xPos = xPos;
 		this.yPos = yPos;
 	}
-
 
 	// Getters.
 	public Color getColor()

@@ -9,8 +9,8 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
 
-import com.dalthow.etaron.framework.Identifier;
-import com.dalthow.etaron.framework.WorldObject;
+import com.dalthow.etaron.models.Identifier;
+import com.dalthow.etaron.models.WorldObject;
 
 /**
  * Etaron
@@ -26,8 +26,7 @@ public class Item extends WorldObject
 	private Animation animation;
 	private int offsetX, offsetY;
 	private boolean drawOnPlayer;
-	
-	
+
 	// Constructor that sets the variables for the WorldObject as well as the declared variables.
 	public Item(float xPos, float yPos, Identifier id, boolean isSolid, Image icon, Sound pickupSound, int offsetX, int offsetY, boolean hasAnimation, boolean drawOnPlayer) 
 	{
@@ -46,8 +45,7 @@ public class Item extends WorldObject
 		this.offsetY = offsetY;
 		this.drawOnPlayer = drawOnPlayer;
 	}
-	
-	
+
 	// Default WorldObject methods.
 	@Override
 	public void tick(List<WorldObject> objectList) {}
@@ -57,14 +55,10 @@ public class Item extends WorldObject
 	{
 		// Checking if there is an animation, if not draw the static icon.
 		if(animation != null)
-		{
 			animation.draw(xPos, yPos);
-		}
 		
 		else
-		{
 			icon.draw(xPos, yPos);
-		}
 	}
 
 	@Override
@@ -73,7 +67,6 @@ public class Item extends WorldObject
 		return new Rectangle((int)xPos, (int)yPos, 32, 32);
 	}
 
-	
 	// Getters.
 	public Image getIcon() 
 	{

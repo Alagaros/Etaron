@@ -1,4 +1,4 @@
-package com.dalthow.etaron.framework;
+package com.dalthow.etaron.models;
 
 import org.newdawn.slick.GameContainer;
 
@@ -16,8 +16,7 @@ public class Camera
 	// Declaration of the viewport's width and height.
 	private int width;
 	private int height;
-	
-	
+
 	// Constructor that fills declared variables.
 	public Camera(float xPos, float yPos, GameContainer container)
 	{
@@ -27,8 +26,7 @@ public class Camera
 		width = container.getWidth();
 		height = container.getHeight();
 	}
-	
-	
+
 	// Makes the screen follow the player.
 	public void tick(WorldObject object) 
 	{
@@ -36,12 +34,9 @@ public class Camera
 		yPos =- object.getPosY() + height / 2 - 16 - 25;
 		
 		if(object.id == Identifier.PLAYER)
-		{
 			yPos = - object.getPosY() + height / 2 - 32 - 25;
-		}
 	}
 
-	
 	// Getters.
 	public float getPosX() 
 	{

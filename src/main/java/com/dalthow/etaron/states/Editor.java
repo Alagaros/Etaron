@@ -33,8 +33,8 @@ import org.newdawn.slick.util.BufferedImageUtil;
 import org.newdawn.slick.util.ResourceLoader;
 
 import com.dalthow.etaron.Run;
-import com.dalthow.etaron.framework.States;
-import com.dalthow.etaron.framework.editor.Pixel;
+import com.dalthow.etaron.models.States;
+import com.dalthow.etaron.models.editor.Pixel;
 import com.dalthow.etaron.media.ImageResource;
 import com.dalthow.etaron.utils.DrawUtils;
 import com.dalthow.etaron.utils.DrawUtils.DrawHelper;
@@ -72,8 +72,7 @@ public class Editor implements GameState
 	private int xMouse, yMouse;
 	private boolean mouseDown;
 	private Rectangle mousePixel;
-	
-	
+
 	// Default implementation for mouse.
 	public void mouseClicked(int par1, int par2, int par3, int par4){}
 	
@@ -105,8 +104,7 @@ public class Editor implements GameState
 	public void inputEnded(){}
 	public void inputStarted(){}
 	public void setInput(Input par1){}
-	
-	
+
 	// Determines whether user input is allowed or not.
 	public boolean isAcceptingInput() 
 	{
@@ -247,7 +245,6 @@ public class Editor implements GameState
 		handleMouse(stateBasedGame);
 	}
 
-
 	/**
      * Checks if something should happen when the mouse is moved.
      * 
@@ -268,9 +265,7 @@ public class Editor implements GameState
 
 				// Setting the Pixel's color to the selected color.
 				if(mousePixel.intersects(pixelWrapper))
-				{
 					pixels.get(i).setColor(selectedColor);
-				}
 			}
 			
 			// Drawing all the object color's so the user can pick one to draw with.
@@ -282,9 +277,7 @@ public class Editor implements GameState
 				Rectangle paletWrapper = new Rectangle(Run.width - 72 - (col * 48), 86 + (row * 48), 32, 32);
 
 				if(mousePixel.intersects(paletWrapper))
-				{
 					selectedColor = new Color(DrawHelper.values()[i].getColor());
-				}
 
 				col++;
 
@@ -321,15 +314,13 @@ public class Editor implements GameState
 	private void loadLevelInEditor(Image level)
 	{
 		for(int i = 0; i < level.getWidth(); i++)
-		{
 			for(int j = 0; j < level.getHeight(); j++)
 			{
 				Pixel pixel = new Pixel(i, j);
 				pixel.setColor(level.getColor(i, j));
-				
+
 				pixels.add(pixel);
 			}
-		}
 	}
 
 	/**
@@ -384,9 +375,7 @@ public class Editor implements GameState
 			}
 			
 			else
-			{
 				JOptionPane.showMessageDialog(null, "You need to add at least one player and one flag to be able to save the level.", "Level requirement error", JOptionPane.ERROR_MESSAGE);
-			}
 		}
 		
 		catch(IOException | SlickException error)

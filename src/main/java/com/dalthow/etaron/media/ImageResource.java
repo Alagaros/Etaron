@@ -13,25 +13,21 @@ public enum ImageResource
 	KEY("assets/images/items/key.png"), COIN("assets/images/items/coin.png"), DISK("assets/images/disk.png"),
 	CROSS("assets/images/cross.png"), BLANK_LEVEL("assets/images/blank-level.png"), PLUS("assets/images/plus.png");
 
-
 	// Declaration of the path.
 	private String path;
 
-	
 	// Constructor that sets the declared path variable.
 	ImageResource(String path)
 	{
 		this.path = path;
 	}
 
-	
 	// Getter.
 	public String getPath()
 	{
 		return path;
 	}
 
-	
 	// A list of all the levels in the game.
 	public enum Levels
 	{
@@ -47,11 +43,9 @@ public enum ImageResource
 		// Hard levels.
 		LEVEL_GET_WREKT("assets/levels/hard/get-wrekt.png", 25);
 
-
 		// Declaration of the path and level variable.
 		private String path;
 		private int level;
-
 
 		// Constructor that sets the declared variables.
 		Levels(String path, int level)
@@ -59,7 +53,6 @@ public enum ImageResource
 			this.setPath(path);
 			this.setLevel(level);
 		}
-
 
 		// Getters.
 		public String getPath()
@@ -80,8 +73,7 @@ public enum ImageResource
 		{
 			this.level = level;
 		}
-		
-		
+
 		/**
 	     * Gets a Levels enum based on the path..
 	     *
@@ -92,12 +84,8 @@ public enum ImageResource
 		public static Levels findByPath(String path)
 		{
 		    for(Levels levels : values())
-		    {
-		        if(levels.getPath().equals(path))
-		        {
-		            return levels;
-		        }
-		    }
+				if(levels.getPath().equals(path))
+					return levels;
 		    
 		    return null;
 		}

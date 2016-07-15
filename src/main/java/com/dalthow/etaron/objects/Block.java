@@ -6,8 +6,8 @@ import java.util.List;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-import com.dalthow.etaron.framework.Identifier;
-import com.dalthow.etaron.framework.WorldObject;
+import com.dalthow.etaron.models.Identifier;
+import com.dalthow.etaron.models.WorldObject;
 import com.dalthow.etaron.states.Game;
 import com.dalthow.etaron.utils.DrawUtils ;
 
@@ -25,7 +25,6 @@ public class Block extends WorldObject
 		super(xPos, yPos, id, isSolid);
 	}
 
-
 	// Default WorldObject methods.
 	@Override
 	public void tick(List<WorldObject> objectList)
@@ -38,14 +37,10 @@ public class Block extends WorldObject
 
 			Player temporaryPlayer = (Player)Game.cameraFocus;
 
+			// Checking if the player has a key, if so delete it and open the door.
 			if(temporaryPlayer.getBounds().intersects(touchBounds))
-			{
-				// Checking if the player has a key, if so delete it and open the door.
 				if(temporaryPlayer.hasItem(Identifier.KEY, true))
-				{
 					Game.objectHandler.objects.remove(this);
-				}
-			}
 		}
 
 		else if(id == Identifier.JELLY)
@@ -58,14 +53,10 @@ public class Block extends WorldObject
 				Player temporaryPlayer = Game.objectHandler.players.get(i);
 
 				if(temporaryPlayer.getBoundsTop().intersects(touchBounds))
-				{
 					temporaryPlayer.setVelY((float)(Player.jumpHeight * 1.75));
-				}
 
 				else if(temporaryPlayer.getBoundsBottom().intersects(touchBounds))
-				{
 					temporaryPlayer.setVelY((float)(-Player.jumpHeight * 1.75));
-				}
 			}
 		}
 	}
@@ -77,30 +68,19 @@ public class Block extends WorldObject
 		Color blockColor = new Color(255, 255, 255);
 
 		if(id == Identifier.LAVA)
-		{
 			blockColor = DrawUtils.DrawHelper.LAVA.getColor();
-		}
 
 		else if(id == Identifier.FLAG)
-		{
 			blockColor = DrawUtils.DrawHelper.FLAG.getColor();
-		}
 
 		else if(id == Identifier.DOOR)
-		{
 			blockColor = DrawUtils.DrawHelper.DOOR.getColor();
-		}
 
 		else if(id == Identifier.JELLY)
-		{
 			blockColor = DrawUtils.DrawHelper.JELLY.getColor();
-		}
 
 		else if(id == Identifier.DECOR)
-		{
 			blockColor = DrawUtils.DrawHelper.DECOR.getColor();
-		}
-
 
 		// Drawing the Block.
 		graphics.setColor(blockColor);

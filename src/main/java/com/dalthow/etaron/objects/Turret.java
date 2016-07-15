@@ -7,8 +7,8 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import com.dalthow.etaron.Run;
-import com.dalthow.etaron.framework.Identifier;
-import com.dalthow.etaron.framework.WorldObject;
+import com.dalthow.etaron.models.Identifier;
+import com.dalthow.etaron.models.WorldObject;
 import com.dalthow.etaron.media.SoundResource;
 import com.dalthow.etaron.states.Game;
 import com.dalthow.etaron.utils.DrawUtils ;
@@ -32,7 +32,6 @@ public class Turret extends WorldObject
 
 	private Color detectionColor;
 
-	
 	// Constructor that sets the variables for the WorldObject as well as the declared variables.
 	public Turret(float xPos, float yPos, Identifier id, boolean isSolid)
 	{
@@ -42,7 +41,6 @@ public class Turret extends WorldObject
 		tickToFire = 45;
 		detectionColor = new Color(255, 0, 0);
 	}
-	
 
 	// Default WorldObject methods.
 	@Override
@@ -59,25 +57,17 @@ public class Turret extends WorldObject
 				shouldFire = true;
 
 				if(player.getBounds().intersects(getVisionLeft()))
-				{
 					direction = -1;
-				}
 				
 				else if(player.getBounds().intersects(getVisionRight()))
-				{
 					direction = 1;
-				}
 			}
 			
 			else
-			{
 				shouldFire = false;
-			}
 
 			if(shouldFire == true)
-			{
 				detected = true;
-			}
 		}
 
 		if(detectionColor.equals(new Color(255, 0, 0)))
@@ -104,23 +94,17 @@ public class Turret extends WorldObject
 			else
 			{
 				if(backFire != 0)
-				{
 					backFire--;
-				}
 
 				tickToFire--;
 			}
 		}
 
 		if(detected == true)
-		{
 			detectionColor = new Color(255, 0, 0);
-		}
 
 		else
-		{
 			detectionColor = new Color(0, 255, 0);
-		}
 	}
 
 	@Override
@@ -150,7 +134,6 @@ public class Turret extends WorldObject
 	{
 		return new Rectangle((int) xPos, (int)yPos, 32, 32);
 	}
-
 
 	/**
      * Used to check if a Player is in the area left from the Turret.

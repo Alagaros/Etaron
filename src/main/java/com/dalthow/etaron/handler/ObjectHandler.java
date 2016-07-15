@@ -15,8 +15,8 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import com.dalthow.etaron.Run;
-import com.dalthow.etaron.framework.Identifier;
-import com.dalthow.etaron.framework.WorldObject;
+import com.dalthow.etaron.models.Identifier;
+import com.dalthow.etaron.models.WorldObject;
 import com.dalthow.etaron.media.ImageResource;
 import com.dalthow.etaron.media.SoundResource;
 import com.dalthow.etaron.objects.Block;
@@ -52,8 +52,7 @@ public class ObjectHandler
 	// Declaration of the objects and players list.
 	public List<WorldObject> objects = new ArrayList<>();
 	public List<Player> players = new ArrayList<>();
-	
-	
+
 	/**
      * Adds a WorldObjects to the objects List.
      *

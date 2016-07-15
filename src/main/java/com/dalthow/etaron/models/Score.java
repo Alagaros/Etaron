@@ -1,4 +1,4 @@
-package com.dalthow.etaron.framework;
+package com.dalthow.etaron.models;
 
 /**
  * Etaron
@@ -12,7 +12,6 @@ public class Score
 	private int coins, level;
 	private double duration;
 
-
 	// Constructor that fills in the declared variables.
 	public Score(int coins, int level, double duration)
 	{
@@ -20,7 +19,6 @@ public class Score
 		this.level = level;
 		this.duration = duration;
 	}
-
 
 	// Getters.
 	public int getCoins()

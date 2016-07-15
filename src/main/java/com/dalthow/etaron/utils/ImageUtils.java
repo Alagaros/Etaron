@@ -25,10 +25,7 @@ public class ImageUtils
 			// Declaration of the flags.
 			boolean hasPlayer = false, hasExit = false;
 
-			// Looping trough the horizontal pixels.
 			for(int i = 0; i < level.getWidth(); i++)
-			{
-				// Looping trough the vertical pixels.
 				for(int j = 0; j < level.getHeight(); j++)
 				{
 					// Checking pixel color.
@@ -37,16 +34,11 @@ public class ImageUtils
 					int green = level.getColor(i, j).getGreen();
 
 					if(red == 0 && green == 0 && blue == 255)
-					{
 						hasPlayer = true;
-					}
 
 					else if(red == 0 && green == 255 && blue == 0)
-					{
 						hasExit = true;
-					}
 				}
-			}
 			
 			return (hasPlayer && hasExit);
 		}

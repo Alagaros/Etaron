@@ -6,8 +6,8 @@ import java.util.List;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-import com.dalthow.etaron.framework.Identifier;
-import com.dalthow.etaron.framework.WorldObject;
+import com.dalthow.etaron.models.Identifier;
+import com.dalthow.etaron.models.WorldObject;
 import com.dalthow.etaron.utils.DrawUtils ;
 
 /**
@@ -48,14 +48,10 @@ public class Elevator extends WorldObject
 		
 		// Switching which direction it goes in.
 		if(timePassed < (amount * 32))
-		{
 			yVel = (direction == 0 ? 1 : -1);
-		}
 		
 		if(timePassed > (amount * 32))
-		{
 			yVel = (direction == 0 ? -1 : 1);
-		}
 	
 		timePassed++;
 		
@@ -74,9 +70,7 @@ public class Elevator extends WorldObject
 		Color elevatorColor = DrawUtils.DrawHelper.ELEVATOR_DOWN.getColor();
 	
 		if(direction == 1)
-		{
 			elevatorColor = DrawUtils.DrawHelper.ELEVATOR_UP.getColor();
-		}
 		
 		graphics.setColor(elevatorColor);
 		graphics.fillRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);

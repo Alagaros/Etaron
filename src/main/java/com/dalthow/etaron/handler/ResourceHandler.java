@@ -33,7 +33,6 @@ public class ResourceHandler
 	public Map<SoundResource, Sound> sounds = new HashMap<>(SoundResource.values().length);
 	public Map<MusicResource, Music> music = new HashMap<>(MusicResource.values().length);
 
-
 	/**
 	 * Loads all declared sounds.
 	 *

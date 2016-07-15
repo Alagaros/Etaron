@@ -24,8 +24,8 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.ResourceLoader;
 
 import com.dalthow.etaron.Run;
-import com.dalthow.etaron.framework.Score ;
-import com.dalthow.etaron.framework.States;
+import com.dalthow.etaron.models.Score ;
+import com.dalthow.etaron.models.States;
 import com.dalthow.etaron.media.ImageResource;
 import com.dalthow.etaron.utils.DrawUtils;
 import com.dalthow.etaron.utils.FileUtils ;
@@ -229,20 +229,14 @@ public class Menu implements GameState
 		arrowRight.draw(gameContainer.getWidth() - 83, gameContainer.getHeight() / 2 + 24, 5);
 
 		if(mousePixel.intersects(pageBack))
-		{
 			graphics.fillRect(75, gameContainer.getHeight() / 2 + 45, 40, 5);
-		}
 
 		if(mousePixel.intersects(pageNext))
-		{
 			graphics.fillRect(gameContainer.getWidth() - 115, gameContainer.getHeight() / 2 + 45, 40, 5);
-		}
 
 		// New level button.
 		if(newLevel != null && page == 3)
-		{
 			plus.draw(newLevel.getCenterX() - (plus.getWidth() * 4 / 2), newLevel.getCenterY() - (plus.getHeight() * 4 / 2), 4);
-		}
 
 		// The levels.
 		drawLevels(allPages[page], graphics, gameContainer);
@@ -270,25 +264,18 @@ public class Menu implements GameState
 		{
 			// Going back a level page.
 			if(mousePixel.intersects(pageBack) && page > 0)
-			{
 				page--;
-			}
 
 			// Going to the next level page.
 			else if(mousePixel.intersects(pageNext) && page < allPages.length - 1)
-			{
 				page++;
-			}
 
 			// Going to the Editor state.
 			else if(newLevel != null && page == 3 && mousePixel.intersects(newLevel))
-			{
 				stateBasedGame.enterState(States.EDITOR_STATE.getId());
-			}
 
 			// Starting a level.
 			for(int i = 0; i < levels.length; i++)
-			{
 				if(mousePixel.intersects(levels[i]))
 				{
 					try
@@ -303,7 +290,6 @@ public class Menu implements GameState
 
 					stateBasedGame.enterState(States.GAME_STATE.getId());
 				}
-			}
 
 			mouseDown = false;
 		}
@@ -320,19 +306,13 @@ public class Menu implements GameState
 		for(ImageResource.Levels image : ImageResource.Levels.values())
 		{
 			if(image.getPath().contains("levels/easy"))
-			{
 				easyLevelPage.add(Run.resourceHandler.levels.get(image));
-			}
 
 			else if(image.getPath().contains("levels/medium"))
-			{
 				mediumLevelPage.add(Run.resourceHandler.levels.get(image));
-			}
 
 			else if(image.getPath().contains("levels/hard"))
-			{
 				hardLevelPage.add(Run.resourceHandler.levels.get(image));
-			}
 		}
 	}
 
@@ -368,9 +348,7 @@ public class Menu implements GameState
 
 						// Checking if the level is valid.
 						if(ImageUtils.isValidLevel(customLevel))
-						{
 							customLevelPage.add(customLevel);
-						}
 					}
 				}
 			}
@@ -409,10 +387,7 @@ public class Menu implements GameState
 			}
 
 			else
-			{
 				DrawUtils.drawAdvancedString(graphics, gameContainer, "?", infoFont, new Color(255, 255, 255), (gameContainer.getWidth() - 456) / 2 + (col * 150), 332 + (row * 150));
-			}
-
 			col++;
 
 			// Going to the next row.
@@ -425,9 +400,7 @@ public class Menu implements GameState
 
 		// Figuring out where to draw the plus button for a new custom level.
 		if(page == 3)
-		{
 			newLevel = new Rectangle((gameContainer.getWidth() - 578) / 2 + (col * 150), 200 + (row * 150), 128, 128);
-		}
 	}
 
 	/**
@@ -443,31 +416,21 @@ public class Menu implements GameState
 
 		// Looping trough all the scores.
 		for(int i = 0; i < scores.size(); i++)
-		{
 			if(scores.get(i).getLevel() == level)
 			{
 				// If there is no "highestScore" specified yet.
 				if(highestScore == null)
-				{
 					highestScore = scores.get(i);
-				}
 
-				// If there is a score with a higher coin count.
+					// If there is a score with a higher coin count.
 				else if(scores.get(i).getCoins() > highestScore.getCoins())
-				{
 					highestScore = scores.get(i);
-				}
 
-				// If the coin count is equal but the duration faster.
+					// If the coin count is equal but the duration faster.
 				else if(scores.get(i).getCoins() == highestScore.getCoins())
-				{
 					if(scores.get(i).getDuration() < highestScore.getDuration())
-					{
 						highestScore = scores.get(i);
-					}
-				}
 			}
-		}
 
 		return highestScore;
 	}

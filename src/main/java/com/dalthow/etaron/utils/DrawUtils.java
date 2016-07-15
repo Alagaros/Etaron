@@ -32,25 +32,17 @@ public class DrawUtils
 
 		// Checking the data type.
 		if(xAxis instanceof Boolean && (boolean)xAxis == true)
-		{
 			xPos = (gameContainer.getWidth() / 2) - (image.getWidth() / 2);
-		}
 
 		else if(xAxis instanceof Integer)
-		{
 			xPos = (int)xAxis;
-		}
 
 		// Checking the data type.
 		if(yAxis instanceof Boolean && (boolean)yAxis == true)
-		{
 			yPos = (gameContainer.getHeight() / 2) - (image.getHeight() / 2);
-		}
 
 		else if(yAxis instanceof Integer)
-		{
 			yPos = (int)yAxis;
-		}
 
 		// Drawing the image.
 		graphics.drawImage(image, xPos, yPos);
@@ -87,25 +79,17 @@ public class DrawUtils
 
 		// Checking the data type.
 		if(xAxis instanceof Boolean && (boolean)xAxis == true)
-		{
 			xPos = (gameContainer.getWidth() / 2) - (font.getWidth(text) / 2);
-		}
 
 		else if(xAxis instanceof Integer)
-		{
 			xPos = (int)xAxis;
-		}
 
 		// Checking the data type.
 		if(yAxis instanceof Boolean && (boolean)yAxis == true)
-		{
 			yPos = (gameContainer.getHeight() / 2) - (font.getHeight(text) / 2);
-		}
 
 		else if(yAxis instanceof Integer)
-		{
 			yPos = (int)yAxis;
-		}
 
 		// Drawing the text.
 		graphics.setColor(color);

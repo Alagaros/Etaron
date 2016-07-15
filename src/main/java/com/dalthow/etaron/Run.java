@@ -1,27 +1,15 @@
 package com.dalthow.etaron;
 
-import java.io.IOException;
 import java.lang.reflect.Field;
-import java.nio.ByteBuffer;
 
-import javax.imageio.ImageIO;
-
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.lwjgl.opengl.Display;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.opengl.ImageIOImageData;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.util.ResourceLoader;
 
-import com.dalthow.etaron.framework.Score;
-import com.dalthow.etaron.framework.States;
+import com.dalthow.etaron.models.States;
 import com.dalthow.etaron.handler.ResourceHandler;
 import com.dalthow.etaron.states.Editor ;
 import com.dalthow.etaron.states.Game;
@@ -51,7 +39,6 @@ public class Run extends StateBasedGame
 
 	public static String version = "0.2.0.0"; // TODO: Get this from the Maven pom.xml.
 
-
 	// Constructor that creates the game container.
 	public Run(String name) throws SlickException
 	{
@@ -79,7 +66,6 @@ public class Run extends StateBasedGame
 		gameContainer.start();
 	}
 
-
 	// Gets called whenever the window is closed.
 	@Override
     public boolean closeRequested() 
@@ -105,7 +91,7 @@ public class Run extends StateBasedGame
 	// First method to get called.
 	public static void main(String args[])
 	{
-		//System.setProperty("java.library.path", "natives/");
+		// System.setProperty("java.library.path", "natives/");
 
 		try
 		{
@@ -137,24 +123,16 @@ public class Run extends StateBasedGame
 				try
 				{
 					if(args[i].startsWith("-width="))
-					{
 						width = Integer.parseInt(args[i].substring("-width=".length()));
-					}
 
 					else if(args[i].startsWith("-height="))
-					{
 						height = Integer.parseInt(args[i].substring("-heigth=".length()));
-					}
 
 					else if(args[i].startsWith("-fullscreen="))
-					{
 						fullScreen = Boolean.parseBoolean(args[i].substring("-fullscreen=".length()));
-					}
 
 					else if(args[i].startsWith("-vsync="))
-					{
 						vSync = Boolean.parseBoolean(args[i].substring("-vsync=".length()));
-					}
 				}
 
 				catch(Exception error)

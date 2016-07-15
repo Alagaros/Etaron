@@ -6,8 +6,8 @@ import java.util.List;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-import com.dalthow.etaron.framework.Identifier;
-import com.dalthow.etaron.framework.WorldObject;
+import com.dalthow.etaron.models.Identifier;
+import com.dalthow.etaron.models.WorldObject;
 
 /**
  * Etaron
@@ -46,14 +46,10 @@ public class Projectile extends WorldObject
 
 		// Makes sure that the Projectile disappears after a certain time.
 		if(timeInWorld >= maxLifeSpawn)
-		{
 			objectList.remove(this);
-		}
 		
 		else
-		{
 			timeInWorld++;
-		}
 
 		// Checking if the Projectile hits something.
 		for(int i = 0; i < objectList.size(); i++)
@@ -62,12 +58,8 @@ public class Projectile extends WorldObject
 
 			// Remove the Projectile from the world if the hit object is solid and not a Player.
 			if(temporaryObject.isSolid() && temporaryObject.getId() != Identifier.PLAYER)
-			{
 				if(getBounds().intersects(temporaryObject.getBounds()))
-				{
 					objectList.remove(this);
-				}
-			}
 		}
 	}
 
@@ -86,9 +78,7 @@ public class Projectile extends WorldObject
 	public Rectangle getBounds() 
 	{
 		if(id == Identifier.BULLET)
-		{
 			return new Rectangle((int)xPos, (int)yPos, 8, 8);
-		}
 		
 		return null;
 	}

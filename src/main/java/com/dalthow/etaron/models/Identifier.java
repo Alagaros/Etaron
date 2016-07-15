@@ -1,4 +1,4 @@
-package com.dalthow.etaron.framework;
+package com.dalthow.etaron.models;
 
 /**
  * Etaron

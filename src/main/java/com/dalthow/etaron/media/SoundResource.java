@@ -13,18 +13,15 @@ public enum SoundResource
 	VICTORY("assets/sounds/victory.ogg"), BOING("assets/sounds/boing.ogg"), DOOR("assets/sounds/door.ogg"),
 	CHAIN("assets/sounds/chain.ogg"), VORTEX("assets/sounds/vortex.ogg");
 
-	
 	// Declaration of the path.
 	private String path;
 
-	
 	// Constructor that sets the declared path variable.
 	SoundResource(String path)
 	{
 		this.path = path;
 	}
 
-	
 	// Getter.
 	public String getPath()
 	{

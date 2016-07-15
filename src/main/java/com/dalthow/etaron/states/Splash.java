@@ -14,7 +14,7 @@ import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.dalthow.etaron.Run;
-import com.dalthow.etaron.framework.States;
+import com.dalthow.etaron.models.States;
 import com.dalthow.etaron.media.ImageResource;
 import com.dalthow.etaron.utils.DrawUtils;
 
@@ -116,8 +116,6 @@ public class Splash implements GameState
 		ticksInSplash += delta;
 		
 		if(ticksInSplash > 1000)
-		{
 			stateBasedGame.enterState(States.MENU_STATE.getId());
-		}
 	}
 }

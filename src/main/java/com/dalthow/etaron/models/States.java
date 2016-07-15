@@ -1,4 +1,4 @@
-package com.dalthow.etaron.framework;
+package com.dalthow.etaron.models;
 
 /**
  * Etaron
@@ -14,18 +14,15 @@ public enum States
 	GAME_STATE(2),
 	EDITOR_STATE(3);
 
-	
 	// Declaration of the state id.
 	private int id;
 
-	
 	// Constructor that sets the declared variables.
 	States(int id)
 	{
 		this.setId(id);
 	}
 
-	
 	// Getter.
 	public int getId()
 	{

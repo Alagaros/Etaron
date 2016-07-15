@@ -22,9 +22,9 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.ResourceLoader;
 
 import com.dalthow.etaron.Run;
-import com.dalthow.etaron.framework.Camera;
-import com.dalthow.etaron.framework.States;
-import com.dalthow.etaron.framework.WorldObject;
+import com.dalthow.etaron.models.Camera;
+import com.dalthow.etaron.models.States;
+import com.dalthow.etaron.models.WorldObject;
 import com.dalthow.etaron.handler.ObjectHandler;
 import com.dalthow.etaron.media.MusicResource ;
 import com.dalthow.etaron.objects.Player;
@@ -59,8 +59,7 @@ public class Game implements GameState
 	private StateBasedGame stateBasedGame;
 	
 	private Music lastSong;
-	
-	
+
 	// Default implementation for mouse.
 	public void mouseClicked(int par1, int par2, int par3, int par4){}
 	public void mouseDragged(int par1, int par2, int par3, int par4){}
@@ -90,24 +89,16 @@ public class Game implements GameState
 		}
 		
 		else if(par2 == 3)
-		{
 			objectHandler.reloadLevel();
-		}
 		
 		else if(par2 == 5 || par2 == 6)
-		{
 			switchPlayer();
-		}
 		
 		else if(par2 == 7)
-		{
 			displayInfo = !displayInfo;
-		}
 		
 		else if(par2 == 8)
-		{
 			stateBasedGame.enterState(States.MENU_STATE.getId());
-		}
 	}
 	
 	public void controllerButtonReleased(int par1, int par2){}
@@ -142,26 +133,18 @@ public class Game implements GameState
 	{
 		// Back to the main menu.
 		if(par1 == Keyboard.KEY_ESCAPE)
-		{
 			stateBasedGame.enterState(States.MENU_STATE.getId());
-		}
 
 		// Debug toggle.
 		if(par1 == Keyboard.KEY_F3)
-		{
 			displayInfo = !displayInfo;
-		}
 		
 		// Player movement.
 		if(par1 == Keyboard.KEY_D)
-		{
 			cameraFocus.setVelX(Player.walkSpeed);
-		}
 
 		if(par1 == Keyboard.KEY_A)
-		{
 			cameraFocus.setVelX(-Player.walkSpeed);
-		}
 
 		if(par1 == Keyboard.KEY_W && cameraFocus.isJumping() == false)
 		{
@@ -171,29 +154,21 @@ public class Game implements GameState
 
 		// Switching Player.
 		if(par1 == Keyboard.KEY_Q)
-		{
 			switchPlayer();
-		}
 		
 		// Resetting the level.
 		if(par1 == Keyboard.KEY_R)
-		{
 			objectHandler.reloadLevel();
-		}
 	}
 	
 	public void keyReleased(int par1, char par2)
 	{
 		// Stopping player movement.
 		if(par1 == Keyboard.KEY_D)
-		{
 			cameraFocus.setVelX(0);
-		}
 
 		if(par1 == Keyboard.KEY_A)
-		{
 			cameraFocus.setVelX(0);
-		}
 	}
 
 	// Lets the state know which id it has.
@@ -218,13 +193,11 @@ public class Game implements GameState
 		{
 			logger.error(error);
 		}
-		
-		
+
 		// Creating undefined objects.
 		objectHandler = new ObjectHandler();
 		cameraObject = new Camera(0, 0, gameContainer);
-		
-		
+
 		// Setting the global StateBasedGame to the local one so we can use it in other methods.
 		this.stateBasedGame = stateBasedGame;
 	}
@@ -277,15 +250,17 @@ public class Game implements GameState
 	/**
 	 * Sets the camera focus on the next player in the List.
 	 */
-	private void switchPlayer() {
+	private void switchPlayer()
+	{
 		int currentPlayer = objectHandler.players.indexOf(cameraFocus);
 
-		if (objectHandler.players.size() > 1) {
-			if (currentPlayer < objectHandler.players.size() - 1) {
+		if (objectHandler.players.size() > 1)
+		{
+			if (currentPlayer < objectHandler.players.size() - 1)
 				currentPlayer++;
-			} else {
+
+			else
 				currentPlayer = 0;
-			}
 
 			cameraFocus.setVelX(0);
 			cameraFocus = objectHandler.players.get(currentPlayer);
@@ -306,9 +281,7 @@ public class Game implements GameState
 
 		// Like Steve Jobs said, "We are making it less random to make it feel more random.".
 		if(lastSong == randomSong)
-		{
 			return getRandomMusic();
-		}
 		
 		if(randomSong != null)
 		{
