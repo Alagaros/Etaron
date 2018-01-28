@@ -1,7 +1,7 @@
 # Etaron
 A 2D retro-styled platform game made with LWJGL and Slick2D.
 
-### Screenshots
+## Screenshots
 **Main Menu**
 ![](https://github.com/awatertrevi/etaron/blob/master/screenshots/Screenshot_1.png)
 
